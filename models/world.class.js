@@ -28,8 +28,11 @@ class World {
         this.setWorld();
     }
 
+    // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
     setWorld(){
         this.character.world = this;
+        // WORLD.character.world = WORLD
+        // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
     draw() {
