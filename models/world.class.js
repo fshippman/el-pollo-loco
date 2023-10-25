@@ -59,8 +59,41 @@ class World {
             this.addToMap(o)
         });
     }
-
+    // hat objekt andere Richtung wenn ja 
+    // aktuelle Einstellungen von Kontext werden gespeichert (f[r spaeter])
+    // Veraendern mehtode wie bilder einfuegen spiegeln alles 
+    // und fuegen eine bild gespiegelt an 
+    // alles rueckgaengig
     addToMap(mo) {
+        if(mo.otherDirection){
+            this.flipImage(mo);
+        }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        if(mo.otherDirection){
+            this.flipImageBack(mo);
+        }
+    }
+    // ctx = eine Sammlung von Funktionen um unserem Canvas was hinzuzufügen 
+    //     diese Sammlung hat Eigenschaften (alle Bilder sollen normal eingefügt werden)
+    //     Eigenschaften werden gespeichert
+    //     Ab jetzt wird in diesem Kontext alles gespiegelt
+    //     x Koordinate muss gespielgelt werden
+
+    flipImage(mo){
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0); //Verschiebung um die Breite des Objekts (Weils ja gespiegelt wird!)
+        // [ Quadrat ]
+        //           [ Quadrat ]
+    
+        this.ctx.scale(-1, 1); //Spiegelung
+        mo.x = mo.x * -1; //  spiegelst du die x-Koordinate des Objekts mo selbst
+        // da das Bild gespiegelt ist sicherstellen dass Position des Objekts im gespiegelten Bild korrekt ist
+    }
+
+    flipImageBack(mo){
+        mo.x = mo.x * -1
+        this.ctx.restore();
     }
 }
+
+

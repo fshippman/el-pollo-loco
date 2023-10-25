@@ -2,6 +2,7 @@ class Character extends MovableObject {
     y = 140;
     height = 290;
     width = 120;
+    speed = 10;
     //IMAGES_WALKING[0] lädt Bild 0
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -26,10 +27,25 @@ class Character extends MovableObject {
 
     //jede Sekunde ändert sich die Grafik
     animate() {
+
+        setInterval(()=>{
+            if(this.world.keyboard.RIGHT){
+                this.x += this.speed;
+                this.otherDirection = false;
+            }
+
+            if(this.world.keyboard.LEFT){
+                this.x -= this.speed;
+                this.otherDirection = true;
+            }
+
+        }, 1000 / 60)
+
         // modulu = hebt Rest auf
         setInterval(() => {
 
-            if(this.world.keyboard.RIGHT){
+            if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT ){
+                // Walk animation
                 let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6, => 1, Rest 1
                 // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5,
                 let path = this.IMAGES_WALKING[i];
@@ -38,7 +54,7 @@ class Character extends MovableObject {
             }
 
            
-        }, 100)
+        }, 50)
 
     }
 
