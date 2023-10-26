@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    y = 160;
+    y = 160; //160
     height = 270;
     width = 110;
     speed = 10;
@@ -13,11 +13,24 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-25.png',
         'img/2_character_pepe/2_walk/W-26.png'
     ];
+
+    IMAGES_JUMPING = [
+        'img/2_character_pepe/3_jump/J-31.png',
+        'img/2_character_pepe/3_jump/J-32.png',
+        'img/2_character_pepe/3_jump/J-33.png',
+        'img/2_character_pepe/3_jump/J-34.png',
+        'img/2_character_pepe/3_jump/J-35.png',
+        'img/2_character_pepe/3_jump/J-36.png',
+        'img/2_character_pepe/3_jump/J-37.png',
+        'img/2_character_pepe/3_jump/J-38.png',
+        'img/2_character_pepe/3_jump/J-39.png'
+    ];
+
     world;
     walking_sound = new Audio('audio/running.mp3');
     // new Audio('audio/bottle.mp3')
 
-   
+
 
     //Dadurch dass wir nen neuen Charakter erstellen wird loadimages aufgerufen 
     // super muss nur einmal gemacht werden danach kann man this sagen
@@ -25,35 +38,47 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0])
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
         this.animate();
+        this.applyGravity();
     }
 
 
     //jede Sekunde ändert sich die Grafik
     animate() {
 
-        setInterval(()=>{
+        setInterval(() => {
             this.walking_sound.pause();
-            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
                 this.walking_sound.play();
             }
 
-            if(this.world.keyboard.LEFT && this.x > 0 ){
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
+           
+            if(this.world.keyboard.UP && this.isJumping === false){
+                this.speedY = 20;
+            }
+          
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
 
         // modulu = hebt Rest auf
         setInterval(() => {
-            if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT ){
-                // Walk animation
-                this.playAnimation(this.IMAGES_WALKING)
-            }        
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING)
+            } else {
+                this.isJumping = false;
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    // Walk animation
+                    this.playAnimation(this.IMAGES_WALKING)
+                }
+            }
         }, 50)
     }
 
