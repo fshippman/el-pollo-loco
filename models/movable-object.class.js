@@ -35,6 +35,19 @@ class MovableObject {
         this.img.src = path; // es fehlt noch src
     }
 
+    draw(ctx){
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        
+    }
+
+    drawFrame(ctx){
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'black';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+    }
+    
     /**
      * Bilder werden  ins JSON imageCache geladen
      * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...]

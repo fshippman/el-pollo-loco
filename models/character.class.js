@@ -43,7 +43,7 @@ class Character extends MovableObject {
         this.animate();
         this.applyGravity();
     }
-    
+
     moveCharacterLeft() {
         this.moveLeft();
         this.otherDirection = true;
@@ -98,6 +98,4 @@ class Character extends MovableObject {
             }
         }, 50)
     }
-
-
 }
