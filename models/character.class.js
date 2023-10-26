@@ -28,6 +28,7 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/running.mp3');
+    jumping_sound = new Audio('audio/jump.mp3')
     // new Audio('audio/bottle.mp3')
 
 
@@ -42,29 +43,46 @@ class Character extends MovableObject {
         this.animate();
         this.applyGravity();
     }
+    
+    moveCharacterLeft() {
+        this.moveLeft();
+        this.otherDirection = true;
+    }
 
+    moveCharacterRight() {
+        this.moveRight();
+        this.otherDirection = false;
+    }
 
     //jede Sekunde ändert sich die Grafik
     animate() {
 
         setInterval(() => {
             this.walking_sound.pause();
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
-                this.walking_sound.play();
+                if (this.isAboveGround()) {
+                    this.moveCharacterRight();
+                } else {
+                   this.moveCharacterRight();
+                    this.walking_sound.play();
+                }
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
-                this.otherDirection = true;
-                this.walking_sound.play();
+                if (this.isAboveGround()) {
+                    this.moveCharacterLeft();
+                } else {
+                    this.moveCharacterLeft();
+                    this.walking_sound.play();
+                }
             }
-           
-            if(this.world.keyboard.UP && this.isJumping === false){
-                this.speedY = 20;
+
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jump();
+                this.jumping_sound.play();
             }
-          
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
 
@@ -73,7 +91,6 @@ class Character extends MovableObject {
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING)
             } else {
-                this.isJumping = false;
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     // Walk animation
                     this.playAnimation(this.IMAGES_WALKING)
@@ -83,8 +100,4 @@ class Character extends MovableObject {
     }
 
 
-    //Constructur wird immer aufgerufen bei new
-    jump() {
-
-    }
 }

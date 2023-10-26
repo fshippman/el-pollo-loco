@@ -10,12 +10,10 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 1;
-    isJumping = false;
 
-    applyGravity(){
+    applyGravity() {
         setInterval(() => {
-            if(this.isAboveGround() || this.speedY > 0 ){
-                this.isJumping = true;
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -23,7 +21,7 @@ class MovableObject {
     }
 
 
-    isAboveGround(){
+    isAboveGround() {
         return this.y < 150
     }
 
@@ -61,14 +59,15 @@ class MovableObject {
     }
 
     moveRight() {
-        console.log('Moving right')
+        this.x += this.speed;
     }
 
     moveLeft() {
         // 60 mal Pro Sekunde werden Pixel um 0,15 verringert
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;  
     }
 
+    jump() {
+        this.speedY = 20;
+    }
 }

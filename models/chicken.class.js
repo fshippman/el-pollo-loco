@@ -22,7 +22,11 @@ class Chicken extends MovableObject {
     
     //jede Sekunde ändert sich die Grafik
     animate() {
-        this.moveLeft();
+
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+      
         // modulu = hebt Rest auf
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING)
