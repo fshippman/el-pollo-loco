@@ -40,12 +40,19 @@ class MovableObject {
         
     }
 
+
+/**
+ * This function draws a frame of movable objects if they are an instance of character or chicken
+ * @param {} ctx 
+ */
     drawFrame(ctx){
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'black';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        if(this instanceof Character || this instanceof Chicken){
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'black';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
     
     /**
