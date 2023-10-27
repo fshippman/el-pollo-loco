@@ -1,6 +1,7 @@
 class MovableObject {
     x = 120;
     y = 280;
+    offsetY = 0;
     height = 150;
     width = 100;
     img;
@@ -10,6 +11,7 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 1;
+    energy = 100;
 
     applyGravity() {
         setInterval(() => {
@@ -26,6 +28,7 @@ class MovableObject {
     }
 
     /**
+     * This function
      * 
      * @param {string} path -  der Pfad zu unserem Bild 'img/2_character_pepe/2_walk/W-21.png'
      */
@@ -35,26 +38,41 @@ class MovableObject {
         this.img.src = path; // es fehlt noch src
     }
 
-    draw(ctx){
+    draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-        
+
     }
 
 
-/**
- * This function draws a frame of movable objects if they are an instance of character or chicken
- * @param {} ctx 
- */
-    drawFrame(ctx){
-        if(this instanceof Character || this instanceof Chicken){
+    /**
+     * This function draws a frame of movable objects if they are an instance of character or chicken
+     * 
+     * @param {context} ctx 
+     */
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken) {
             ctx.beginPath();
-            ctx.lineWidth = '5';
+            ctx.lineWidth = '4';
             ctx.strokeStyle = 'black';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
     }
-    
+
+    /**
+     * This function calculates colliding and returns it
+     * 
+     * @param {object} obj 
+     * @returns colliding calclulation
+     */
+    isColliding(obj) {
+        return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
+            (this.y + this.offsetY + this.height) >= obj.y &&
+            (this.y + this.offsetY) <= (obj.y + obj.height);
+            // && obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+    }
+
     /**
      * Bilder werden  ins JSON imageCache geladen
      * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...]
@@ -84,7 +102,7 @@ class MovableObject {
 
     moveLeft() {
         // 60 mal Pro Sekunde werden Pixel um 0,15 verringert
-        this.x -= this.speed;  
+        this.x -= this.speed;
     }
 
     jump() {

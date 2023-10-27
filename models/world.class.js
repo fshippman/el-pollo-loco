@@ -5,21 +5,34 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-   
-    
+
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
-    setWorld(){
+    setWorld() {
         this.character.world = this;
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
+    }
+ 
+    
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.energy -= 2;
+                    console.log('collision energy',this.character.energy)
+                }
+            });
+        }, 200);
     }
 
     draw() {
@@ -31,7 +44,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        
+
         this.ctx.translate(-this.camera_x, 0);
 
         // Draw() wird immer wieder aufgerufen
@@ -55,18 +68,18 @@ class World {
     // und fuegen eine bild gespiegelt an 
     // alles rueckgaengig
     addToMap(mo) {
-        if(mo.otherDirection){
+        if (mo.otherDirection) {
             this.flipImage(mo);
         }
-        
+
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
 
-        if(mo.otherDirection){
+        if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
     }
-    
+
     // ctx = eine Sammlung von Funktionen um unserem Canvas was hinzuzufügen 
     //     diese Sammlung hat Eigenschaften (alle Bilder sollen normal eingefügt werden)
     //     Eigenschaften werden gespeichert
@@ -75,18 +88,18 @@ class World {
     //ranslate macht die verschiebung des bilden und scale spiegelt es dann.
     //Durch das spiegel wird das bild aber nochmal verschoben. Auf den achse an der du spiegelst. 
     //Daher muss man es erst verschieben damit dann wieder am ende auf der gleichen stelle ist.
-    flipImage(mo){
+    flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0); //Verschiebung um die Breite des Objekts (Weils ja gespiegelt wird!)
         // [ Quadrat ]
         //           [ Quadrat ]
-    
+
         this.ctx.scale(-1, 1); //Spiegelung
         mo.x = mo.x * -1; //  spiegelst du die x-Koordinate des Objekts mo selbst
         // da das Bild gespiegelt ist sicherstellen dass Position des Objekts im gespiegelten Bild korrekt ist
     }
 
-    flipImageBack(mo){
+    flipImageBack(mo) {
         mo.x = mo.x * -1
         this.ctx.restore();
     }
