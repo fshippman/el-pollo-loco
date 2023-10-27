@@ -6,29 +6,29 @@ class Character extends MovableObject {
     currentImage = 0;
     //IMAGES_WALKING[0] lädt Bild 0
     IMAGES_WALKING = [
-        'img/2_character_pepe/2_walk/W-21.png',
-        'img/2_character_pepe/2_walk/W-22.png',
-        'img/2_character_pepe/2_walk/W-23.png',
-        'img/2_character_pepe/2_walk/W-24.png',
-        'img/2_character_pepe/2_walk/W-25.png',
-        'img/2_character_pepe/2_walk/W-26.png'
+        'assets/img/2_character_pepe/2_walk/W-21.png',
+        'assets/img/2_character_pepe/2_walk/W-22.png',
+        'assets/img/2_character_pepe/2_walk/W-23.png',
+        'assets/img/2_character_pepe/2_walk/W-24.png',
+        'assets/img/2_character_pepe/2_walk/W-25.png',
+        'assets/img/2_character_pepe/2_walk/W-26.png'
     ];
 
     IMAGES_JUMPING = [
-        'img/2_character_pepe/3_jump/J-31.png',
-        'img/2_character_pepe/3_jump/J-32.png',
-        'img/2_character_pepe/3_jump/J-33.png',
-        'img/2_character_pepe/3_jump/J-34.png',
-        'img/2_character_pepe/3_jump/J-35.png',
-        'img/2_character_pepe/3_jump/J-36.png',
-        'img/2_character_pepe/3_jump/J-37.png',
-        'img/2_character_pepe/3_jump/J-38.png',
-        'img/2_character_pepe/3_jump/J-39.png'
+        'assets/img/2_character_pepe/3_jump/J-31.png',
+        'assets/img/2_character_pepe/3_jump/J-32.png',
+        'assets/img/2_character_pepe/3_jump/J-33.png',
+        'assets/img/2_character_pepe/3_jump/J-34.png',
+        'assets/img/2_character_pepe/3_jump/J-35.png',
+        'assets/img/2_character_pepe/3_jump/J-36.png',
+        'assets/img/2_character_pepe/3_jump/J-37.png',
+        'assets/img/2_character_pepe/3_jump/J-38.png',
+        'assets/img/2_character_pepe/3_jump/J-39.png'
     ];
 
     world;
-    walking_sound = new Audio('audio/running.mp3');
-    jumping_sound = new Audio('audio/jump.mp3')
+    walking_sound = new Audio('assets/audio/running.mp3');
+    jumping_sound = new Audio('assets/audio/jump.mp3')
     // new Audio('audio/bottle.mp3')
 
 
