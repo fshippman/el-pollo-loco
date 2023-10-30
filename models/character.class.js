@@ -26,6 +26,10 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/3_jump/J-39.png'
     ];
 
+    IMAGES_HURT = [
+        
+    ]
+
     IMAGES_DEAD = [
         'assets/img/2_character_pepe/5_dead/D-51.png',
         'assets/img/2_character_pepe/5_dead/D-52.png',
@@ -33,7 +37,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/5_dead/D-54.png',
         'assets/img/2_character_pepe/5_dead/D-55.png',
         'assets/img/2_character_pepe/5_dead/D-51.png',
-        'assets/img/2_character_pepe/5_dead/D-57.png',
+        'assets/img/2_character_pepe/5_dead/D-57.png'
     ];
 
     world;
@@ -99,7 +103,9 @@ class Character extends MovableObject {
 
         // modulu = hebt Rest auf
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD)
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING)
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -108,12 +114,5 @@ class Character extends MovableObject {
                 }
             }
         }, 50)
-
-        setInterval(() => {
-            if (this.isDead()) {
-                console.log('DEAD')
-                this.playAnimation(this.IMAGES_DEAD)
-            }
-        }, 200);
     }
 }
