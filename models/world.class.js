@@ -30,7 +30,6 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
                    
-                    console.log('collision energy',this.character.energy)
                 }
             });
         }, 200);
