@@ -23,6 +23,20 @@
          ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
      }
+        /**
+     * This function draws a frame of movable objects if they are an instance of character or chicken
+     * 
+     * @param {context} ctx 
+     */
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.beginPath();
+            ctx.lineWidth = '4';
+            ctx.strokeStyle = 'black';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
 
      
      /**

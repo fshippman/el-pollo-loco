@@ -19,20 +19,7 @@ class MovableObject extends DrawableObject {
         return this.y < 150
     }
 
-    /**
-     * This function draws a frame of movable objects if they are an instance of character or chicken
-     * 
-     * @param {context} ctx 
-     */
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
-            ctx.beginPath();
-            ctx.lineWidth = '4';
-            ctx.strokeStyle = 'black';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
+ 
 
     /**
      * This function calculates colliding and returns it
