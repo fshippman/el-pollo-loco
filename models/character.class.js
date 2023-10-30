@@ -26,6 +26,16 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/3_jump/J-39.png'
     ];
 
+    IMAGES_DEAD = [
+        'assets/img/2_character_pepe/5_dead/D-51.png',
+        'assets/img/2_character_pepe/5_dead/D-52.png',
+        'assets/img/2_character_pepe/5_dead/D-53.png',
+        'assets/img/2_character_pepe/5_dead/D-54.png',
+        'assets/img/2_character_pepe/5_dead/D-55.png',
+        'assets/img/2_character_pepe/5_dead/D-51.png',
+        'assets/img/2_character_pepe/5_dead/D-57.png',
+    ];
+
     world;
     walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3')
@@ -40,6 +50,7 @@ class Character extends MovableObject {
         super().loadImage(this.IMAGES_WALKING[0])
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.applyGravity();
     }
@@ -64,7 +75,7 @@ class Character extends MovableObject {
                 if (this.isAboveGround()) {
                     this.moveCharacterRight();
                 } else {
-                   this.moveCharacterRight();
+                    this.moveCharacterRight();
                     this.walking_sound.play();
                 }
             }
@@ -97,5 +108,12 @@ class Character extends MovableObject {
                 }
             }
         }, 50)
+
+        setInterval(() => {
+            if (this.isDead()) {
+                console.log('DEAD')
+                this.playAnimation(this.IMAGES_DEAD)
+            }
+        }, 200);
     }
 }
