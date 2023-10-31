@@ -1,12 +1,12 @@
 class World {
     character = new Character();
+    statusbar = new StatusBar();
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-    statusbar = new StatusBar();
-
+ 
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -20,6 +20,7 @@ class World {
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
     setWorld() {
         this.character.world = this;
+        
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
@@ -30,7 +31,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                   
+                    this.statusbar.setPercentage(this.character.energy)
                 }
             });
         }, 200);
@@ -38,9 +39,15 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
+
+        this.ctx.translate(this.camera_x, 0); //Verschieben Position an der wir zeichnen / Koordinatensystem
         this.addObjectsToMap(this.level.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0); //Back
+        // --------------- Space for fixed objects ---------------
         this.addToMap(this.statusbar);
+        this.ctx.translate(this.camera_x, 0); // Forwards
+
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);

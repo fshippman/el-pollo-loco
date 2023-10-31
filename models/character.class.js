@@ -47,7 +47,7 @@ class Character extends MovableObject {
     jumping_sound = new Audio('assets/audio/jump.mp3')
     // new Audio('audio/bottle.mp3')
 
-
+    character;
 
     //Dadurch dass wir nen neuen Charakter erstellen wird loadimages aufgerufen 
     // super muss nur einmal gemacht werden danach kann man this sagen
@@ -62,6 +62,10 @@ class Character extends MovableObject {
         this.applyGravity();
     }
 
+    setStatusbar(){
+        this.statusbar.character = this;
+    }
+    
     moveCharacterLeft() {
         this.moveLeft();
         this.otherDirection = true;
@@ -74,8 +78,9 @@ class Character extends MovableObject {
 
     //jede Sekunde ändert sich die Grafik
     animate() {
-
+        // console.log(this.world)
         setInterval(() => {
+            // console.log(this.world)
             this.walking_sound.pause();
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
