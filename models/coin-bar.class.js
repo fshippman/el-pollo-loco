@@ -1,22 +1,28 @@
 class CoinBar extends DrawableObject {
 
-    COINS = [
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
+    COIN_BAR = [
+        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
+        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/20.png',
+        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/40.png',
+        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/60.png',
+        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/80.png',
+        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png',
     ];
-
+    percentage = 100;
     constructor() {
         super();
-        this.loadImages(this.COINS);
+        this.loadImages(this.COIN_BAR);
         this.x = 50;
-        this.y = 0;
+        this.y = 0 ;
         this.width = 200;
-        this.height = 50;
-        // this.setPercentage(100);
+        this.height = 60;
+        this.setPercentage(100);
        
+    }
+
+    setPercentage(percentage) {
+        this.percentage = percentage; // => 0 ... 5
+        let path = this.COIN_BAR[this.resolveImageIndex(percentage)]
+        this.img = this.imageCache[path];
     }
 }

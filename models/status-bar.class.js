@@ -1,12 +1,12 @@
 class StatusBar extends DrawableObject {
 
     ENERGY_BAR = [
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
+        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
     ];
 
     percentage = 100;
@@ -15,36 +15,15 @@ class StatusBar extends DrawableObject {
         super();
         this.loadImages(this.ENERGY_BAR);
         this.x = 50;
-        this.y = 0;
+        this.y = 50;
         this.width = 200;
-        this.height = 50;
+        this.height = 60 ;
         this.setPercentage(100);
-        // console.log(this.world)
     }
-    //  
 
-    //setPercentage(50)
     setPercentage(percentage) {
-        // console.log(this.world.camera_x)
         this.percentage = percentage; // => 0 ... 5
         let path = this.ENERGY_BAR[this.resolveImageIndex(percentage)]
         this.img = this.imageCache[path];
-    }
-
-
-    resolveImageIndex(percentage) {
-        if (percentage == 100) {
-            return 5;
-        } else if (percentage > 80) {
-            return 4;
-        } else if (percentage > 60) {
-            return 3;
-        } else if (percentage > 40) {
-            return 2;
-        } else if (percentage > 20) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 }
