@@ -1,0 +1,14 @@
+class ThrowableObject extends MovableObject {
+    speedY = 30;
+    speedX = 20
+
+    world;
+
+    constructor() {
+        super();
+        this.x = 200 + Math.random() * 500;
+        this.speed = 0.15 + Math.random() * 0.5; //0.25
+    }
+
+    
+}
