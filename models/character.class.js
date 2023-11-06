@@ -4,7 +4,7 @@ class Character extends MovableObject {
     width = 107;
     speed = 10;
     currentImage = 0;
-    
+
     //IMAGES_WALKING[0] lädt Bild 0
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
@@ -44,8 +44,11 @@ class Character extends MovableObject {
     ];
 
     world;
+
+    game_music = new Audio('assets/audio/music.mp3');
+    boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
     walking_sound = new Audio('assets/audio/running.mp3');
-    jumping_sound = new Audio('assets/audio/jump.mp3')
+    jumping_sound = new Audio('assets/audio/jump.mp3');
     // new Audio('audio/bottle.mp3')
 
     character;
@@ -55,18 +58,26 @@ class Character extends MovableObject {
     // von movable object wird loadimage aufgerufen
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0])
+        this.playGameSound();
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.applyGravity();
+
     }
 
-    setStatusbar(){
+    playGameSound() {
+        this.game_music.volume = 0.5
+        this.game_music.play();
+
+    }
+
+    setStatusbar() {
         this.statusbar.character = this;
     }
-    
+
     moveCharacterLeft() {
         this.moveLeft();
         this.otherDirection = true;
@@ -82,6 +93,8 @@ class Character extends MovableObject {
         // console.log(this.world)
         setInterval(() => {
             // console.log(this.world)
+
+
             this.walking_sound.pause();
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -93,7 +106,7 @@ class Character extends MovableObject {
                 }
             }
 
-            if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) { 
+            if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
                 if (this.isAboveGround()) {
                     this.moveCharacterLeft();
                 } else {
@@ -127,3 +140,7 @@ class Character extends MovableObject {
         }, 50)
     }
 }
+
+
+
+// GAME MUSIC optional choices https://freesound.org/people/joshuaempyre/sounds/251461/ 2https://freesound.org/people/OFresco/sounds/567440/
