@@ -3,7 +3,7 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
-    throwableObjects = new ThrowableObject();
+  
    
     level = level1;
     canvas;
@@ -25,7 +25,7 @@ class World {
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
     setWorld() {
         this.character.world = this;
-        this.throwableObjects.world = this;
+        
 
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
@@ -47,7 +47,7 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0); //Verschieben Position an der wir zeichnen / Koordinatensystem
-        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.backgroundObjects); 
         this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0); //Back
         // --------------- Space for fixed objects ---------------
@@ -56,9 +56,12 @@ class World {
         this.addToMap(this.bottlebar);
         this.ctx.translate(this.camera_x, 0); // Forwards
 
+      
         this.addToMap(this.character);
+     
         this.addObjectsToMap(this.level.enemies);
-
+        this.addObjectsToMap(this.level.bottles);
+ 
         this.ctx.translate(-this.camera_x, 0);
 
         // Draw() wird immer wieder aufgerufen

@@ -1,7 +1,8 @@
 class ThrowableObject extends MovableObject {
     speedY = 30;
     speedX = 20
-
+    x = 200;
+    y = 100;
     world;
 
     constructor() {

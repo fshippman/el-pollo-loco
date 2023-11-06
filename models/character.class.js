@@ -1,9 +1,10 @@
 class Character extends MovableObject {
-    y = 160; //160
-    height = 270;
-    width = 110;
+    y = 150; //160
+    height = 280; //270
+    width = 107;
     speed = 10;
     currentImage = 0;
+    
     //IMAGES_WALKING[0] lädt Bild 0
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
@@ -92,7 +93,7 @@ class Character extends MovableObject {
                 }
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) { 
                 if (this.isAboveGround()) {
                     this.moveCharacterLeft();
                 } else {

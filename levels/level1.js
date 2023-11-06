@@ -1,5 +1,5 @@
 const level1 = new Level(
-    [
+    [ 
         new Chicken(),
         new Chicken(),
         new Chicken(),
@@ -35,5 +35,18 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719*3),
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719*3)
        
+    ],
+    [
+        new Bottle(-600), //  -600 max x left!
+        new Bottle(-530),
+        new Bottle(-330),
+        new Bottle(-100),
+        new Bottle(200),
+        new Bottle(500),
+        new Bottle(800),
+        new Bottle(1500),
+        new Bottle(2000),
+        new Bottle(2100), //  2100 max x right!
+
     ]
 );
