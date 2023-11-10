@@ -37,6 +37,13 @@ class World {
                     this.statusbar.setPercentage(this.character.energy)
                 }
             });
+
+            this.level.bottles.forEach((bottle) => {
+                if (this.character.isColliding(bottle)) {
+                   
+                    // this.bottlebar.setPercentage(this.character.energy)
+                }
+            });
         }, 200);
     }
 
@@ -92,6 +99,10 @@ class World {
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
+    }
+
+    removeFromMap(mo){
+         
     }
 
     // ctx = eine Sammlung von Funktionen um unserem Canvas was hinzuzufügen 
