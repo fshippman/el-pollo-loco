@@ -58,20 +58,21 @@ class Character extends MovableObject {
     // von movable object wird loadimage aufgerufen
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0])
-        this.playGameSound();
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.applyGravity();
-
+        // this.playGameSound();
+ 
     }
 
     playGameSound() {
-        this.game_music.volume = 0.5
+        // this.game_music.muted = true 
+        // this.game_music.muted = false 
+        this.game_music.volume = 0.5;
         this.game_music.play();
-
     }
 
     setStatusbar() {
@@ -93,7 +94,7 @@ class Character extends MovableObject {
         // console.log(this.world)
         setInterval(() => {
             // console.log(this.world)
-
+            this.playGameSound();
 
             this.walking_sound.pause();
 
