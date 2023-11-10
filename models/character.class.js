@@ -75,6 +75,7 @@ class Character extends MovableObject {
         this.game_music.play();
     }
 
+
     setStatusbar() {
         this.statusbar.character = this;
     }

@@ -10,9 +10,16 @@ function init() {
 
 }
 
+// mute Sound with Key M
+document.addEventListener("keypress", (e) => {
+    if (e.keyCode == 77) {
+        //Code 77 = M
+    }
+});
+
+
 document.addEventListener("keydown", (e) => {
-    
-   
+
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;
     }
@@ -34,7 +41,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("keyup", (e) => {
-    
 
     if (e.keyCode == 39) {
         keyboard.RIGHT = false;
@@ -51,7 +57,8 @@ document.addEventListener("keyup", (e) => {
     if (e.keyCode == 32) {
         keyboard.SPACE = false;
     }
-    if (e.keyCode == 68) {
+    if (e.keyCode ==68) {
         keyboard.D = false;
     }
 });
+
