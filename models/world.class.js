@@ -4,7 +4,7 @@ class World {
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
   
-   
+    bottle = new Bottle();
     level = level1;
     canvas;
     ctx;
@@ -17,6 +17,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
+        this.drawCollectables();
         this.setWorld();
         this.checkCollisions();
     }
@@ -40,11 +41,16 @@ class World {
 
             this.level.bottles.forEach((bottle) => {
                 if (this.character.isColliding(bottle)) {
-                   
+                    this.removeFromMap(bottle)
                     // this.bottlebar.setPercentage(this.character.energy)
-                }
+                 }
             });
         }, 200);
+    }
+
+    removeFromMap(bottle){
+        this.ctx.clearRect(bottle.x, bottle.y, bottle.width, bottle.height);
+        console.log('clear')
     }
 
     draw() {
@@ -64,7 +70,7 @@ class World {
         this.addToMap(this.character);
      
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.bottles);
+        
  
         this.ctx.translate(-this.camera_x, 0);
 
@@ -75,6 +81,9 @@ class World {
         });
         // draw wird so oft aufgerufen wie die Grafikkarte hergibt
         // self weil this in der function nicht mehr funktioniert (this kennt er nicht mehr)
+    }
+    drawCollectables() {
+        this.addObjectsToMap(this.level.bottles);
     }
 
     //der Befehl wird für jedes Element ausgeführt
@@ -101,10 +110,7 @@ class World {
         }
     }
 
-    removeFromMap(mo){
-         
-    }
-
+   
     // ctx = eine Sammlung von Funktionen um unserem Canvas was hinzuzufügen 
     //     diese Sammlung hat Eigenschaften (alle Bilder sollen normal eingefügt werden)
     //     Eigenschaften werden gespeichert
