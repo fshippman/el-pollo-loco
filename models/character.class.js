@@ -95,7 +95,7 @@ class Character extends MovableObject {
         // console.log(this.world)
         setInterval(() => {
             // console.log(this.world)
-            this.playGameSound();
+            // this.playGameSound();
 
             this.walking_sound.pause();
 
