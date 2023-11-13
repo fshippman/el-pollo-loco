@@ -3,23 +3,25 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
-  
+
     bottle = new Bottle();
+    bottleCounter = 0;
     level = level1;
     canvas;
     ctx;
     keyboard;
-    camera_x = 0; 
+    camera_x = 0;
 
-  
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+
         this.draw();
-        this.drawCollectables();
         this.setWorld();
         this.checkCollisions();
+        // this.collectBottles();
     }
 
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
@@ -38,26 +40,34 @@ class World {
                     this.statusbar.setPercentage(this.character.energy)
                 }
             });
+            
+            this.collectBottles();
 
-            this.level.bottles.forEach((bottle) => {
-                if (this.character.isColliding(bottle)) {
-                    this.removeFromMap(bottle)
-                    // this.bottlebar.setPercentage(this.character.energy)
-                 }
-            });
         }, 200);
     }
 
-    removeFromMap(bottle){
-        this.ctx.clearRect(bottle.x, bottle.y, bottle.width, bottle.height);
-        console.log('clear')
+    collectBottles() {
+        this.level.bottles.forEach((bottle, index) => {
+
+            if (this.character.isColliding(bottle, index)) {
+                this.level.bottles.splice(index, 1) // Bild der Flasche delete
+                // bottleCounter++;
+                console.log('length', this.level.bottles.length);
+                // this.bottlebar.setPercentage(this.character.energy)
+            }
+        });
     }
+
+    // removeFromMap(bottle){
+    //     this.ctx.clearRect(bottle.x, bottle.y, bottle.width, bottle.height);
+    //     console.log('clear')
+    // }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0); //Verschieben Position an der wir zeichnen / Koordinatensystem
-        this.addObjectsToMap(this.level.backgroundObjects); 
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0); //Back
         // --------------- Space for fixed objects ---------------
@@ -66,12 +76,12 @@ class World {
         this.addToMap(this.bottlebar);
         this.ctx.translate(this.camera_x, 0); // Forwards
 
-      
+
         this.addToMap(this.character);
-     
+
         this.addObjectsToMap(this.level.enemies);
-        
- 
+        this.addObjectsToMap(this.level.bottles);
+
         this.ctx.translate(-this.camera_x, 0);
 
         // Draw() wird immer wieder aufgerufen
@@ -82,6 +92,7 @@ class World {
         // draw wird so oft aufgerufen wie die Grafikkarte hergibt
         // self weil this in der function nicht mehr funktioniert (this kennt er nicht mehr)
     }
+
     drawCollectables() {
         this.addObjectsToMap(this.level.bottles);
     }
@@ -110,7 +121,7 @@ class World {
         }
     }
 
-   
+
     // ctx = eine Sammlung von Funktionen um unserem Canvas was hinzuzufügen 
     //     diese Sammlung hat Eigenschaften (alle Bilder sollen normal eingefügt werden)
     //     Eigenschaften werden gespeichert
@@ -135,5 +146,5 @@ class World {
         this.ctx.restore();
     }
 
-   
+
 }
