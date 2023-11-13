@@ -4,8 +4,8 @@ class World {
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
 
-    bottle = new Bottle();
-    bottleCounter = 0;
+    // bottle = new Bottle();
+   
     level = level1;
     canvas;
     ctx;
@@ -17,51 +17,49 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        setInterval(() => {
+
+            this.checkCollisions();
+            this.collectBottles();
+
+        }, 200);
         // this.collectBottles();
     }
 
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
     setWorld() {
         this.character.world = this;
-
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
+
     checkCollisions() {
-        setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusbar.setPercentage(this.character.energy)
-                }
-            });
-            
-            this.collectBottles();
-
-        }, 200);
-    }
-
-    collectBottles() {
-        this.level.bottles.forEach((bottle, index) => {
-
-            if (this.character.isColliding(bottle, index)) {
-                this.level.bottles.splice(index, 1) // Bild der Flasche delete
-                // bottleCounter++;
-                console.log('length', this.level.bottles.length);
-                // this.bottlebar.setPercentage(this.character.energy)
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusbar.setPercentage(this.character.energy)
             }
         });
     }
 
-    // removeFromMap(bottle){
-    //     this.ctx.clearRect(bottle.x, bottle.y, bottle.width, bottle.height);
-    //     console.log('clear')
-    // }
+    // Die Bottle verschwindet weil die Welt ja ständig aktualisiert wird
+    // Array mit Flaschen kleiner weil konkrete Flasche gespliced --> konkrete Flasche verschwindet
+    collectBottles() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle, index) && this.character.checkInventorySpace()) {
+
+                this.character.inventoryCounter++;
+                this.level.bottles.splice(index, 1) // Die richtige FLasche wird gelöscht
+                console.log(this.character.inventoryCounter)
+              
+                this.bottlebar.setPercentage(this.character.calculateInventoryPercentage())
+            }
+        });
+    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -93,9 +91,6 @@ class World {
         // self weil this in der function nicht mehr funktioniert (this kennt er nicht mehr)
     }
 
-    drawCollectables() {
-        this.addObjectsToMap(this.level.bottles);
-    }
 
     //der Befehl wird für jedes Element ausgeführt
     addObjectsToMap(objects) {

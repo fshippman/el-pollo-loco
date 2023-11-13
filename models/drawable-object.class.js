@@ -57,7 +57,7 @@
      
    
 
-
+    // gibt Wert zwischen 0 und 5 zurück basierend auf Prozentwerd weil 6 Balkenbilder vorhanden
     resolveImageIndex(percentage) {
         if (percentage == 100) {
             return 5;

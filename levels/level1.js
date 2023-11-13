@@ -51,12 +51,13 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719*3)
        
     ],
+    //BOTTLE ARRAY
     [
         new Bottle(-600), //  -600 max x left!
         new Bottle(-530),
         new Bottle(-330),
         new Bottle(-100),
-        new Bottle(200),
+        new Bottle(300),
         new Bottle(500),
         new Bottle(800),
         new Bottle(1500),

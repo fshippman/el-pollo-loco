@@ -2,7 +2,7 @@ class Level {
     enemies;
     clouds;
     backgroundObjects;
-    bottles;
+    bottles; // Das Bottle Array aus level1
     level_start_x = -600;
     level_end_x = 2200;
 

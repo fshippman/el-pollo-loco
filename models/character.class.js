@@ -4,6 +4,8 @@ class Character extends MovableObject {
     width = 107;
     speed = 10;
     currentImage = 0;
+    inventoryCounter = 0;
+    inventoryMax = 8;
 
     //IMAGES_WALKING[0] lädt Bild 0
     IMAGES_WALKING = [
@@ -90,6 +92,25 @@ class Character extends MovableObject {
         this.otherDirection = false;
     }
 
+    /**
+     * This function checks if inventory space is left
+     * 
+     * @returns boolean (true if yes, false if not)
+     */
+    checkInventorySpace(){
+        return this.inventoryCounter < this.inventoryMax; 
+    }
+
+
+    calculateInventoryPercentage(){
+        return (this.inventoryCounter / this.inventoryMax) * 100
+         // inventory.lenght
+        // inventory[0, 1, 2, 3, 4, 5]
+        // maxBottle = 8;
+        // inv > max
+
+    //  1/8 * 100
+    }
     //jede Sekunde ändert sich die Grafik
     animate() {
         // console.log(this.world)
