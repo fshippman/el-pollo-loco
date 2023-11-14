@@ -54,7 +54,7 @@ const level1 = new Level(
     //BOTTLE ARRAY
     [
         new Bottle(-600), //  -600 max x left!
-        new Bottle(-530),
+        new Bottle(-400),
         new Bottle(-330),
         new Bottle(-100),
         new Bottle(300),

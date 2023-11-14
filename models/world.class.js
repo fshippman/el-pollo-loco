@@ -3,9 +3,9 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
-
+    bottle_sound = new Audio('assets/audio/bottle.mp3');
     // bottle = new Bottle();
-   
+
     level = level1;
     canvas;
     ctx;
@@ -51,11 +51,14 @@ class World {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle, index) && this.character.checkInventorySpace()) {
 
+                this.bottle_sound.pause();
+                this.bottle_sound.currentTime = 0;
+                this.bottle_sound.play();
+                
                 this.character.inventoryCounter++;
                 this.level.bottles.splice(index, 1) // Die richtige FLasche wird gelöscht
-                console.log(this.character.inventoryCounter)
-              
-                this.bottlebar.setPercentage(this.character.calculateInventoryPercentage())
+                console.log(this.character.inventoryCounter);
+                this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             }
         });
     }
