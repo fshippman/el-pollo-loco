@@ -64,5 +64,9 @@ const level1 = new Level(
         new Bottle(2000),
         new Bottle(2100), //  2100 max x right!
 
+    ],
+    //BOTTLE ROTATION
+    [
+
     ]
 ); 

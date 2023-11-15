@@ -52,7 +52,7 @@ class Character extends MovableObject {
     walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
     // new Audio('audio/bottle.mp3')
-
+   
     character;
 
     //Dadurch dass wir nen neuen Charakter erstellen wird loadimages aufgerufen 
@@ -80,6 +80,11 @@ class Character extends MovableObject {
 
     setStatusbar() {
         this.statusbar.character = this;
+    }
+
+    throwBottle(){
+        let item = new ThrowableObject();
+        this.world.addToMap(item);
     }
 
     moveCharacterLeft() {
@@ -119,7 +124,7 @@ class Character extends MovableObject {
             // this.playGameSound();
 
             this.walking_sound.pause();
-
+          
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 if (this.isAboveGround()) {
                     this.moveCharacterRight();
@@ -139,8 +144,13 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                console.log('jump')
                 this.jump();
                 this.jumping_sound.play();
+            }
+
+            if (this.world.keyboard.D){
+                this.throwBottle()
             }
 
             this.world.camera_x = -this.x + 100;

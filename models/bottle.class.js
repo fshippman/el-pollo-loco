@@ -1,4 +1,4 @@
-class Bottle extends ThrowableObject {
+class Bottle extends MovableObject {
     x = 400;  //2100 max x!
     y = 350 ;
     
