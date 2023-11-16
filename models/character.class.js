@@ -82,11 +82,6 @@ class Character extends MovableObject {
         this.statusbar.character = this;
     }
 
-    throwBottle(){
-        let item = new ThrowableObject();
-        this.world.addToMap(item);
-    }
-
     moveCharacterLeft() {
         this.moveLeft();
         this.otherDirection = true;
@@ -118,9 +113,9 @@ class Character extends MovableObject {
     }
     //jede Sekunde ändert sich die Grafik
     animate() {
-        // console.log(this.world)
+       
         setInterval(() => {
-            // console.log(this.world)
+          
             // this.playGameSound();
 
             this.walking_sound.pause();
@@ -149,9 +144,6 @@ class Character extends MovableObject {
                 this.jumping_sound.play();
             }
 
-            if (this.world.keyboard.D){
-                this.throwBottle()
-            }
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)

@@ -16,10 +16,14 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 150
+        if (this instanceof ThrowableObject) { //Throwable object should always fall
+            return true;
+        } else {
+            return this.y < 150;
+        }
     }
 
- 
+
 
     /**
      * This function calculates colliding and returns it
@@ -46,14 +50,14 @@ class MovableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000 // Difference in s
-         return timepassed < 1;  // in den letzten 5 Sekunden getroffen return gibt true aus
+        return timepassed < 1; // in den letzten 5 Sekunden getroffen return gibt true aus
     }
 
     isDead() {
         return this.energy == 0;
     }
 
-    
+
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6, => 1, Rest 1
@@ -76,5 +80,5 @@ class MovableObject extends DrawableObject {
         this.speedY = 20;
     }
 
-   
+
 }
