@@ -12,7 +12,7 @@ class World {
     keyboard;
     camera_x = 0;
 
-    throwableObjects = [new ThrowableObject()];
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -24,6 +24,7 @@ class World {
 
             this.checkCollisions();
             this.collectBottles();
+            this.checkThrow();
 
         }, 200);
         // this.collectBottles();
@@ -35,7 +36,7 @@ class World {
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
-
+    
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -62,6 +63,14 @@ class World {
                 this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             }
         });
+    }
+
+    checkThrow(){
+        if(this.keyboard.D){
+          let bottle = new ThrowableObject(this.character.x, this.character.y + 10);
+          this.throwableObjects.push(bottle)
+          bottle.throw();
+        }
     }
 
 
