@@ -10,7 +10,7 @@ class ThrowableObject extends MovableObject {
         this.y = y
         this.height = 70;
         this.width = 70;
-    
+
     }
 
     BOTTLE_ROTATION_IMAGES = [
@@ -20,19 +20,21 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ]
 
-    throw() {
-       
-        this.speedY = 18; //BOGEN
+    throw () {
+        //Flugbogen
+        this.speedY = 18; 
         this.applyGravity();
-       
+        //Fluggeschwindigkeit
         setInterval(() => {
             this.x += 8;
-            console.log(this.x)
         }, 25);
+        this.animateThrownBottle();
+    }
+
+    animateThrownBottle() {
         setInterval(() => {
             this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
         }, 100);
-        // this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
     }
 
 

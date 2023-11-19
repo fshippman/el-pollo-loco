@@ -5,7 +5,7 @@ class World {
     coinbar = new CoinBar();
     bottle_sound = new Audio('assets/audio/bottle.mp3');
     // bottle = new Bottle();
-
+    CHICKEN_DEAD = [];
     level = level1;
     canvas;
     ctx;
@@ -13,6 +13,7 @@ class World {
     camera_x = 0;
 
     throwableObjects = [];
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -25,6 +26,8 @@ class World {
             this.checkCollisions();
             this.collectBottles();
             this.checkThrow();
+            this.jumpOnChicken();
+          
 
         }, 200);
         // this.collectBottles();
@@ -36,7 +39,7 @@ class World {
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
-    
+
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -47,6 +50,20 @@ class World {
         });
     }
 
+    jumpOnChicken() {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.speedY < 0) {
+                enemy.speed = 0;
+                enemy.energy = 0
+                setTimeout(() => this.level.enemies.splice(index, 1), 5000);
+            }
+        });
+
+    }
+
+
+
+
     // Die Bottle verschwindet weil die Welt ja ständig aktualisiert wird
     // Array mit Flaschen kleiner weil konkrete Flasche gespliced --> konkrete Flasche verschwindet
     collectBottles() {
@@ -56,20 +73,20 @@ class World {
                 this.bottle_sound.pause();
                 this.bottle_sound.currentTime = 0;
                 this.bottle_sound.play();
-                
+
                 this.character.inventoryCounter++;
                 this.level.bottles.splice(index, 1) // Die richtige FLasche wird gelöscht
-                console.log(this.character.inventoryCounter);
+
                 this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             }
         });
     }
 
-    checkThrow(){
-        if(this.keyboard.D){
-          let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
-          this.throwableObjects.push(bottle)
-          bottle.throw();
+    checkThrow() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
+            this.throwableObjects.push(bottle)
+            bottle.throw();
         }
     }
 
@@ -85,20 +102,23 @@ class World {
         this.addToMap(this.statusbar);
         this.addToMap(this.coinbar);
         this.addToMap(this.bottlebar);
+
         this.ctx.translate(this.camera_x, 0); // Forwards
 
 
         this.addToMap(this.character);
-    
+
 
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
 
+
+
         this.ctx.translate(-this.camera_x, 0);
 
 
-        // this.addToMap(this.throw_Bottle);
+
 
 
         // Draw() wird immer wieder aufgerufen
