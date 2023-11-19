@@ -21,10 +21,10 @@ class ThrowableObject extends MovableObject {
     ]
 
     throw() {
-        this.speedY = 10; //BOGEN
+        this.speedY = 20; //BOGEN
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            this.x += 8;
             console.log(this.x)
         }, 25);
 
