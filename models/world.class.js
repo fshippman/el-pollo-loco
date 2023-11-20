@@ -55,7 +55,7 @@ class World {
             if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.speedY < 0) {
                 enemy.speed = 0;
                 enemy.energy = 0
-                setTimeout(() => this.level.enemies.splice(index, 1), 5000);
+                // setTimeout(() => this.level.enemies.splice(index, 1), 5000);
             }
         });
 
