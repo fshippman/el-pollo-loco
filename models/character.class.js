@@ -7,6 +7,35 @@ class Character extends MovableObject {
     inventoryCounter = 0;
     inventoryMax = 8;
 
+
+
+
+    IMAGES_IDLE = [
+        'assets/img/2_character_pepe/1_idle/idle/I-1.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-2.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-3.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-4.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-5.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-6.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-7.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-8.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-9.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+
+    IMAGES_LONG_IDLE = [
+        'assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'assets/img/2_character_pepe/1_idle/long_idle/I-20.png'
+    ];
+
     //IMAGES_WALKING[0] lädt Bild 0
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
@@ -51,15 +80,18 @@ class Character extends MovableObject {
     boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
     walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
-    // new Audio('audio/bottle.mp3')
-   
+    sleeping_sound = new Audio('assets/audio/sleep.mp3');
+    // new Audio('audio/bottle.mp3') 
+
     character;
 
     //Dadurch dass wir nen neuen Charakter erstellen wird loadimages aufgerufen 
     // super muss nur einmal gemacht werden danach kann man this sagen
     // von movable object wird loadimage aufgerufen
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0])
+        super().loadImage(this.IMAGES_IDLE[0])
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -67,8 +99,9 @@ class Character extends MovableObject {
         this.animate();
         this.applyGravity();
         // this.playGameSound();
-  
-     }
+
+    }
+
 
     playGameSound() {
         // this.game_music.muted = true 
@@ -97,29 +130,37 @@ class Character extends MovableObject {
      * 
      * @returns boolean (true if yes, false if not)
      */
-    checkInventorySpace(){
-        return this.inventoryCounter < this.inventoryMax; 
+    checkInventorySpace() {
+        return this.inventoryCounter < this.inventoryMax;
     }
 
+    noKeyPressed() {
+        return !this.world.keyboard.LEFT &&
+            !this.world.keyboard.RIGHT &&
+            !this.world.keyboard.UP &&
+            !this.world.keyboard.DOWN &&
+            !this.world.keyboard.SPACE &&
+            !this.world.keyboard.D
+    }
 
-    calculateInventoryPercentage(){
+    calculateInventoryPercentage() {
         return (this.inventoryCounter / this.inventoryMax) * 100
-         // inventory.lenght
+        // inventory.lenght
         // inventory[0, 1, 2, 3, 4, 5]
         // maxBottle = 8;
         // inv > max
-
-    //  1/8 * 100
+        //  1/8 * 100
     }
+
     //jede Sekunde ändert sich die Grafik
     animate() {
-       
+
         setInterval(() => {
-          
+
             // this.playGameSound();
 
             this.walking_sound.pause();
-          
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 if (this.isAboveGround()) {
                     this.moveCharacterRight();
@@ -132,6 +173,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
                 if (this.isAboveGround()) {
                     this.moveCharacterLeft();
+
                 } else {
                     this.moveCharacterLeft();
                     this.walking_sound.play();
@@ -159,10 +201,10 @@ class Character extends MovableObject {
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     // Walk animation
-                    this.playAnimation(this.IMAGES_WALKING)
+                    this.playAnimation(this.IMAGES_WALKING);
                 }
             }
-        }, 50)
+        }, 150) //50
     }
 }
 

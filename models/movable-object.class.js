@@ -69,7 +69,7 @@ class MovableObject extends DrawableObject {
 
     isFalling(){
         return this.speedY < 0;
-    }
+    } 
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6, => 1, Rest 1

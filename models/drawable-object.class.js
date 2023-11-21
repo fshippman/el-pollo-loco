@@ -36,13 +36,13 @@
      * @param {context} ctx 
      */
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken) {
+        if (this instanceof Endboss || this instanceof Character) {
             ctx.beginPath();
             ctx.lineWidth = '4';
             ctx.strokeStyle = 'black';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
-        }
+         }
     }
 
      

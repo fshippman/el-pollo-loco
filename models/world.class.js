@@ -29,7 +29,7 @@ class World {
             this.checkThrow();
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
-       
+           
 
         }, 200);
         // this.collectBottles();
