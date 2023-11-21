@@ -27,7 +27,9 @@ class World {
             this.collectBottles();
             this.checkThrow();
             this.jumpOnChicken();
-          
+            this.resetCharacterSpeedY();
+       
+
 
         }, 200);
         // this.collectBottles();
@@ -40,10 +42,10 @@ class World {
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
-
+    //this.character.speedY == 0 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
                 this.character.hit();
                 this.statusbar.setPercentage(this.character.energy)
             }
@@ -52,16 +54,21 @@ class World {
 
     jumpOnChicken() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.speedY < 0) {
+            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling()) {
                 enemy.speed = 0;
                 enemy.energy = 0
                 // setTimeout(() => this.level.enemies.splice(index, 1), 5000);
             }
         });
-
     }
 
 
+
+    resetCharacterSpeedY() {
+        if (this.character.speedY == -21) {
+            this.character.speedY = 0
+        }
+    }
 
 
     // Die Bottle verschwindet weil die Welt ja ständig aktualisiert wird

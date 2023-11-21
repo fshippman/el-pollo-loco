@@ -23,8 +23,6 @@ class MovableObject extends DrawableObject {
         }
     }
 
-
-
     /**
      * This function calculates colliding and returns it
      * 
@@ -57,7 +55,21 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    isAlive(){
+       return !this.isDead();
+    }
 
+    isOnGround(){
+        return this.speedY == 0;
+    }
+
+    isJumpingUp(){
+        return this.speedY >= 0;
+    }   
+
+    isFalling(){
+        return this.speedY < 0;
+    }
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6, => 1, Rest 1
