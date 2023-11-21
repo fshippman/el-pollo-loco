@@ -4,6 +4,7 @@ class World {
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
     bottle_sound = new Audio('assets/audio/bottle.mp3');
+    chicken_sound = new Audio('assets/audio/chicken.mp3');
     // bottle = new Bottle();
     CHICKEN_DEAD = [];
     level = level1;
@@ -30,7 +31,6 @@ class World {
             this.resetCharacterSpeedY();
        
 
-
         }, 200);
         // this.collectBottles();
     }
@@ -42,7 +42,7 @@ class World {
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
-    //this.character.speedY == 0 
+   
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
@@ -54,16 +54,28 @@ class World {
 
     jumpOnChicken() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling()) {
+            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive() ) {
+                this.chicken_sound.play();
                 enemy.speed = 0;
                 enemy.energy = 0
-                // setTimeout(() => this.level.enemies.splice(index, 1), 5000);
+                this.clearDeadChicken(index)
             }
         });
     }
 
+    /**
+     * This function removes the dead chicken from the level after a delay
+     * 
+     * @param {number} index - The index of the dead chicken to remove
+     */
+    clearDeadChicken(index){
+        setTimeout(() => this.level.enemies.splice(index, 1), 5000);
+    }
 
-
+    /**
+     * This function reset the vertical speed of the character if it is -21
+     * 
+     */
     resetCharacterSpeedY() {
         if (this.character.speedY == -21) {
             this.character.speedY = 0
@@ -123,9 +135,6 @@ class World {
 
 
         this.ctx.translate(-this.camera_x, 0);
-
-
-
 
 
         // Draw() wird immer wieder aufgerufen

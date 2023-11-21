@@ -67,8 +67,8 @@ class Character extends MovableObject {
         this.animate();
         this.applyGravity();
         // this.playGameSound();
- 
-    }
+  
+     }
 
     playGameSound() {
         // this.game_music.muted = true 
