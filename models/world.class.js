@@ -5,14 +5,12 @@ class World {
     coinbar = new CoinBar();
     bottle_sound = new Audio('assets/audio/bottle.mp3');
     chicken_sound = new Audio('assets/audio/chicken.mp3');
-    // bottle = new Bottle();
     CHICKEN_DEAD = [];
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-
     throwableObjects = [];
 
 
@@ -30,9 +28,7 @@ class World {
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
            
-
         }, 200);
-        // this.collectBottles();
     }
 
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
@@ -88,14 +84,11 @@ class World {
     collectBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle, index) && this.character.checkInventorySpace()) {
-
                 this.bottle_sound.pause();
                 this.bottle_sound.currentTime = 0;
                 this.bottle_sound.play();
-
                 this.character.inventoryCounter++;
                 this.level.bottles.splice(index, 1) // Die richtige FLasche wird gelöscht
-
                 this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             }
         });

@@ -6,8 +6,8 @@ class Character extends MovableObject {
     currentImage = 0;
     inventoryCounter = 0;
     inventoryMax = 8;
-
-
+    isIdle = false;
+    idleTimer;
 
 
     IMAGES_IDLE = [
@@ -102,14 +102,12 @@ class Character extends MovableObject {
 
     }
 
-
     playGameSound() {
         // this.game_music.muted = true 
         // this.game_music.muted = false 
         this.game_music.volume = 0.5;
         this.game_music.play();
     }
-
 
     setStatusbar() {
         this.statusbar.character = this;
@@ -125,15 +123,6 @@ class Character extends MovableObject {
         this.otherDirection = false;
     }
 
-    /**
-     * This function checks if inventory space is left
-     * 
-     * @returns boolean (true if yes, false if not)
-     */
-    checkInventorySpace() {
-        return this.inventoryCounter < this.inventoryMax;
-    }
-
     noKeyPressed() {
         return !this.world.keyboard.LEFT &&
             !this.world.keyboard.RIGHT &&
@@ -141,6 +130,29 @@ class Character extends MovableObject {
             !this.world.keyboard.DOWN &&
             !this.world.keyboard.SPACE &&
             !this.world.keyboard.D
+    }
+
+    setStatusIdle(status) {
+        this.isIdle = status;
+    }
+
+    setIdleTimer() {
+        this.idleTimer = new Date().getTime();
+    }
+
+    idleTime() {
+        let timepassed = new Date().getTime() - this.idleTimer; // Difference in ms
+        timepassed = timepassed / 1000 // Difference in s
+        return timepassed > 10; //nach 10 Sekunden --> return gibt true aus
+    }
+
+    /**
+     * This function checks if inventory space is left
+     * 
+     * @returns boolean (true if yes, false if not)
+     */
+    checkInventorySpace() {
+        return this.inventoryCounter < this.inventoryMax;
     }
 
     calculateInventoryPercentage() {
@@ -152,16 +164,38 @@ class Character extends MovableObject {
         //  1/8 * 100
     }
 
+    playIdleAnimations() {
+        this.shortIdleAnimation();
+        this.longIdleAnimation();
+    }
+
+    shortIdleAnimation() {
+        if (this.noKeyPressed()) {
+            if (!this.isIdle) {
+                this.setIdleTimer();
+            }
+            this.setStatusIdle(true)
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }
+
+    longIdleAnimation() {
+        if (this.idleTime()) {
+            this.playAnimation(this.IMAGES_LONG_IDLE)
+        }
+    }
+
     //jede Sekunde ändert sich die Grafik
     animate() {
 
         setInterval(() => {
-
+            // console.log(this.isIdle)
             // this.playGameSound();
 
             this.walking_sound.pause();
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.setStatusIdle(false);
                 if (this.isAboveGround()) {
                     this.moveCharacterRight();
                 } else {
@@ -171,9 +205,9 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
+                this.setStatusIdle(false);
                 if (this.isAboveGround()) {
                     this.moveCharacterLeft();
-
                 } else {
                     this.moveCharacterLeft();
                     this.walking_sound.play();
@@ -181,7 +215,7 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                console.log('jump')
+                this.setStatusIdle(false);
                 this.jump();
                 this.jumping_sound.play();
             }
@@ -189,6 +223,7 @@ class Character extends MovableObject {
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
+
 
         // modulu = hebt Rest auf
         setInterval(() => {
@@ -198,11 +233,10 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT)
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING)
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    // Walk animation
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
+               this.playIdleAnimations();
             }
         }, 150) //50
     }
