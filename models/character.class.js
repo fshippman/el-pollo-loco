@@ -173,16 +173,22 @@ class Character extends MovableObject {
         if (this.noKeyPressed()) {
             if (!this.isIdle) {
                 this.setIdleTimer();
+                this.stopSleepingSound();
             }
-            this.setStatusIdle(true)
+            this.setStatusIdle(true);
             this.playAnimation(this.IMAGES_IDLE);
         }
     }
 
     longIdleAnimation() {
         if (this.idleTime()) {
-            this.playAnimation(this.IMAGES_LONG_IDLE)
+            this.playAnimation(this.IMAGES_LONG_IDLE);
         }
+    }
+
+    stopSleepingSound() {
+        this.sleeping_sound.pause();
+        this.sleeping_sound.currentTime = 0;
     }
 
     //jede Sekunde ändert sich die Grafik
@@ -196,6 +202,7 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.setStatusIdle(false);
+                this.stopSleepingSound();
                 if (this.isAboveGround()) {
                     this.moveCharacterRight();
                 } else {
@@ -206,6 +213,7 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
                 this.setStatusIdle(false);
+                this.stopSleepingSound();
                 if (this.isAboveGround()) {
                     this.moveCharacterLeft();
                 } else {
@@ -216,10 +224,14 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.setStatusIdle(false);
+                this.stopSleepingSound();
                 this.jump();
                 this.jumping_sound.play();
             }
 
+            if (this.idleTime()) {
+                this.sleeping_sound.play();
+            }
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
@@ -236,7 +248,7 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
             } else {
-               this.playIdleAnimations();
+                this.playIdleAnimations();
             }
         }, 150) //50
     }
