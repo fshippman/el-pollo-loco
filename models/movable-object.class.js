@@ -15,6 +15,58 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /////----------------------------------------------------------------------------------------------------------------
+    /**
+     * Checks for a general collision with another object.
+     * This method determines if there is any overlap between the current object and another object, considering their positions and dimensions.
+     * 
+     * @param {Object} obj - The object to check for a collision with.
+     * @returns {boolean} - True if a general collision is detected, false otherwise.
+     */
+    generalCollision(obj) {
+        return this.x + this.thisLeftOffset < obj.x + obj.width - obj.offsetXR &&
+            this.x + this.width - this.thisRightOffset > obj.x + obj.offsetXL &&
+            this.y + this.offsetYU < obj.y + obj.height - obj.offsetYD &&
+            this.y + this.height - this.offsetYD > obj.y + obj.offsetYU;
+    }
+
+    /**
+     * Determines the direction of the current object based on the direction of the character.
+     * This method adjusts the object's left and right offsets depending on the character's orientation.
+     */
+    whatIsMyDirection() {
+        if (world.level.character[0].otherDirection) {
+            this.thisLeftOffset = this.offsetXR;
+            this.thisRightOffset = this.offsetXL;
+        } else {
+            this.thisLeftOffset = this.offsetXL;
+            this.thisRightOffset = this.offsetXR;
+        }
+    }
+
+
+    /**
+     * Determines if the object is colliding with another object.
+     * It checks for general and falling collisions and returns the type of collision if any.
+     * @param {Object} object - The object to check for collision with.
+     */
+    isColliding(object) {
+        if (object !== null) {
+            this.whatIsMyDirection();
+            if (this.generalCollision(object)) {
+                return 'generalCollision'; // Allgemeine Kollision
+                // } else if (this.fallingCollision(object)) {
+                //     return 'fallingCollision'; // Kollision von oben 
+                // } else {
+                //     return null; // Keine Kollision
+                // }
+            }
+        }
+    }F
+    /////----------------------------------------------------------------------------------------------------------------
+
+
+
     isAboveGround() {
         if (this instanceof ThrowableObject) { //Throwable object should always fall
             return true;
@@ -23,18 +75,7 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    /**
-     * This function calculates colliding and returns it
-     * 
-     * @param {object} obj 
-     * @returns colliding calclulation
-     */
-    isColliding(obj) {
-        return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
-            (this.y + this.offsetY + this.height) >= obj.y &&
-            (this.y + this.offsetY) <= (obj.y + obj.height);
-        // && obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-    }
+
 
     hit() {
         this.energy -= 1;
@@ -55,21 +96,21 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    isAlive(){
-       return !this.isDead();
+    isAlive() {
+        return !this.isDead();
     }
 
-    isOnGround(){
+    isOnGround() {
         return this.speedY == 0;
     }
 
-    isJumpingUp(){
+    isJumpingUp() {
         return this.speedY >= 0;
-    }   
+    }
 
-    isFalling(){
+    isFalling() {
         return this.speedY < 0;
-    } 
+    }
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6, => 1, Rest 1
@@ -92,5 +133,17 @@ class MovableObject extends DrawableObject {
         this.speedY = 20;
     }
 
+    /**
+     * This function calculates colliding and returns it
+     * 
+     * @param {object} obj 
+     * @returns colliding calclulation
+     */
+    // isColliding(obj) {
+    //     return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
+    //         (this.y + this.offsetY + this.height) >= obj.y &&
+    //         (this.y + this.offsetY) <= (obj.y + obj.height);
+    //     // && obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    // }
 
 }

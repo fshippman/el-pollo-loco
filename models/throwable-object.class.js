@@ -1,7 +1,10 @@
 class ThrowableObject extends MovableObject {
     // speedY = 30;
     // speedX = 20
-
+    offsetYU = 0; // offset for hitbox from top
+    offsetYD = 0; // offset for hitbox from bottom
+    offsetXR = 0; // offset for hitbox from right
+    offsetXL = 0; // offset for hitbox from left
 
     constructor(x, y) {
         super().loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
