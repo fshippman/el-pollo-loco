@@ -4,10 +4,10 @@
      width = 100;
      height = 150;
      offsetY = 0;
-     offsetYU; // offset for hitbox from top
-     offsetYD; // offset for hitbox from bottom
-     offsetXR; // offset for hitbox from right
-     offsetXL; // offset for hitbox from left
+     offsetXL;
+     offsetXR;
+     offsetYU;
+     offsetYD;
      img;
      imageCache = {};
      currentImage = 0;
@@ -66,7 +66,7 @@
      }
 
      drawHitBox(ctx) {
-         if (this instanceof Endboss || this instanceof Character || this instanceof ThrowableObject) {
+         if (this instanceof Endboss || this instanceof Character || this instanceof Chicken || this instanceof SmallChicken|| this instanceof ThrowableObject || this instanceof Bottle)   {
              ctx.beginPath();
              ctx.rect(
                  this.x + this.offsetXL,
@@ -80,27 +80,27 @@
          }
      }
 
-    
 
 
 
 
 
 
- /**
-  * This function draws a frame of movable objects if they are an instance of character or chicken
-  * 
-  * @param {context} ctx 
-  */
- //  drawFrame(ctx) {
- //      if (this instanceof Endboss || this instanceof Character) {
- //          ctx.beginPath();
- //          ctx.lineWidth = '4';
- //          ctx.strokeStyle = 'black';
- //          ctx.rect(this.x, this.y, this.width, this.height);
- //          ctx.stroke();
- //      }
- //  }
+
+     /**
+      * This function draws a frame of movable objects if they are an instance of character or chicken
+      * 
+      * @param {context} ctx 
+      */
+     //  drawFrame(ctx) {
+     //      if (this instanceof Endboss || this instanceof Character) {
+     //          ctx.beginPath();
+     //          ctx.lineWidth = '4';
+     //          ctx.strokeStyle = 'black';
+     //          ctx.rect(this.x, this.y, this.width, this.height);
+     //          ctx.stroke();
+     //      }
+     //  }
 
 
 

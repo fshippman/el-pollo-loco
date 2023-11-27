@@ -2,6 +2,10 @@ class SmallChicken extends MovableObject {
     y = 378 ;
     height = 40;
     width = 50;
+    offsetXL = 5 //25
+    offsetXR = 10   //35
+    offsetYU = 4 //120
+    offsetYD = 10 //30
   
 
 

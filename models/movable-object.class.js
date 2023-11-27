@@ -5,6 +5,9 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     energy = 100;
     lastHit = 0;
+    thisLeftOffset; 
+    thisRightOffset;
+
 
     applyGravity() {
         setInterval(() => {
@@ -20,14 +23,14 @@ class MovableObject extends DrawableObject {
      * Checks for a general collision with another object.
      * This method determines if there is any overlap between the current object and another object, considering their positions and dimensions.
      * 
-     * @param {Object} obj - The object to check for a collision with.
+     * @param {Object} object - The object to check for a collision with.
      * @returns {boolean} - True if a general collision is detected, false otherwise.
      */
-    generalCollision(obj) {
-        return this.x + this.thisLeftOffset < obj.x + obj.width - obj.offsetXR &&
-            this.x + this.width - this.thisRightOffset > obj.x + obj.offsetXL &&
-            this.y + this.offsetYU < obj.y + obj.height - obj.offsetYD &&
-            this.y + this.height - this.offsetYD > obj.y + obj.offsetYU;
+    isColliding(object) {
+        return this.x + this.thisLeftOffset < object.x + object.width - object.offsetXR &&
+            this.x + this.width - this.thisRightOffset > object.x + object.offsetXL &&
+            this.y + this.offsetYU < object.y + object.height - object.offsetYD &&
+            this.y + this.height - this.offsetYD > object.y + object.offsetYU;
     }
 
     /**
@@ -35,7 +38,8 @@ class MovableObject extends DrawableObject {
      * This method adjusts the object's left and right offsets depending on the character's orientation.
      */
     whatIsMyDirection() {
-        if (world.level.character[0].otherDirection) {
+        // funktioniert
+        if (world.character.otherDirection) {
             this.thisLeftOffset = this.offsetXR;
             this.thisRightOffset = this.offsetXL;
         } else {
@@ -50,19 +54,7 @@ class MovableObject extends DrawableObject {
      * It checks for general and falling collisions and returns the type of collision if any.
      * @param {Object} object - The object to check for collision with.
      */
-    isColliding(object) {
-        if (object !== null) {
-            this.whatIsMyDirection();
-            if (this.generalCollision(object)) {
-                return 'generalCollision'; // Allgemeine Kollision
-                // } else if (this.fallingCollision(object)) {
-                //     return 'fallingCollision'; // Kollision von oben 
-                // } else {
-                //     return null; // Keine Kollision
-                // }
-            }
-        }
-    }F
+
     /////----------------------------------------------------------------------------------------------------------------
 
 
