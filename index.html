@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,14 +28,30 @@
     <script src="js/game.js"></script>
 
 </head>
-<body onload="init()">
-    
-<h1>El Pollo Loco</h1>
+
+<body>
+
+    <h1>El Pollo Loco</h1>
 
 
-<canvas id="canvas" width="720" height="480">
+    <canvas id="canvas" width="720" height="480" class="d-none">
 
-</canvas>
-<button id="mute">Mute</button>
+    </canvas>
+
+    <div id="startscreen">
+        <img src="assets/img/9_intro_outro_screens/start/startscreen_2.png" alt="">
+    </div>
+
+    <div id="loadingscreen" class="d-none">
+        <div class="loadinganimation-container">
+            <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="" class="loader">
+        </div>
+       
+        <h1 class="loading-text">load...</h1>
+    </div>
+
+    <button onclick="loadingScreen()">Loading</button>
+    <button onclick="start()">Start</button>
 </body>
+
 </html>

@@ -3,11 +3,22 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
+console.log('init');
+   
+}
 
+function loadingScreen(){
+    document.getElementById('startscreen').classList.add('d-none');
+    document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('loadingscreen').classList.remove('d-none');
+}
+
+function start(){
+    document.getElementById('startscreen').classList.add('d-none');
+    document.getElementById('loadingscreen').classList.add('d-none');
+    document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
-
 }
 
 // mute Sound with Key M

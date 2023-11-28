@@ -50,16 +50,28 @@ class World {
     }
 
     jumpOnChicken() {
+        let deleteIndex;
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive() ) {
                 this.chicken_sound.play();
                 enemy.speed = 0;
-                enemy.energy = 0
-                this.clearDeadChicken(index)
+                enemy.energy = 0;
+               
+                deleteIndex = index
+               
             }
         });
+      
+        // console.log(deleteIndex)
+        // if (deleteIndex != undefined) {
+              // DESTROYS ARRAY!
+            // this.clearDeadChicken(deleteIndex)
+        // }
+       
     }
 
+
+    ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
     /**
      * This function removes the dead chicken from the level after a delay
      * 
@@ -68,6 +80,7 @@ class World {
     clearDeadChicken(index){
         setTimeout(() => this.level.enemies.splice(index, 1), 5000);
     }
+    ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
 
     /**
      * This function reset the vertical speed of the character if it is -21
