@@ -21,9 +21,9 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.startEnemyMovement();
-        setInterval(() => {
 
+        setInterval(() => {
+        
             this.checkCollisions();
             this.collectBottles();
             this.checkThrow();
@@ -41,17 +41,14 @@ class World {
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
-    checkLoad(){
-        console.log('LOADED!')
+    
+    startEnemyMovement() {
+        // if (this.gamestart) {
+        this.level.enemies.forEach((enemy) => {
+            enemy.animate();
+        })
     }
 
-    startEnemyMovement() {
-        if (this.gamestart) {
-            this.level.enemies.forEach((enemy) => {
-                enemy.animate();
-            })
-        }
-    }
 
     checkCollisions() {
         this.character.whatIsMyDirection();

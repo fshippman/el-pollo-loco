@@ -15,11 +15,20 @@ function loadingScreen(){
 
 function start(){
     document.getElementById('startscreen').classList.add('d-none');
-    document.getElementById('loadingscreen').classList.add('d-none');
-    document.getElementById('canvas').classList.remove('d-none');
+    // document.getElementById('loadingscreen').classList.add('d-none');
+    // document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    world.checkLoad();
+    
+    //  document.getElementById('canvas').classList.remove('d-none')
+    setTimeout(() =>  
+
+   
+    world.startEnemyMovement(),
+    document.getElementById('canvas').classList.remove('d-none')
+
+    , 10000);
+   
 }
 
 // mute Sound with Key M
