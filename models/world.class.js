@@ -12,6 +12,7 @@ class World {
     keyboard;
     camera_x = 0;
     throwableObjects = [];
+    gamestart = false;
 
 
     constructor(canvas, keyboard) {
@@ -20,6 +21,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.startEnemyMovement();
         setInterval(() => {
 
             this.checkCollisions();
@@ -27,18 +29,30 @@ class World {
             this.checkThrow();
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
-           
+
         }, 200);
     }
 
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
     setWorld() {
         this.character.world = this;
+        // this.chicken.world = this;
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
-   
+    checkLoad(){
+        console.log('LOADED!')
+    }
+
+    startEnemyMovement() {
+        if (this.gamestart) {
+            this.level.enemies.forEach((enemy) => {
+                enemy.animate();
+            })
+        }
+    }
+
     checkCollisions() {
         this.character.whatIsMyDirection();
         this.level.enemies.forEach((enemy) => {
@@ -52,22 +66,22 @@ class World {
     jumpOnChicken() {
         let deleteIndex;
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive() ) {
+            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive()) {
                 this.chicken_sound.play();
                 enemy.speed = 0;
                 enemy.energy = 0;
-               
+
                 deleteIndex = index
-               
+
             }
         });
-      
+
         // console.log(deleteIndex)
         // if (deleteIndex != undefined) {
-              // DESTROYS ARRAY!
-            // this.clearDeadChicken(deleteIndex)
+        // DESTROYS ARRAY!
+        // this.clearDeadChicken(deleteIndex)
         // }
-       
+
     }
 
 
@@ -77,7 +91,7 @@ class World {
      * 
      * @param {number} index - The index of the dead chicken to remove
      */
-    clearDeadChicken(index){
+    clearDeadChicken(index) {
         setTimeout(() => this.level.enemies.splice(index, 1), 5000);
     }
     ///----------------DELETES WRONG CHICKEN!!!!-----------------------------

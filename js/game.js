@@ -19,6 +19,7 @@ function start(){
     document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    world.checkLoad();
 }
 
 // mute Sound with Key M

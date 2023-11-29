@@ -19,16 +19,19 @@ class Chicken extends MovableObject {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGE_DEAD)
+        this.x = 500;
+        this.speed = 0.15;
+        //original
+        // this.x = 200 + Math.random() * 2500;
+        // this.speed = 0.15 + Math.random() * 0.5; //0.25
 
-        this.x = 200 + Math.random() * 2500;
-        this.speed = 0.15 + Math.random() * 0.5; //0.25
-
-        this.animate();
+        // this.animate();
     }
 
 
     //jede Sekunde ändert sich die Grafik
     animate() {
+
         console.log(this.isDead)
         setInterval(() => {
             this.moveLeft();
