@@ -5,8 +5,8 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     energy = 100;
     lastHit = 0;
-    thisLeftOffset; 
-    thisRightOffset;
+    thisLeftOffset = 0; 
+    thisRightOffset = 0;
 
 
     applyGravity() {

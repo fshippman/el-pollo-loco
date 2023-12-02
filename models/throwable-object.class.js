@@ -1,10 +1,11 @@
 class ThrowableObject extends MovableObject {
     // speedY = 30;
     // speedX = 20
-    offsetYU = 10; // offset for hitbox from top
-    offsetYD = 20; // offset for hitbox from bottom
-    offsetXR = 20; // offset for hitbox from right
-    offsetXL = 10; // offset for hitbox from left
+    offsetYU = 10//10; // offset for hitbox from top
+    offsetYD = 10//20; // offset for hitbox from bottom
+    offsetXR = 10//20; // offset for hitbox from right
+    offsetXL = 10//10; // offset for hitbox from left
+   
 
     constructor(x, y) {
         super().loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
@@ -25,7 +26,7 @@ class ThrowableObject extends MovableObject {
 
     throw () {
         //Flugbogen
-        this.speedY = 18; 
+        this.speedY = 18; //18
         this.applyGravity();
         //Fluggeschwindigkeit
         setInterval(() => {

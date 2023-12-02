@@ -29,6 +29,7 @@ class World {
             this.checkThrow();
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
+            this.checkThrownCollisions();
 
         }, 200);
     }
@@ -47,8 +48,22 @@ class World {
         this.level.enemies.forEach((enemy) => {
             enemy.animate();
         })
+        console.log(this.level.boss, "BOSS")
+        this.level.boss[0].animate();
+
     }
 
+  
+    checkThrownCollisions() {
+        this.throwableObjects.forEach((ThrowableObject, index) => {
+            // console.log(ThrowableObject)
+            if (ThrowableObject.isColliding(this.level.boss[0])){
+                console.log("COLLIDING", ThrowableObject)
+                console.log(this.level.boss[0],"boss")
+                this.throwableObjects.splice(index, 1);
+            }
+        });
+    }
 
     checkCollisions() {
         this.character.whatIsMyDirection();
@@ -147,6 +162,7 @@ class World {
 
 
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.boss);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
 

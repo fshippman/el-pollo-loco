@@ -29,6 +29,9 @@ const level1 = new Level(
         // new SmallChicken(),
 
 
+     
+    ],
+    [
         new Endboss()
     ],
     [

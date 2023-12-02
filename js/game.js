@@ -25,7 +25,6 @@ function start() {
     setTimeout(() =>
         // canvas.classList.remove('d-none'),
         world.startEnemyMovement(),
-    
          10000);
 
 }

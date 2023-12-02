@@ -69,11 +69,11 @@
          if (this instanceof Endboss || this instanceof Character || this instanceof Chicken || this instanceof SmallChicken|| this instanceof ThrowableObject || this instanceof Bottle)   {
              ctx.beginPath();
              ctx.rect(
-                 this.x + this.offsetXL,
-                 this.y + this.offsetYU,
-                 this.width - this.offsetXR,
-                 this.height - this.offsetYD
-             );
+                this.x + this.offsetXL,
+                this.y + this.offsetYU,
+                this.width - this.offsetXL - this.offsetXR,
+                this.height - this.offsetYU - this.offsetYD
+            );
              ctx.lineWidth = 2;
              ctx.strokeStyle = 'black';
              ctx.stroke();
