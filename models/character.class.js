@@ -6,7 +6,7 @@ class Character extends MovableObject {
     offsetXR = 40 //35
     offsetYU = 15  //120
     offsetYD = 30 //30
-    speed = 10;
+    speed = 8;
     currentImage = 0;
     inventoryCounter = 0;
     inventoryMax = 8;
