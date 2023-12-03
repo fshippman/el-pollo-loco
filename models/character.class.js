@@ -3,9 +3,9 @@ class Character extends MovableObject {
     height = 280; //270
     width = 107;
     offsetXL = 15 //25
-    offsetXR = 40 //35
+    offsetXR = 30 //35
     offsetYU = 15  //120
-    offsetYD = 30 //30
+    offsetYD = 15 //30
     speed = 3;
     currentImage = 0;
     inventoryCounter = 0;
