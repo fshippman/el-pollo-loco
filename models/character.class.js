@@ -6,7 +6,7 @@ class Character extends MovableObject {
     offsetXR = 30 //35
     offsetYU = 15  //120
     offsetYD = 15 //30
-    speed = 3;
+    speed = 5;
     currentImage = 0;
     inventoryCounter = 0;
     inventoryMax = 8;
@@ -195,6 +195,14 @@ class Character extends MovableObject {
         this.sleeping_sound.currentTime = 0;
     }
 
+
+    jumpingSpeed(){
+        this.speed = 2
+    }
+
+    walkingSpeed(){
+        this.speed = 5;
+    }
     //jede Sekunde ändert sich die Grafik
     animate() {
 
@@ -208,8 +216,10 @@ class Character extends MovableObject {
                 this.setStatusIdle(false);
                 this.stopSleepingSound();
                 if (this.isAboveGround()) {
+                    this.jumpingSpeed();
                     this.moveCharacterRight();
                 } else {
+                    this.walkingSpeed();
                     this.moveCharacterRight();
                     this.walking_sound.play();
                 }
@@ -219,8 +229,10 @@ class Character extends MovableObject {
                 this.setStatusIdle(false);
                 this.stopSleepingSound();
                 if (this.isAboveGround()) {
+                    this.jumpingSpeed();
                     this.moveCharacterLeft();
                 } else {
+                    this.walkingSpeed();
                     this.moveCharacterLeft();
                     this.walking_sound.play();
                 }
