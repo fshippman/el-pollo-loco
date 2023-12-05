@@ -23,7 +23,7 @@ class World {
         this.setWorld();
 
         setInterval(() => {
-        
+
             this.checkCollisions();
             this.collectBottles();
             this.checkThrow();
@@ -42,7 +42,7 @@ class World {
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
-    
+
     startEnemyMovement() {
         // if (this.gamestart) {
         this.level.enemies.forEach((enemy) => {
@@ -53,17 +53,20 @@ class World {
 
     }
 
-  
+
     checkThrownCollisions() {
+
         this.throwableObjects.forEach((ThrowableObject, index) => {
-            // console.log(ThrowableObject)
-            if (ThrowableObject.isColliding(this.level.boss[0])){
-                console.log("COLLIDING", ThrowableObject)
-                console.log(this.level.boss[0],"boss")
-                this.throwableObjects.splice(index, 1);
+            if (ThrowableObject.isColliding(this.level.boss[0])) {
+               
+              console.log('hit')
+
+
             }
         });
     }
+
+
 
     checkCollisions() {
         this.character.whatIsMyDirection();
