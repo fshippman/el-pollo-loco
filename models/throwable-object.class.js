@@ -6,7 +6,7 @@ class ThrowableObject extends MovableObject {
     offsetXR = 10 //20; // offset for hitbox from right
     offsetXL = 10 //10; // offset for hitbox from left
 
-    splashed = false;
+
 
     constructor(x, y) {
         super().loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
@@ -38,23 +38,25 @@ class ThrowableObject extends MovableObject {
     throw () {
         //Flugbogen
         this.speedY = 18; //18
+
         this.applyGravity();
         //Fluggeschwindigkeit
-            setInterval(() => {
+        setInterval(() => {
+            if (!this.bottleCollision) {
                 this.x += 8;
-            }, 25);
-            this.animate();
-        }
-    
+            }
+        }, 25);
+        this.animate();
+    }
+
+
+
 
     animate() {
-
         setInterval(() => {
-
-            if (this.collision) {
+            if (this.bottleCollision) {
                 this.playAnimation(this.BOTTLE_SPLASH_IMAGES)
-                console.log('collsion')
-            } else if (!this.collision) {
+            } else if (!this.bottleCollision) {
                 this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
             }
         }, 200);

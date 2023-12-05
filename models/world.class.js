@@ -55,15 +55,21 @@ class World {
 
 
     checkThrownCollisions() {
-
+       
         this.throwableObjects.forEach((ThrowableObject, index) => {
             if (ThrowableObject.isColliding(this.level.boss[0])) {
-               
-              console.log('hit')
-
-
+                ThrowableObject.bottleCollision = true;
+                setTimeout(() => this.throwableObjects.splice(index, 1), 500);
             }
         });
+    }
+
+    checkThrow() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
+            this.throwableObjects.push(bottle)
+            bottle.throw();
+        }
     }
 
 
@@ -137,13 +143,7 @@ class World {
         });
     }
 
-    checkThrow() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
-            this.throwableObjects.push(bottle)
-            bottle.throw();
-        }
-    }
+
 
 
     draw() {

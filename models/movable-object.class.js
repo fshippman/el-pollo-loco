@@ -7,17 +7,21 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     thisLeftOffset = 0; 
     thisRightOffset = 0;
-
+    bottleCollision;
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
+            if (this.isAboveGround() || this.speedY > 0)  {
+           
+                if (!this.bottleCollision) {
+                    this.y -= this.speedY;
+                    this.speedY -= this.acceleration;
+                }
+               
             }
         }, 1000 / 25);
     }
-
+d
     /////----------------------------------------------------------------------------------------------------------------
     /**
      * Checks for a general collision with another object.
