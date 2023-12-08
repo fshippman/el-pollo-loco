@@ -19,17 +19,14 @@ function start() {
     // document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
     canvas.classList.remove('d-none')
-
     setTimeout(() =>
         // canvas.classList.remove('d-none'),
         world.startEnemyMovement(),
-         10000);
-
+        10000);
 }
 
-function testfunction(){
+function testfunction() {
     console.log('testfunction')
 }
 

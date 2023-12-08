@@ -6,7 +6,7 @@ class ThrowableObject extends MovableObject {
     offsetXR = 10 //20; // offset for hitbox from right
     offsetXL = 10 //10; // offset for hitbox from left
 
-
+    bottle_smash_sound = new Audio('assets/audio/bottlesmash.mp3')
 
     constructor(x, y) {
         super().loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
@@ -51,7 +51,9 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    playBottlesmashSound(){
+        this.bottle_smash_sound.play();
+    }
 
     animate() {
         setInterval(() => {

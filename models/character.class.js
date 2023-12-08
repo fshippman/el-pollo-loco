@@ -4,7 +4,7 @@ class Character extends MovableObject {
     width = 107;
     offsetXL = 15 //25
     offsetXR = 30 //35
-    offsetYU = 15  //120
+    offsetYU = 15 //120
     offsetYD = 15 //30
     speed = 5;
     currentImage = 0;
@@ -84,6 +84,7 @@ class Character extends MovableObject {
     boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
     walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
+    throwing_sound = new Audio('assets/audio/throwing.mp3');
     sleeping_sound = new Audio('assets/audio/sleep.mp3');
     // new Audio('audio/bottle.mp3') 
 
@@ -111,6 +112,10 @@ class Character extends MovableObject {
         // this.game_music.muted = false 
         this.game_music.volume = 0.5;
         this.game_music.play();
+    }
+
+    playThrowingSound(){
+        this.throwing_sound.play();
     }
 
     setStatusbar() {
@@ -196,11 +201,11 @@ class Character extends MovableObject {
     }
 
 
-    jumpingSpeed(){
+    jumpingSpeed() {
         this.speed = 2
     }
 
-    walkingSpeed(){
+    walkingSpeed() {
         this.speed = 5;
     }
     //jede Sekunde ändert sich die Grafik
@@ -238,6 +243,10 @@ class Character extends MovableObject {
                 }
             }
 
+            if (this.world.keyboard.D) {
+                this.setStatusIdle(false);
+            }
+
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.setStatusIdle(false);
                 this.stopSleepingSound();
@@ -247,6 +256,12 @@ class Character extends MovableObject {
 
             if (this.idleTime()) {
                 this.sleeping_sound.play();
+            }
+
+            if (this.x > 600) {
+                this.game_music.pause();
+                this.boss_music.play();
+                this.boss_music.volume = 0.5;
             }
 
             this.world.camera_x = -this.x + 100;

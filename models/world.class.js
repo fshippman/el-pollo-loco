@@ -13,7 +13,7 @@ class World {
     keyboard;
     camera_x = 0;
     throwableObjects = [];
-    gamestart = false;
+
 
 
     constructor(canvas, keyboard) {
@@ -31,6 +31,7 @@ class World {
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
             this.checkThrownCollisions();
+            console.log(this.character.x)
 
         }, 200);
     }
@@ -45,19 +46,18 @@ class World {
 
 
     startEnemyMovement() {
-        // if (this.gamestart) {
         this.level.enemies.forEach((enemy) => {
             enemy.animate();
         })
+        this.character.playGameSound();
         console.log(this.level.boss, "BOSS")
         this.level.boss[0].animate();
-
     }
-
 
     checkThrownCollisions() {
         this.throwableObjects.forEach((ThrowableObject, index) => {
             if (ThrowableObject.isColliding(this.level.boss[0])) {
+                ThrowableObject.playBottlesmashSound();
                 ThrowableObject.bottleCollision = true;
                 setTimeout(() => this.throwableObjects.splice(index, 1), 500);
                 if (!this.level.boss[0].isHurt()) {
@@ -74,10 +74,9 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
             this.throwableObjects.push(bottle)
             bottle.throw();
+            this.character.playThrowingSound();
         }
     }
-
-
 
     checkCollisions() {
         this.character.whatIsMyDirection();
@@ -207,7 +206,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-      
+
         // mo.drawHitBox(this.ctx);
 
         if (mo.otherDirection) {
