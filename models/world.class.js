@@ -3,6 +3,7 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
+    endbossbar = new EndbossBar();
     bottle_sound = new Audio('assets/audio/bottle.mp3');
     chicken_sound = new Audio('assets/audio/chicken.mp3');
     CHICKEN_DEAD = [];
@@ -61,6 +62,7 @@ class World {
                 setTimeout(() => this.throwableObjects.splice(index, 1), 500);
                 if (!this.level.boss[0].isHurt()) {
                     this.level.boss[0].hit(ThrowableObject.attackDamage)
+                    this.endbossbar.setPercentage(this.level.boss[0].energy)
                     console.log(this.level.boss[0].energy)
                 }
             }
@@ -160,6 +162,7 @@ class World {
         this.addToMap(this.statusbar);
         this.addToMap(this.coinbar);
         this.addToMap(this.bottlebar);
+        this.addToMap(this.endbossbar);
 
         this.ctx.translate(this.camera_x, 0); // Forwards
 
