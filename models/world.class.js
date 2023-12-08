@@ -55,11 +55,14 @@ class World {
 
 
     checkThrownCollisions() {
-       
         this.throwableObjects.forEach((ThrowableObject, index) => {
             if (ThrowableObject.isColliding(this.level.boss[0])) {
                 ThrowableObject.bottleCollision = true;
                 setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+                if (!this.level.boss[0].isHurt()) {
+                    this.level.boss[0].hit()
+                    console.log(this.level.boss[0].energy)
+                }
             }
         });
     }
