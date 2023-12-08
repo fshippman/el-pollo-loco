@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
     thisLeftOffset = 0; 
     thisRightOffset = 0;
     bottleCollision;
+    attackDamage;
 
     applyGravity() {
         setInterval(() => {
@@ -73,8 +74,8 @@ d
 
 
 
-    hit() {
-        this.energy -= 1;
+    hit(attackDamage) {
+        this.energy -= attackDamage;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

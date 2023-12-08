@@ -60,7 +60,7 @@ class World {
                 ThrowableObject.bottleCollision = true;
                 setTimeout(() => this.throwableObjects.splice(index, 1), 500);
                 if (!this.level.boss[0].isHurt()) {
-                    this.level.boss[0].hit()
+                    this.level.boss[0].hit(ThrowableObject.attackDamage)
                     console.log(this.level.boss[0].energy)
                 }
             }
@@ -204,8 +204,8 @@ class World {
         }
 
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
-        mo.drawHitBox(this.ctx);
+      
+        // mo.drawHitBox(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
