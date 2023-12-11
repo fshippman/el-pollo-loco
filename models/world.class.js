@@ -31,7 +31,7 @@ class World {
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
             this.checkThrownCollisions();
-            console.log(this.character.x)
+            console.log(this.character.inventoryCounter)
 
         }, 200);
     }
@@ -70,8 +70,10 @@ class World {
     }
 
     checkThrow() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.character.inventoryCounter > 0) {
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
+            this.character.inventoryCounter--;
+            this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             this.throwableObjects.push(bottle)
             bottle.throw();
             this.character.playThrowingSound();

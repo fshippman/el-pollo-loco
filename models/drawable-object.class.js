@@ -46,9 +46,9 @@
              return 4;
          } else if (percentage > 60) {
              return 3;
-         } else if (percentage > 40) {
+         } else if (percentage > 30) {
              return 2;
-         } else if (percentage > 20) {
+         } else if (percentage > 10) {
              return 1;
          } else {
              return 0;
