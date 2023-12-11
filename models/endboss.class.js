@@ -72,7 +72,7 @@ class Endboss extends MovableObject {
 
     animate() {
         setInterval(() => {
-            console.log(this.deadAnimation)
+           
             if (this.isHurt() && this.energy < 100 && this.energy > 50) {
                 this.deadAnimation = false;
                 this.playAnimation(this.IMAGES_ATTACK)

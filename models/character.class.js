@@ -12,6 +12,7 @@ class Character extends MovableObject {
     inventoryMax = 8;
     isIdle = false;
     idleTimer;
+    throwTimePassed;
 
 
     IMAGES_IDLE = [
@@ -103,6 +104,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.applyGravity();
+        this.setThrowingTimer();
         // this.playGameSound();
 
     }
@@ -153,6 +155,16 @@ class Character extends MovableObject {
         let timepassed = new Date().getTime() - this.idleTimer; // Difference in ms
         timepassed = timepassed / 1000 // Difference in s
         return timepassed > 10; //nach 10 Sekunden --> return gibt true aus
+    }
+
+    setThrowingTimer() {
+        this.throwingTime = new Date().getTime();
+    }
+
+    throwTime() {
+        let throwTimePassed = new Date().getTime() - this.throwingTime; // Difference in ms
+        throwTimePassed = throwTimePassed / 1000 // Difference in s
+        return throwTimePassed > 3; //nach 10 Sekunden --> return gibt true aus
     }
 
     /**

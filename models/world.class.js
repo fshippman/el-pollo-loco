@@ -31,7 +31,8 @@ class World {
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
             this.checkThrownCollisions();
-            console.log(this.character.inventoryCounter)
+           
+            console.log(this.character.throwTime())
 
         }, 200);
     }
@@ -70,12 +71,13 @@ class World {
     }
 
     checkThrow() {
-        if (this.keyboard.D && this.character.inventoryCounter > 0) {
+        if (this.keyboard.D && this.character.inventoryCounter > 0 &&  this.character.throwTime()) {
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
             this.character.inventoryCounter--;
             this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             this.throwableObjects.push(bottle)
             bottle.throw();
+            this.character.setThrowingTimer();
             this.character.playThrowingSound();
         }
     }
