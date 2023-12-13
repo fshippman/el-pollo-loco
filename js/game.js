@@ -15,19 +15,19 @@ function loadingScreen() {
 
 function start() {
     document.getElementById('startscreen').classList.add('d-none');
-    // document.getElementById('loadingscreen').classList.add('d-none');
-    // document.getElementById('canvas').classList.remove('d-none');
+
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    canvas.classList.remove('d-none')
-    setTimeout(() =>
-        // canvas.classList.remove('d-none'),
-        world.startEnemyMovement(),
-        10000);
+
+    loadingScreen();
+    setTimeout(testfunction, 10000);
 }
 
 function testfunction() {
     console.log('testfunction')
+    document.getElementById('loadingscreen').classList.add('d-none');
+    canvas.classList.remove('d-none');
+    world.startEnemyMovement();
 }
 
 // mute Sound with Key M
