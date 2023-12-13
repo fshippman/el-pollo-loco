@@ -20,7 +20,7 @@ function startGame() {
     world = new World(canvas, keyboard);
 
     loadingScreen();
-    setTimeout(showWorld, 10000);
+    setTimeout(() => showWorld(), 10000); 
 }
 
 function showWorld() {
