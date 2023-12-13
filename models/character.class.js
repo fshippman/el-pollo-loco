@@ -2,12 +2,17 @@ class Character extends MovableObject {
     y = 150; //160
     height = 280; //270
     width = 107;
-    speed = 10;
+    offsetXL = 15 //25
+    offsetXR = 30 //35
+    offsetYU = 15 //120
+    offsetYD = 15 //30
+    speed = 5;
     currentImage = 0;
     inventoryCounter = 0;
     inventoryMax = 8;
     isIdle = false;
     idleTimer;
+    throwTimePassed;
 
 
     IMAGES_IDLE = [
@@ -80,6 +85,7 @@ class Character extends MovableObject {
     boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
     walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
+    throwing_sound = new Audio('assets/audio/throwing.mp3');
     sleeping_sound = new Audio('assets/audio/sleep.mp3');
     // new Audio('audio/bottle.mp3') 
 
@@ -98,6 +104,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.applyGravity();
+        this.setThrowingTimer();
         // this.playGameSound();
 
     }
@@ -107,6 +114,10 @@ class Character extends MovableObject {
         // this.game_music.muted = false 
         this.game_music.volume = 0.5;
         this.game_music.play();
+    }
+
+    playThrowingSound(){
+        this.throwing_sound.play();
     }
 
     setStatusbar() {
@@ -144,6 +155,16 @@ class Character extends MovableObject {
         let timepassed = new Date().getTime() - this.idleTimer; // Difference in ms
         timepassed = timepassed / 1000 // Difference in s
         return timepassed > 10; //nach 10 Sekunden --> return gibt true aus
+    }
+
+    setThrowingTimer() {
+        this.throwingTime = new Date().getTime();
+    }
+
+    throwTime() {
+        let throwTimePassed = new Date().getTime() - this.throwingTime; // Difference in ms
+        throwTimePassed = throwTimePassed / 1000 // Difference in s
+        return throwTimePassed > 3; //nach 10 Sekunden --> return gibt true aus
     }
 
     /**
@@ -191,6 +212,14 @@ class Character extends MovableObject {
         this.sleeping_sound.currentTime = 0;
     }
 
+
+    jumpingSpeed() {
+        this.speed = 2
+    }
+
+    walkingSpeed() {
+        this.speed = 5;
+    }
     //jede Sekunde ändert sich die Grafik
     animate() {
 
@@ -204,8 +233,10 @@ class Character extends MovableObject {
                 this.setStatusIdle(false);
                 this.stopSleepingSound();
                 if (this.isAboveGround()) {
+                    this.jumpingSpeed();
                     this.moveCharacterRight();
                 } else {
+                    this.walkingSpeed();
                     this.moveCharacterRight();
                     this.walking_sound.play();
                 }
@@ -215,11 +246,17 @@ class Character extends MovableObject {
                 this.setStatusIdle(false);
                 this.stopSleepingSound();
                 if (this.isAboveGround()) {
+                    this.jumpingSpeed();
                     this.moveCharacterLeft();
                 } else {
+                    this.walkingSpeed();
                     this.moveCharacterLeft();
                     this.walking_sound.play();
                 }
+            }
+
+            if (this.world.keyboard.D) {
+                this.setStatusIdle(false);
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -231,6 +268,12 @@ class Character extends MovableObject {
 
             if (this.idleTime()) {
                 this.sleeping_sound.play();
+            }
+
+            if (this.x > 600) {
+                this.game_music.pause();
+                this.boss_music.play();
+                this.boss_music.volume = 0.5;
             }
 
             this.world.camera_x = -this.x + 100;

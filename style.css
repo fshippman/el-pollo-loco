@@ -1,8 +1,10 @@
 @font-face {
     font-family: 'zabras';
-    src: url('myfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-         url('/assets/fonts/Zabars.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-}  
+    src: url('myfont.woff') format('woff'),
+        /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+        url('/assets/fonts/Zabars.ttf') format('truetype');
+    /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
 body {
     margin: 0;
@@ -26,5 +28,69 @@ h1 {
     font-size: 84px;
     margin: 0;
     letter-spacing: 6px;
-    text-shadow: 4px 4px 2px rgba(0,0,0,0.5);
+    text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
 }
+
+#startscreen img {
+    width: 720px;
+    height: 480px;
+}
+
+
+#loadingscreen {
+    height: 480px;
+    width: 720px;
+    background-color: black;
+    color: white;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadinganimation-container {
+    grid-row: 2/3;
+}
+
+
+.loading-text {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    grid-row: 3/3;
+}
+
+.loader {
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+
+}
+
+.d-none {
+    display: none !important;
+}
+
+/*---------------- ANIMATION ----------------*/
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+/*--------------------------------------------*/

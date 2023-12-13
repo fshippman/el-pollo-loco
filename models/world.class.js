@@ -3,6 +3,7 @@ class World {
     statusbar = new StatusBar();
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
+    endbossbar = new EndbossBar();
     bottle_sound = new Audio('assets/audio/bottle.mp3');
     chicken_sound = new Audio('assets/audio/chicken.mp3');
     CHICKEN_DEAD = [];
@@ -14,12 +15,14 @@ class World {
     throwableObjects = [];
 
 
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+
         setInterval(() => {
 
             this.checkCollisions();
@@ -27,19 +30,60 @@ class World {
             this.checkThrow();
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
+            this.checkThrownCollisions();
            
+            console.log(this.character.throwTime())
+
         }, 200);
     }
 
     // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
     setWorld() {
         this.character.world = this;
+        // this.chicken.world = this;
         // WORLD.character.world = WORLD
         // world ist die Klasenvariable die in der Klasse Charakter ist: world;
     }
 
-   
+
+    startEnemyMovement() {
+        this.level.enemies.forEach((enemy) => {
+            enemy.animate();
+        })
+        this.character.playGameSound();
+        console.log(this.level.boss, "BOSS")
+        this.level.boss[0].animate();
+    }
+
+    checkThrownCollisions() {
+        this.throwableObjects.forEach((ThrowableObject, index) => {
+            if (ThrowableObject.isColliding(this.level.boss[0])) {
+                ThrowableObject.playBottlesmashSound();
+                ThrowableObject.bottleCollision = true;
+                setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+                if (!this.level.boss[0].isHurt()) {
+                    this.level.boss[0].hit(ThrowableObject.attackDamage)
+                    this.endbossbar.setPercentage(this.level.boss[0].energy)
+                    console.log(this.level.boss[0].energy)
+                }
+            }
+        });
+    }
+
+    checkThrow() {
+        if (this.keyboard.D && this.character.inventoryCounter > 0 &&  this.character.throwTime()) {
+            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
+            this.character.inventoryCounter--;
+            this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
+            this.throwableObjects.push(bottle)
+            bottle.throw();
+            this.character.setThrowingTimer();
+            this.character.playThrowingSound();
+        }
+    }
+
     checkCollisions() {
+        this.character.whatIsMyDirection();
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
                 this.character.hit();
@@ -49,24 +93,37 @@ class World {
     }
 
     jumpOnChicken() {
+        let deleteIndex;
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive() ) {
+            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive()) {
                 this.chicken_sound.play();
                 enemy.speed = 0;
-                enemy.energy = 0
-                this.clearDeadChicken(index)
+                enemy.energy = 0;
+
+                deleteIndex = index
+
             }
         });
+
+        // console.log(deleteIndex)
+        // if (deleteIndex != undefined) {
+        // DESTROYS ARRAY!
+        // this.clearDeadChicken(deleteIndex)
+        // }
+
     }
 
+
+    ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
     /**
      * This function removes the dead chicken from the level after a delay
      * 
      * @param {number} index - The index of the dead chicken to remove
      */
-    clearDeadChicken(index){
+    clearDeadChicken(index) {
         setTimeout(() => this.level.enemies.splice(index, 1), 5000);
     }
+    ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
 
     /**
      * This function reset the vertical speed of the character if it is -21
@@ -94,13 +151,7 @@ class World {
         });
     }
 
-    checkThrow() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
-            this.throwableObjects.push(bottle)
-            bottle.throw();
-        }
-    }
+
 
 
     draw() {
@@ -114,6 +165,7 @@ class World {
         this.addToMap(this.statusbar);
         this.addToMap(this.coinbar);
         this.addToMap(this.bottlebar);
+        this.addToMap(this.endbossbar);
 
         this.ctx.translate(this.camera_x, 0); // Forwards
 
@@ -122,6 +174,7 @@ class World {
 
 
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.boss);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
 
@@ -157,7 +210,8 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+
+        // mo.drawHitBox(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
