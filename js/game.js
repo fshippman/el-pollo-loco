@@ -20,10 +20,10 @@ function startGame() {
     world = new World(canvas, keyboard);
 
     loadingScreen();
-    setTimeout(startWorld, 10000);
+    setTimeout(showWorld, 10000);
 }
 
-function startWorld() {
+function showWorld() {
     console.log('testfunction')
     document.getElementById('loadingscreen').classList.add('d-none');
     canvas.classList.remove('d-none');
