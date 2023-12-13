@@ -13,21 +13,21 @@ function loadingScreen() {
     document.getElementById('loadingscreen').classList.remove('d-none');
 }
 
-function start() {
+function startGame() {
     document.getElementById('startscreen').classList.add('d-none');
 
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
     loadingScreen();
-    setTimeout(testfunction, 10000);
+    setTimeout(startWorld, 10000);
 }
 
-function testfunction() {
+function startWorld() {
     console.log('testfunction')
     document.getElementById('loadingscreen').classList.add('d-none');
     canvas.classList.remove('d-none');
-    world.startEnemyMovement();
+    world.startAnimations();
 }
 
 // mute Sound with Key M

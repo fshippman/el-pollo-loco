@@ -46,11 +46,12 @@ class World {
     }
 
 
-    startEnemyMovement() {
+    startAnimations() {
         this.level.enemies.forEach((enemy) => {
             enemy.animate();
         })
         this.character.playGameSound();
+        this.character.animate();
         console.log(this.level.boss, "BOSS")
         this.level.boss[0].animate();
     }

@@ -102,9 +102,11 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.animate();
         this.applyGravity();
         this.setThrowingTimer();
+
+        // ---- IN WORLD! 
+        // this.animate();
         // this.playGameSound();
 
     }
