@@ -81,7 +81,7 @@ class Character extends MovableObject {
 
     world;
 
-    game_music = new Audio('assets/audio/music.mp3');
+    game_music = new Audio('assets/audio/game_music.mp3');
     boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
     walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
