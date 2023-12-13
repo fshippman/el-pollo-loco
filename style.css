@@ -16,7 +16,7 @@ body {
     background-image: url('assets/img/background.png');
     background-position: center;
     /* background-size: cover; */
-    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    font-family: 'zabras', Arial, Helvetica, sans-serif !important;
 }
 
 
@@ -27,13 +27,46 @@ canvas {
 h1 {
     font-size: 84px;
     margin: 0;
-    letter-spacing: 6px;
     text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+    letter-spacing: 6px;
+}
+
+#startscreen {
+    display: flex;
+    align-items: flex-end;
 }
 
 #startscreen img {
     width: 720px;
     height: 480px;
+}
+
+.startscreen-buttons {
+    height: 70px;
+    width: 720px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    /* padding: 0px 20px 0px 20px; */
+}
+
+.button {
+    background-color: #FFDB04;
+    height: 40px;
+    width: 80px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    padding: 5px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #ffd904d8;
+    
 }
 
 
