@@ -50,9 +50,19 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+    hitsGround(){
+        return this. y > 300 + this.height
+    }
+
 
     playBottlesmashSound(){
         this.bottle_smash_sound.play();
+    }
+
+    showBottlesmash(){
+        this.playBottlesmashSound();
+        this.bottleCollision = true;
+       
     }
 
     animate() {

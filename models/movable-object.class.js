@@ -67,7 +67,7 @@ d
     isAboveGround() {
         if (this instanceof ThrowableObject) { //Throwable object should always fall
             return true;
-        } else {
+         } else {
             return this.y < 150; //150
         }
     }

@@ -32,7 +32,7 @@ class World {
             this.resetCharacterSpeedY();
             this.checkThrownCollisions();
            
-            console.log(this.character.throwTime())
+            // console.log(this.character.throwTime())
 
         }, 200);
     }
@@ -59,15 +59,23 @@ class World {
     checkThrownCollisions() {
         this.throwableObjects.forEach((ThrowableObject, index) => {
             if (ThrowableObject.isColliding(this.level.boss[0])) {
-                ThrowableObject.playBottlesmashSound();
-                ThrowableObject.bottleCollision = true;
+                ThrowableObject.showBottlesmash();
                 setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+               
                 if (!this.level.boss[0].isHurt()) {
                     this.level.boss[0].hit(ThrowableObject.attackDamage)
                     this.endbossbar.setPercentage(this.level.boss[0].energy)
-                    console.log(this.level.boss[0].energy)
                 }
             }
+
+            if(ThrowableObject.hitsGround()){
+                ThrowableObject.showBottlesmash();
+                setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+                console.log('test')
+            }
+
+        
+
         });
     }
 

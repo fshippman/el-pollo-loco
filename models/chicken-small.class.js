@@ -46,7 +46,7 @@ class SmallChicken extends MovableObject {
             if (this.energy == 0) {
                 this.playAnimation(this.IMAGE_DEAD);
             } else {
-                console.log('moving!')
+                
                 this.playAnimation(this.IMAGES_WALKING)
             }
         }, 200)
