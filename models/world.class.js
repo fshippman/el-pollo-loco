@@ -31,7 +31,7 @@ class World {
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
             this.checkThrownCollisions();
-           
+
             // console.log(this.character.throwTime())
 
         }, 200);
@@ -56,31 +56,42 @@ class World {
         this.level.boss[0].animate();
     }
 
+    
     checkThrownCollisions() {
         this.throwableObjects.forEach((ThrowableObject, index) => {
+
+            this.level.enemies.forEach((enemy) => {
+                if (enemy.isColliding(ThrowableObject)) {
+                    ThrowableObject.showBottlesmash();
+                    setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+                    this.killChicken(enemy);
+                }
+            });
+
+
             if (ThrowableObject.isColliding(this.level.boss[0])) {
                 ThrowableObject.showBottlesmash();
                 setTimeout(() => this.throwableObjects.splice(index, 1), 500);
-               
+
                 if (!this.level.boss[0].isHurt()) {
                     this.level.boss[0].hit(ThrowableObject.attackDamage)
                     this.endbossbar.setPercentage(this.level.boss[0].energy)
                 }
             }
 
-            if(ThrowableObject.hitsGround()){
+            if (ThrowableObject.hitsGround()) {
                 ThrowableObject.showBottlesmash();
+                ThrowableObject.y = 380
                 setTimeout(() => this.throwableObjects.splice(index, 1), 500);
-                console.log('test')
             }
 
-        
-
         });
+
     }
 
+
     checkThrow() {
-        if (this.keyboard.D && this.character.inventoryCounter > 0 &&  this.character.throwTime()) {
+        if (this.keyboard.D && this.character.inventoryCounter > 0 && this.character.throwTime()) {
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
             this.character.inventoryCounter--;
             this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
@@ -105,9 +116,7 @@ class World {
         let deleteIndex;
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive()) {
-                this.chicken_sound.play();
-                enemy.speed = 0;
-                enemy.energy = 0;
+                this.killChicken(enemy);
 
                 deleteIndex = index
 
@@ -122,7 +131,11 @@ class World {
 
     }
 
-
+    killChicken(enemy) {
+        this.chicken_sound.play();
+        enemy.speed = 0;
+        enemy.energy = 0;
+    }
     ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
     /**
      * This function removes the dead chicken from the level after a delay

@@ -24,7 +24,6 @@ function startGame() {
 }
 
 function showWorld() {
-    console.log('testfunction')
     document.getElementById('loadingscreen').classList.add('d-none');
     canvas.classList.remove('d-none');
     world.startAnimations();

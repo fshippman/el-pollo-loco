@@ -38,15 +38,15 @@ class ThrowableObject extends MovableObject {
 
     throw () {
         //Flugbogen
-        this.speedY = 18; //18
+        this.speedY = 12; //18
 
         this.applyGravity();
         //Fluggeschwindigkeit
         setInterval(() => {
             if (!this.bottleCollision) {
-                this.x += 8;
+                this.x += 5; //8
             }
-        }, 25);
+        }, 1000 / 60); //25
         this.animate();
     }
 
@@ -62,17 +62,17 @@ class ThrowableObject extends MovableObject {
     showBottlesmash(){
         this.playBottlesmashSound();
         this.bottleCollision = true;
-       
     }
 
     animate() {
         setInterval(() => {
             if (this.bottleCollision) {
+                // this.y = 350;
                 this.playAnimation(this.BOTTLE_SPLASH_IMAGES)
             } else if (!this.bottleCollision) {
                 this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
-            }
-        }, 200);
+            } 
+        }, 100);
     }
 
 }

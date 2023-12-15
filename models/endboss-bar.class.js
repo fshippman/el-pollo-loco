@@ -27,7 +27,7 @@ class EndbossBar extends DrawableObject {
 
 // 
 
-    // gibt Wert zwischen 0 und 5 zurück basierend auf Prozentwerd weil 6 Balkenbilder vorhanden
+    // gibt Wert zwischen 0 und 2 zurück basierend auf Prozentwerd weil 3 Balkenbilder vorhanden
     resolveBossBarImageIndex(percentage) {
         if (percentage == 100) {
             return 0;
