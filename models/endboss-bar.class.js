@@ -25,13 +25,13 @@ class EndbossBar extends DrawableObject {
         this.img = this.imageCache[path];
     }
 
-// 
+// 85 70  55 40  25 10
 
     // gibt Wert zwischen 0 und 2 zurück basierend auf Prozentwerd weil 3 Balkenbilder vorhanden
     resolveBossBarImageIndex(percentage) {
-        if (percentage == 100) {
+        if (percentage > 65) {
             return 0;
-        } else if (percentage > 30) {
+        } else if (percentage > 20) {
             return 1;
         } else {
             return 2;

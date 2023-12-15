@@ -36,7 +36,7 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
-    throw () {
+    throw (otherDirection) {
         //Flugbogen
         this.speedY = 12; //18
 
@@ -44,7 +44,12 @@ class ThrowableObject extends MovableObject {
         //Fluggeschwindigkeit
         setInterval(() => {
             if (!this.bottleCollision) {
-                this.x += 5; //8
+                if(!otherDirection){
+                    this.x += 5; //8
+                } else {
+                    this.x -= 5;
+                }
+               
             }
         }, 1000 / 60); //25
         this.animate();
@@ -59,9 +64,10 @@ class ThrowableObject extends MovableObject {
         this.bottle_smash_sound.play();
     }
 
-    showBottlesmash(){
+    showBottlesmash(throwableObjects, index){
         this.playBottlesmashSound();
         this.bottleCollision = true;
+        setTimeout(() => throwableObjects.splice(index, 1), 500);
     }
 
     animate() {

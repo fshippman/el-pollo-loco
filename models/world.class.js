@@ -56,22 +56,20 @@ class World {
         this.level.boss[0].animate();
     }
 
-    
+
     checkThrownCollisions() {
         this.throwableObjects.forEach((ThrowableObject, index) => {
 
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(ThrowableObject)) {
-                    ThrowableObject.showBottlesmash();
-                    setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+                    ThrowableObject.showBottlesmash(this.throwableObjects, index);
                     this.killChicken(enemy);
                 }
             });
 
 
             if (ThrowableObject.isColliding(this.level.boss[0])) {
-                ThrowableObject.showBottlesmash();
-                setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+                ThrowableObject.showBottlesmash(this.throwableObjects, index);
 
                 if (!this.level.boss[0].isHurt()) {
                     this.level.boss[0].hit(ThrowableObject.attackDamage)
@@ -80,9 +78,9 @@ class World {
             }
 
             if (ThrowableObject.hitsGround()) {
-                ThrowableObject.showBottlesmash();
-                ThrowableObject.y = 380
-                setTimeout(() => this.throwableObjects.splice(index, 1), 500);
+                ThrowableObject.showBottlesmash(this.throwableObjects, index);
+                let groundLevel = 380
+                ThrowableObject.y = groundLevel;  
             }
 
         });
@@ -92,11 +90,17 @@ class World {
 
     checkThrow() {
         if (this.keyboard.D && this.character.inventoryCounter > 0 && this.character.throwTime()) {
-            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
+
+            let throwableObjectOffset = 50;
+            if (this.character.otherDirection) {
+                throwableObjectOffset = 0
+            }
+
+            let bottle = new ThrowableObject(this.character.x + throwableObjectOffset, this.character.y + 100);
             this.character.inventoryCounter--;
             this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             this.throwableObjects.push(bottle)
-            bottle.throw();
+            bottle.throw(this.character.otherDirection);
             this.character.setThrowingTimer();
             this.character.playThrowingSound();
         }
