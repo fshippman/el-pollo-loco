@@ -226,7 +226,7 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
-            // console.log(this.isIdle)
+            console.log(this.energy)
             // this.playGameSound();
 
             if (world.gameIsRunning) {
@@ -277,6 +277,14 @@ class Character extends MovableObject {
                     this.game_music.pause();
                     this.boss_music.play();
                     this.boss_music.volume = 0.5;
+                }
+
+                if (this.isDead()) {
+                    setTimeout(() => {
+                        world.gameIsRunning = false;
+                        stopGameLose();
+                    }, 1000);
+                   
                 }
 
                 this.world.camera_x = -this.x + 100;

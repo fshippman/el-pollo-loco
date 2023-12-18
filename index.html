@@ -34,31 +34,44 @@
 
     <h1>El Pollo Loco</h1>
 
+    <div class="game-container">
 
-    <canvas id="canvas" width="720" height="480" class="d-none">
 
-    </canvas>
+        <canvas id="canvas" width="720" height="480" class="d-none">
 
-    <div id="winningScreen" class="d-none">
-        <img src="assets/img/9_intro_outro_screens/win.png" alt="">
-        <button  class="button">Restart</button>
-    </div>
-
-    <div id="startScreen">
-        <img src="assets/img/9_intro_outro_screens/start/startscreen_2.png" alt="">
-        <div class="startscreen-buttons">
-            <button onclick="startGame()" class="button">Start</button>
-            <button onclick="stopGame()" class="button">Button</button>
+        </canvas>
+    
+        <div id="winningScreen" class="d-none">
+            <img src="assets/img/9_intro_outro_screens/win.png" alt="">
+            <button  class="button">Restart</button>
         </div>
-    </div>
-
-    <div id="loadingScreen" class="d-none">
-        <div class="loadinganimation-container">
-            <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="" class="loader">
+    
+        <div id="loseScreen" class="d-none">
+            <img src="assets/img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="">
+            <button class="button margin-restart-button">Restart</button>
+        </div>
+    
+        <div id="startScreen">
+            <img src="assets/img/9_intro_outro_screens/start/startscreen_2.png" alt="">
+            <div class="startscreen-buttons">
+                <button onclick="startGame()" class="button">Start</button>
+                <button onclick="startGame()" class="button">Start</button>
+            </div>
+        </div>
+    
+        <div id="loadingScreen" class="d-none">
+            <div class="loadinganimation-container">
+                <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="" class="loader">
+            </div>
+    
+            <h1 class="loading-text">load...</h1>
         </div>
 
-        <h1 class="loading-text">load...</h1>
+
+
     </div>
+
+   
 
   
 

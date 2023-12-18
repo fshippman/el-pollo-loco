@@ -30,6 +30,12 @@ h1 {
     letter-spacing: 6px;
 }
 
+.game-container{
+    display: flex;
+    width: 720px;
+    height: 480px;
+}
+
 #startScreen {
     display: flex;
     align-items: flex-end;
@@ -51,6 +57,7 @@ h1 {
 }
 
 .button {
+    /* position:absolute; */
     background-color: #FFDB04;
     height: 40px;
     width: 80px;
@@ -67,6 +74,29 @@ h1 {
     background-color: #ffd904d8;
     
 }
+
+.margin-restart-button {
+    position: absolute;
+    margin-top: 290px;
+}
+
+
+#loseScreen {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 720px !important;
+    height: 480px !important;
+    z-index: 100;
+}
+
+#loseScreen img {
+    width: 720px !important;
+    height: 480px !important;
+}
+
+
 #winningScreen {
     width: 720px;
     height: 480px;

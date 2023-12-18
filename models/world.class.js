@@ -110,7 +110,7 @@ class World {
         this.character.whatIsMyDirection();
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
-                this.character.hit();
+                this.character.hit(enemy.attackDamage);
                 this.statusbar.setPercentage(this.character.energy)
             }
         });
