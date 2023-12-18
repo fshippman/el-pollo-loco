@@ -30,12 +30,12 @@ h1 {
     letter-spacing: 6px;
 }
 
-#startscreen {
+#startScreen {
     display: flex;
     align-items: flex-end;
 }
 
-#startscreen img {
+#startScreen img {
     width: 720px;
     height: 480px;
 }

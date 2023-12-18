@@ -13,7 +13,7 @@ class World {
     keyboard;
     camera_x = 0;
     throwableObjects = [];
-
+    gameIsRunning = true;
 
 
     constructor(canvas, keyboard) {

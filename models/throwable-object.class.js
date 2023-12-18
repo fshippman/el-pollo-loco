@@ -16,7 +16,7 @@ class ThrowableObject extends MovableObject {
         this.y = y
         this.height = 70;
         this.width = 70;
-        this.attackDamage = 15; //DO NOT CHANGE!
+        this.attackDamage = 50; //DO NOT CHANGE! 15
 
     }
 
@@ -71,13 +71,16 @@ class ThrowableObject extends MovableObject {
     }
 
     animate() {
+      
         setInterval(() => {
-            if (this.bottleCollision) {
-                // this.y = 350;
-                this.playAnimation(this.BOTTLE_SPLASH_IMAGES)
-            } else if (!this.bottleCollision) {
-                this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
-            } 
+            if (world.gameIsRunning) {
+                if (this.bottleCollision) {
+                    // this.y = 350;
+                    this.playAnimation(this.BOTTLE_SPLASH_IMAGES)
+                } else if (!this.bottleCollision) {
+                    this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
+                } 
+            }
         }, 100);
     }
 

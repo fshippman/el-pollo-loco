@@ -39,7 +39,7 @@ class Endboss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
         'assets/img/4_enemie_boss_chicken/4_hurt/G23.png'
     ];
-    
+
     IMAGES_ATTACK = [
         'assets/img/4_enemie_boss_chicken/3_attack/G13.png',
         'assets/img/4_enemie_boss_chicken/3_attack/G14.png',
@@ -57,7 +57,7 @@ class Endboss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
-    
+
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -72,57 +72,69 @@ class Endboss extends MovableObject {
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
         this.deadAnimation = false;
+
     }
 
-    walkingBoss(){
+    walkingBoss() {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
     }
 
-   
+
     animate() {
         let i = 0
-       
-        setInterval(() => {
-            
-            if (i < 20 && this.hadFirstEndbossContact) {
-                this.playAnimation(this.IMAGES_ATTACK);
-                world.level.level_end_x = 500
-                world.level.level_start_x = 400
-            }  
-            
-            if(this.isHurt() && this.energy < 100 && this.energy > 50) {
-                this.playAnimation(this.IMAGES_ATTACK)
-                this.stopWalking();
-                this.deadAnimation = false;
-            } else if (this.isHurt() && this.energy < 49 && !this.isDead()) {
-                this.playAnimation(this.IMAGES_HURT)
-                this.stopWalking();
-                this.deadAnimation = false;
-            } else if (this.isDead() && !this.deadAnimation) {
-                this.playAnimation(this.IMAGES_DEAD)
-                this.stopWalking();
-                this.deadAnimation = true;
-            } else if (!this.isDead() && !this.hadFirstEndbossContact) {
-                this.playAnimation(this.IMAGES_ALERT);
-            } else {
-                if (i > 20 && this.hadFirstEndbossContact && !this.isDead()){
-                    world.level.level_end_x = 2200
-                    world.level.level_start_x = -600
-    
-                    this.endfightStart = true
-                    this.speed = 0.02;
-                    this.playAnimation(this.IMAGES_WALKING)
-                    this.walkingBoss();
-                } 
-            }
-            i++;
 
-            if (world.character.x > 400 && !this.hadFirstEndbossContact) {
-                i = 0
-                this.hadFirstEndbossContact = true
+        setInterval(() => {
+
+            if (world.gameIsRunning) {
+
+                if (this.isHurt() && this.energy < 100 && this.energy > 50) {
+                    this.playAnimation(this.IMAGES_ATTACK)
+                    this.stopWalking();
+                    this.deadAnimation = false;
+
+                } else if (this.isHurt() && this.energy < 49 && !this.isDead()) {
+                    this.playAnimation(this.IMAGES_HURT)
+                    this.stopWalking();
+                    this.deadAnimation = false;
+
+                } else if (this.isDead() && !this.deadAnimation) {
+                    this.playAnimation(this.IMAGES_DEAD)
+                    this.stopWalking();
+                    this.deadAnimation = true;
+                    world.gameIsRunning = false;
+                    stopGameWin();
+
+                } else if (!this.isDead() && !this.hadFirstEndbossContact) {
+                    this.playAnimation(this.IMAGES_ALERT);
+
+                } else {
+
+                    if (i < 20 && this.hadFirstEndbossContact) {
+                        this.playAnimation(this.IMAGES_ATTACK);
+                        world.level.level_end_x = 500
+                        world.level.level_start_x = 400
+                    }
+
+                    if (i > 20 && this.hadFirstEndbossContact && !this.isDead()) {
+                        world.level.level_end_x = 2200
+                        world.level.level_start_x = -600
+
+                        this.endfightStart = true
+                        this.speed = 0.02;
+                        this.playAnimation(this.IMAGES_WALKING)
+                        // this.walkingBoss();
+                    }
+                }
+                i++;
+
+                if (world.character.x > 400 && !this.hadFirstEndbossContact) {
+                    i = 0
+                    this.hadFirstEndbossContact = true
+                }
             }
+
         }, 200)
     }
 

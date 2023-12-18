@@ -18,7 +18,7 @@ class Bottle extends MovableObject {
         
     }
 
-  
+  //world.gameIsRunning
 
 
 }  

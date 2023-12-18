@@ -11,6 +11,7 @@
      img;
      imageCache = {};
      currentImage = 0;
+     
 
      /**
       * This function

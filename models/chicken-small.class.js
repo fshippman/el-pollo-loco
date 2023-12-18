@@ -38,18 +38,22 @@ class SmallChicken extends MovableObject {
     animate() {
       
         setInterval(() => {
-            this.moveLeft();
+            if (world.gameIsRunning) {
+                this.moveLeft();
+            }
+           
         }, 1000 / 60);
 
         // modulu = hebt Rest auf
         setInterval(() => {
-            
-            if (this.energy == 0) {
-                this.playAnimation(this.IMAGE_DEAD);
-            } else {
-                
-                this.playAnimation(this.IMAGES_WALKING)
+            if (world.gameIsRunning) {
+                if (this.energy == 0) {
+                    this.playAnimation(this.IMAGE_DEAD);
+                } else {
+                    this.playAnimation(this.IMAGES_WALKING)
+                }
             }
+            
         }, 200)
     }
 

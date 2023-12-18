@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
 
+
 function init() {
     console.log('init');
 
@@ -10,25 +11,40 @@ function init() {
 
 
 
-function stopGame() {
-   document.getElementById('winningScreen').classList.remove('d-none');
-   document.getElementById('startscreen').classList.add('d-none');
-   document.getElementById('canvas').classList.add('d-none');
-   document.getElementById('loadingscreen').classList.remove('d-none');
+function stopGameWin() {
 
+    setTimeout(() => {
+        document.getElementById('winningScreen').classList.remove('d-none');
+        document.getElementById('startScreen').classList.add('d-none');
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('loadingScreen').classList.add('d-none');
+    }, 3000);
+   
+}
+
+function stopGameLose() {
+
+    setTimeout(() => {
+        document.getElementById('loseScreen').classList.remove('d-none');
+        document.getElementById('startScreen').classList.add('d-none');
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('loadingScreen').classList.add('d-none');
+    }, 3000);
+   
 }
 
 
 function loadingScreen() {
-    document.getElementById('startscreen').classList.add('d-none');
+    document.getElementById('loadingScreen').classList.remove('d-none');
+    document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('canvas').classList.add('d-none');
-    document.getElementById('loadingscreen').classList.remove('d-none');
+  
 }
 
 
 function startGame() {
-    document.getElementById('startscreen').classList.add('d-none');
-
+    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('winningScreen').classList.add('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
@@ -37,7 +53,7 @@ function startGame() {
 }
 
 function showWorld() {
-    document.getElementById('loadingscreen').classList.add('d-none');
+    document.getElementById('loadingScreen').classList.add('d-none');
     canvas.classList.remove('d-none');
     world.startAnimations();
 }
