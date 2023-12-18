@@ -1,17 +1,30 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let intervalIds = [];
 
 function init() {
     console.log('init');
 
 }
 
+
+
+function stopGame() {
+   document.getElementById('winningScreen').classList.remove('d-none');
+   document.getElementById('startscreen').classList.add('d-none');
+   document.getElementById('canvas').classList.add('d-none');
+   document.getElementById('loadingscreen').classList.remove('d-none');
+
+}
+
+
 function loadingScreen() {
     document.getElementById('startscreen').classList.add('d-none');
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('loadingscreen').classList.remove('d-none');
 }
+
 
 function startGame() {
     document.getElementById('startscreen').classList.add('d-none');
@@ -20,7 +33,7 @@ function startGame() {
     world = new World(canvas, keyboard);
 
     loadingScreen();
-    setTimeout(() => showWorld(), 10000); 
+    setTimeout(() => showWorld(), 10000);
 }
 
 function showWorld() {

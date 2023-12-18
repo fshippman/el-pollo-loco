@@ -15,7 +15,6 @@ body {
     height: 100vh;
     background-image: url('assets/img/background.png');
     background-position: center;
-    /* background-size: cover; */
     font-family: 'zabras', Arial, Helvetica, sans-serif !important;
 }
 
@@ -26,7 +25,7 @@ canvas {
 
 h1 {
     font-size: 84px;
-    margin: 0;
+    margin: 20px;
     text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
     letter-spacing: 6px;
 }
@@ -68,9 +67,23 @@ h1 {
     background-color: #ffd904d8;
     
 }
+#winningScreen {
+    width: 720px;
+    height: 480px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 
+#winningScreen img {
+    height: 77px;
+    width: 358px;
+}
 
-#loadingscreen {
+#loadingScreen {
     height: 480px;
     width: 720px;
     background-color: black;
