@@ -72,6 +72,9 @@ d
         }
     }
 
+    stopWalking(){
+        this.speed = 0;
+    }
 
 
     hit(attackDamage) {
