@@ -54,6 +54,8 @@ class Endboss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    hadFirstEndbossContact = false;
+
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -67,13 +69,28 @@ class Endboss extends MovableObject {
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
         this.deadAnimation = false;
-        
+
     }
 
     animate() {
+        let i = 0
+        let hadFirstEndbossContact = false;
         setInterval(() => {
-           
-            if (this.isHurt() && this.energy < 100 && this.energy > 50) {
+            console.log(world.level.level_end_x)
+            
+            if (i < 20 && hadFirstEndbossContact) {
+                this.playAnimation(this.IMAGES_ATTACK);
+                // world.level.level_end_x = -600
+                // world.level.level_start_x = 2200
+                world.level.level_end_x = 500
+                world.level.level_start_x = 400
+            
+
+            } else if (i > 20 && hadFirstEndbossContact){
+                world.level.level_end_x = 2200
+                world.level.level_start_x = -600
+                this.playAnimation(this.IMAGES_WALKING)
+            } else if(this.isHurt() && this.energy < 100 && this.energy > 50) {
                 this.deadAnimation = false;
                 this.playAnimation(this.IMAGES_ATTACK)
             } else if (this.isHurt() && this.energy < 49 && !this.isDead()) {
@@ -82,10 +99,22 @@ class Endboss extends MovableObject {
             } else if (this.isDead() && !this.deadAnimation) {
                 this.playAnimation(this.IMAGES_DEAD)
                 this.deadAnimation = true;
-            } else if (!this.isDead()) {
+            } else if (!this.isDead() && !hadFirstEndbossContact) {
                 this.playAnimation(this.IMAGES_ALERT)
+            } 
+            i++;
+
+            if (world.character.x > 400 && !hadFirstEndbossContact) {
+                i = 0
+                hadFirstEndbossContact = true
             }
+           
+
+
+
+
         }, 200)
     }
+
 
 }
