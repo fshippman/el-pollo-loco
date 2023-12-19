@@ -67,7 +67,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
 
         this.speed = 0.02;
-        this.x = 900 // 2500!
+        this.x = 2500 // 2500!
         // this.animate();
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
@@ -113,8 +113,8 @@ class Endboss extends MovableObject {
 
                     if (i < 20 && this.hadFirstEndbossContact) {
                         this.playAnimation(this.IMAGES_ATTACK);
-                        world.level.level_end_x = 500
-                        world.level.level_start_x = 400
+                        world.level.level_end_x = 2140
+                        world.level.level_start_x = 2135
                     }
 
                     if (i > 20 && this.hadFirstEndbossContact && !this.isDead()) {
@@ -129,7 +129,7 @@ class Endboss extends MovableObject {
                 }
                 i++;
 
-                if (world.character.x > 400 && !this.hadFirstEndbossContact) {
+                if (world.character.x > 2100 && !this.hadFirstEndbossContact) {
                     i = 0
                     this.hadFirstEndbossContact = true
                 }
