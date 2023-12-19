@@ -24,14 +24,10 @@ function stopGameWin() {
 }
 
 function stopGameLose() {
-
-   
         document.getElementById('loseScreen').classList.remove('d-none');
         document.getElementById('winningScreen').classList.add('d-none');
         document.getElementById('startScreen').classList.add('d-none');
         document.getElementById('loadingScreen').classList.add('d-none');
-    
-   
 }
 
 

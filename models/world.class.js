@@ -68,11 +68,12 @@ class World {
             });
 
 
-            if (ThrowableObject.isColliding(this.level.boss[0])) {
+            if (ThrowableObject.isColliding(this.level.boss[0]) && this.level.boss[0].endfightStart) {
                 ThrowableObject.showBottlesmash(this.throwableObjects, index);
 
                 if (!this.level.boss[0].isHurt()) {
                     this.level.boss[0].hit(ThrowableObject.attackDamage)
+                    this.chicken_sound.play();
                     this.endbossbar.setPercentage(this.level.boss[0].energy)
                 }
             }

@@ -75,11 +75,21 @@ h1 {
     
 }
 
-.margin-restart-button {
+.end-screen-buttons{
+    width: 280px;
+    display: flex;
     position: absolute;
-    margin-top: 290px;
+    justify-content: space-around;
+  
 }
 
+.margin-top-lose {
+    margin-top: 330px;
+}
+
+.margin-top-win {
+    margin-top: 250px;
+}
 
 #loseScreen {
     position: absolute;

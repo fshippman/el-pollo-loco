@@ -273,7 +273,7 @@ class Character extends MovableObject {
                     this.sleeping_sound.play();
                 }
 
-                if (this.x > 2300) {
+                if (this.x > 2100) {
                     this.game_music.pause();
                     this.boss_music.play();
                     this.boss_music.volume = 0.5;
