@@ -2,17 +2,33 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
-
+let victory
+let victory_music = new Audio('assets/audio/good_end_C0.mp3');
+let menu_music = new Audio('assets/audio/menu_music.mp3');
 
 function init() {
-    console.log('init');
+    menu_music.play();
+    menu_music.volume = 0.5;
+    menu_music.loop = true;
+}
 
+function pauseAllSounds() {
+    pauseCharacterSounds();
+}
+
+function pauseCharacterSounds() {
+    world.character.game_music.pause();
+    world.character.boss_music.pause();
+    world.character.walking_sound.pause();
+    world.character.jumping_sound.pause();
+    world.character.throwing_sound.pause();
+    world.character.sleeping_sound.pause();
 }
 
 
 
 function stopGameWin() {
-
+    pauseAllSounds();
     setTimeout(() => {
         document.getElementById('winningScreen').classList.remove('d-none');
         document.getElementById('loseScreen').classList.add('d-none');
@@ -20,14 +36,14 @@ function stopGameWin() {
         document.getElementById('canvas').classList.add('d-none');
         document.getElementById('loadingScreen').classList.add('d-none');
     }, 3000);
-   
 }
 
 function stopGameLose() {
-        document.getElementById('loseScreen').classList.remove('d-none');
-        document.getElementById('winningScreen').classList.add('d-none');
-        document.getElementById('startScreen').classList.add('d-none');
-        document.getElementById('loadingScreen').classList.add('d-none');
+    pauseAllSounds()
+    document.getElementById('loseScreen').classList.remove('d-none');
+    document.getElementById('winningScreen').classList.add('d-none');
+    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('loadingScreen').classList.add('d-none');
 }
 
 
@@ -35,21 +51,23 @@ function loadingScreen() {
     document.getElementById('loadingScreen').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('canvas').classList.add('d-none');
-  
+
 }
 
 
 function startGame() {
+    menu_music.pause();
+    menu_music.currentTime = 0;
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
     loadingScreen();
     setTimeout(() => showWorld(), 10000);
 }
 
 function showWorld() {
+    menu_music.pause();
     document.getElementById('loadingScreen').classList.add('d-none');
     canvas.classList.remove('d-none');
     world.startAnimations();

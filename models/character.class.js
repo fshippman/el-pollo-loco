@@ -279,7 +279,7 @@ class Character extends MovableObject {
                     this.boss_music.volume = 0.5;
                 }
 
-                if (this.isDead()) {
+                if (this.isDead() && this.world.gameIsRunning) {
                     setTimeout(() => {
                         world.gameIsRunning = false;
                         stopGameLose();
