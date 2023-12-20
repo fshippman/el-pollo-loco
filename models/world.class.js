@@ -23,14 +23,13 @@ class World {
 
         setInterval(() => {
 
-            this.checkCollisions();
+            this.checkEnemyCollisions();
+            this.checkBossCollision();
             this.collectBottles();
             this.checkThrow();
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
             this.checkThrownCollisions();
-
-            // console.log(this.character.throwTime())
 
         }, 200);
     }
@@ -50,7 +49,6 @@ class World {
         })
         this.character.playGameSound();
         this.character.animate();
-        console.log(this.level.boss, "BOSS")
         this.level.boss[0].animate();
     }
 
@@ -105,7 +103,7 @@ class World {
         }
     }
 
-    checkCollisions() {
+    checkBossCollision() {
         this.character.whatIsMyDirection();
         this.level.boss.forEach((enemy) => {
             if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
@@ -114,9 +112,9 @@ class World {
             }
         });
     }
+    
 
-
-    checkCharacterBossCollision() {
+    checkEnemyCollisions() {
         this.character.whatIsMyDirection();
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {

@@ -226,7 +226,7 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
-            console.log(this.energy)
+          
             // this.playGameSound();
 
             if (world.gameIsRunning) {
