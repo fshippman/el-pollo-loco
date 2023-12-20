@@ -26,6 +26,7 @@ class World {
             this.checkEnemyCollisions();
             this.checkBossCollision();
             this.collectBottles();
+            this.collectCoins(); 
             this.checkThrow();
             this.jumpOnChicken();
             this.resetCharacterSpeedY();
@@ -77,7 +78,7 @@ class World {
             if (ThrowableObject.hitsGround()) {
                 ThrowableObject.showBottlesmash(this.throwableObjects, index);
                 let groundLevel = 380
-                ThrowableObject.y = groundLevel;  
+                ThrowableObject.y = groundLevel;
             }
 
         });
@@ -112,7 +113,7 @@ class World {
             }
         });
     }
-    
+
 
     checkEnemyCollisions() {
         this.character.whatIsMyDirection();
@@ -188,7 +189,11 @@ class World {
     collectCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin, index)) {
-                coin.coin_sound.play();
+                console.log('coin')
+                this.character.coinInventory++;
+                this.level.coins.splice(index,1)
+                this.coinbar.setPercentage(this.character.calculateCoinPercentage());
+                // coin.coin_sound.play();
             }
         });
     }
@@ -217,6 +222,7 @@ class World {
         this.addObjectsToMap(this.level.boss);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.coins);
 
 
 
@@ -251,7 +257,7 @@ class World {
 
         mo.draw(this.ctx);
 
-        // mo.drawHitBox(this.ctx);
+        mo.drawHitBox(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

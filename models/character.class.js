@@ -2,14 +2,17 @@ class Character extends MovableObject {
     y = 150; //160
     height = 280; //270
     width = 107;
-    offsetXL = 15 //25
-    offsetXR = 30 //35
-    offsetYU = 15 //120
-    offsetYD = 15 //30
+    offsetXL = 15 //15
+    offsetXR = 30 //30
+    offsetYU = 110 //15
+    offsetYD = 15 //15
     speed = 5;
     currentImage = 0;
     inventoryCounter = 0;
     inventoryMax = 8;
+    coinInventory = 0;
+    coinMax = 15;
+
     isIdle = false;
     idleTimer;
     throwTimePassed;
@@ -185,6 +188,10 @@ class Character extends MovableObject {
         // maxBottle = 8;
         // inv > max
         //  1/8 * 100
+    }
+
+    calculateCoinPercentage() {
+        return (this.coinInventory / this.coinMax) * 100
     }
 
     playIdleAnimations() {

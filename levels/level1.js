@@ -83,6 +83,31 @@ const level1 = new Level(
         new Bottle(2000),
         new Bottle(2100), //  2100 max x right!
 
+    ],
+
+    [
+        new Coin(-550),
+        new Coin(-250),
+        new Coin(-150),
+        new Coin(0),
+    
+
+        new Coin(0),
+        new Coin(300),
+
+        new Coin(500),
+
+        new Coin(700),
+        new Coin(850),
+
+        new Coin(1000),
+        new Coin(1200),
+      
+    
+        new Coin(1800),
+        new Coin(1900),
+        new Coin(2000),
+        new Coin(2100),
     ]
  
 ); 
