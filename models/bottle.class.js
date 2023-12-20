@@ -7,7 +7,7 @@ class Bottle extends MovableObject {
     offsetYD = 10 //10
     height = 80; 
     width = 80;
-    
+    bottle_sound = new Audio('assets/audio/bottle.mp3');
   
     constructor(x) {
         super().loadImage('assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png' );

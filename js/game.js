@@ -2,7 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
-let victory
+// let lose_music =
 let victory_music = new Audio('assets/audio/good_end_C0.mp3');
 let menu_music = new Audio('assets/audio/menu_music.mp3');
 
@@ -11,6 +11,11 @@ function init() {
     menu_music.volume = 0.5;
     menu_music.loop = true;
 }
+
+// not just quick and dirty
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+  }
 
 function pauseAllSounds() {
     pauseCharacterSounds();

@@ -14,6 +14,7 @@ class Endboss extends MovableObject {
     deadAnimation;
     hadFirstEndbossContact = false;
     endfightStart = false;
+    chicken_sound = new Audio('assets/audio/chicken.mp3');
 
 
     IMAGES_WALKING = [
@@ -72,6 +73,7 @@ class Endboss extends MovableObject {
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
         this.deadAnimation = false;
+        this.attackDamage = 25;
 
     }
 

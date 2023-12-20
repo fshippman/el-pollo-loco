@@ -8,6 +8,7 @@ class Level {
     level_start_x = -600;
     level_end_x = 2200;
 
+
     constructor(enemies, boss, clouds, backgroundObjects, bottles) {
         this.enemies = enemies
         this.boss = boss

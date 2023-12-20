@@ -4,8 +4,6 @@ class World {
     bottlebar = new BottleBar();
     coinbar = new CoinBar();
     endbossbar = new EndbossBar();
-    bottle_sound = new Audio('assets/audio/bottle.mp3');
-    chicken_sound = new Audio('assets/audio/chicken.mp3');
     CHICKEN_DEAD = [];
     level = level1;
     canvas;
@@ -73,7 +71,7 @@ class World {
 
                 if (!this.level.boss[0].isHurt()) {
                     this.level.boss[0].hit(ThrowableObject.attackDamage)
-                    this.chicken_sound.play();
+                    this.level.boss[0].chicken_sound.play();
                     this.endbossbar.setPercentage(this.level.boss[0].energy)
                 }
             }
@@ -109,6 +107,17 @@ class World {
 
     checkCollisions() {
         this.character.whatIsMyDirection();
+        this.level.boss.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
+                this.character.hit(enemy.attackDamage);
+                this.statusbar.setPercentage(this.character.energy)
+            }
+        });
+    }
+
+
+    checkCharacterBossCollision() {
+        this.character.whatIsMyDirection();
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
                 this.character.hit(enemy.attackDamage);
@@ -137,7 +146,7 @@ class World {
     }
 
     killChicken(enemy) {
-        this.chicken_sound.play();
+        enemy.chicken_sound.play();
         enemy.speed = 0;
         enemy.energy = 0;
     }
@@ -168,9 +177,9 @@ class World {
     collectBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle, index) && this.character.checkInventorySpace()) {
-                this.bottle_sound.pause();
-                this.bottle_sound.currentTime = 0;
-                this.bottle_sound.play();
+                bottle.bottle_sound.pause();
+                bottle.bottle_sound.currentTime = 0;
+                bottle.bottle_sound.play();
                 this.character.inventoryCounter++;
                 this.level.bottles.splice(index, 1) // Die richtige FLasche wird gelöscht
                 this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
@@ -178,7 +187,13 @@ class World {
         });
     }
 
-
+    collectCoins() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin, index)) {
+                coin.coin_sound.play();
+            }
+        });
+    }
 
 
     draw() {

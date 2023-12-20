@@ -6,6 +6,7 @@ class SmallChicken extends MovableObject {
     offsetXR = 7   //35
     offsetYU = 4 //120
     offsetYD = 10 //30
+    chicken_sound = new Audio('assets/audio/chicken.mp3');
   
 
 
@@ -29,7 +30,7 @@ class SmallChicken extends MovableObject {
          //original
         // this.x = 200 + Math.random() * 2500;
         this.speed = 0.15 + Math.random() * 0.5; //0.25
-        this.attackDamage = 20;
+        this.attackDamage = 2;
         // this.animate();
     }
 
