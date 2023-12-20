@@ -193,7 +193,7 @@ class World {
                 this.character.coinInventory++;
                 this.level.coins.splice(index,1)
                 this.coinbar.setPercentage(this.character.calculateCoinPercentage());
-                // coin.coin_sound.play();
+                coin.coin_sound.play();
             }
         });
     }

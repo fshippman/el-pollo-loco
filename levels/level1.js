@@ -70,18 +70,15 @@ const level1 = new Level(
         new Bottle(-600), //  -600 max x left!
         new Bottle(-400),
         new Bottle(-330),
+        new Bottle(-300),
         new Bottle(-100),
         new Bottle(300),
-        new Bottle(300),
-        new Bottle(300),
-        new Bottle(300),
-        new Bottle(300),
-        new Bottle(300),
-        new Bottle(500),
+        // new Bottle(400),
+        // new Bottle(500),
         new Bottle(800),
         new Bottle(1500),
         new Bottle(2000),
-        new Bottle(2100), //  2100 max x right!
+        new Bottle(2100) //  2100 max x right!
 
     ],
 
@@ -90,24 +87,17 @@ const level1 = new Level(
         new Coin(-250),
         new Coin(-150),
         new Coin(0),
-    
-
         new Coin(0),
         new Coin(300),
-
         new Coin(500),
-
         new Coin(700),
         new Coin(850),
-
         new Coin(1000),
         new Coin(1200),
-      
-    
         new Coin(1800),
         new Coin(1900),
         new Coin(2000),
-        new Coin(2100),
+        new Coin(2100)
     ]
  
 ); 
