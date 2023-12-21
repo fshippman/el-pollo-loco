@@ -30,11 +30,17 @@ function pauseCharacterSounds() {
     world.character.throwing_sound.pause();
     world.character.sleeping_sound.pause();
 }
-
+function restartGame(){
+    clearAllIntervals();
+    document.getElementById('loseScreen').classList.add('d-none');
+    document.getElementById('winningScreen').classList.add('d-none');
+    startGame();
+}
 
 function stopGameWin() {
     pauseAllSounds();
     playWinningSound();
+    clearArrays();
     setTimeout(() => {
         document.getElementById('winningScreen').classList.remove('d-none');
         document.getElementById('loseScreen').classList.add('d-none');
@@ -47,6 +53,7 @@ function stopGameWin() {
 function stopGameLose() {
     pauseAllSounds();
     playLosingSound();
+    clearArrays();
     document.getElementById('loseScreen').classList.remove('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     document.getElementById('startScreen').classList.add('d-none');
@@ -56,6 +63,14 @@ function stopGameLose() {
 function playLosingSound(){
     game_over_sound.play();
     game_over_sound.volume = 0.5;
+}
+
+function clearArrays(){
+    world.level.bottles = []
+    world.level.coins = []
+    world.level.enemies = []
+    world.level.backgroundObjects = []
+    world.level.clouds = []
 }
 
 function playWinningSound(){
@@ -72,6 +87,7 @@ function loadingScreen() {
 
 
 function startGame() {
+    startLevel1();
     menu_music.pause();
     menu_music.currentTime = 0;
     document.getElementById('startScreen').classList.add('d-none');

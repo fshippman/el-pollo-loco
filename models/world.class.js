@@ -5,7 +5,7 @@ class World {
     coinbar = new CoinBar();
     endbossbar = new EndbossBar();
     CHICKEN_DEAD = [];
-    level = level1;
+   
     canvas;
     ctx;
     keyboard;
@@ -18,6 +18,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.level = level1;
         this.draw();
         this.setWorld();
 
@@ -159,7 +160,7 @@ class World {
         setTimeout(() => this.level.enemies.splice(index, 1), 5000);
     }
     ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
-
+    
     /**
      * This function reset the vertical speed of the character if it is -21
      * 
@@ -185,7 +186,7 @@ class World {
             }
         });
     }
-
+  
     collectCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin, index)) {

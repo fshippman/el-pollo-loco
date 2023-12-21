@@ -1,46 +1,47 @@
-const level1 = new Level(
-    [ 
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-       
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
+function startLevel1() {
+    level1 = new Level(
+        createEnemies(),
+        createEndboss(),
+        createClouds(),
+        createBackgroundObjects(),
+        createBottles(),
+        createCoins(),
+    );
+}
 
+function createEnemies() {
+    return [
         new Chicken(),
         new Chicken(),
         new Chicken(),
         new Chicken(),
         new Chicken(),
 
-        // new SmallChicken(),
-        // new SmallChicken(),
-        // new SmallChicken(),
-        // new SmallChicken(),
-        // new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+    ]
+}
 
-        // new SmallChicken(),
-        // new SmallChicken(),
-        // new SmallChicken(),
+function createEndboss() {
+    return [
+        new Endboss(),
+    ]
+}
 
-
-     
-    ],
-    [
-        new Endboss()
-    ],
-    [
+function createClouds() {
+    return [
         new Cloud(),
-        // new Cloud(),
-        // new Cloud(),
-        // new Cloud()
-    ],
-    [
+        new Cloud(),
+        new Cloud(),
+        new Cloud(),
+    ]
+}
+
+function createBackgroundObjects() {
+    return [
         new BackgroundObject('assets/img/5_background/layers/air.png', -719),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', -719),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', -719),
@@ -55,18 +56,19 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719),
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719),
 
-        new BackgroundObject('assets/img/5_background/layers/air.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 719*3),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719*3),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719*3),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719*3)
-       
-    ],
-    //BOTTLE ARRAY
-    [
+        new BackgroundObject('assets/img/5_background/layers/air.png', 719 * 2),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 719 * 2),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 719 * 2),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 719 * 2),
+        new BackgroundObject('assets/img/5_background/layers/air.png', 719 * 3),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719 * 3),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719 * 3),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719 * 3),
+    ]
+}
+
+function createBottles() {
+    return [
         new Bottle(-600), //  -600 max x left!
         new Bottle(-400),
         new Bottle(-330),
@@ -78,11 +80,12 @@ const level1 = new Level(
         new Bottle(800),
         new Bottle(1500),
         new Bottle(2000),
-        new Bottle(2100) //  2100 max x right!
+        new Bottle(2100), //  2100 max x right!
+    ]
+}
 
-    ],
-
-    [
+function createCoins() {
+    return [
         new Coin(-550),
         new Coin(-250),
         new Coin(-150),
@@ -97,7 +100,6 @@ const level1 = new Level(
         new Coin(1800),
         new Coin(1900),
         new Coin(2000),
-        new Coin(2100)
+        new Coin(2100),
     ]
- 
-); 
+}
