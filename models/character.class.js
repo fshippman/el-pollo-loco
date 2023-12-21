@@ -90,6 +90,8 @@ class Character extends MovableObject {
     jumping_sound = new Audio('assets/audio/jump.mp3');
     throwing_sound = new Audio('assets/audio/throwing.mp3');
     sleeping_sound = new Audio('assets/audio/sleep.mp3');
+    hit_sound = new Audio('assets/audio/hit.mp3'); //HIT SOUND attribution https://freesound.org/people/Cigaro30/sounds/420932/
+    
     // new Audio('audio/bottle.mp3') 
 
     character;
@@ -308,6 +310,7 @@ class Character extends MovableObject {
                 if (this.isDead()) {
                     this.playAnimation(this.IMAGES_DEAD)
                 } else if (this.isHurt()) {
+                    this.hit_sound.play();
                     this.playAnimation(this.IMAGES_HURT)
                 } else if (this.isAboveGround()) {
                     this.playAnimation(this.IMAGES_JUMPING)

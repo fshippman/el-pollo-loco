@@ -79,7 +79,9 @@ class Endboss extends MovableObject {
 
     walkingBoss() {
         setInterval(() => {
-            this.moveLeft();
+            if (world.gameIsRunning) {
+                this.moveLeft();
+            }
         }, 1000 / 60);
     }
 

@@ -3,8 +3,9 @@ let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
 // let lose_music =
-let victory_music = new Audio('assets/audio/good_end_C0.mp3');
+let victory_sound = new Audio('assets/audio/good_end_C0.mp3');
 let menu_music = new Audio('assets/audio/menu_music.mp3');
+let game_over_sound = new Audio('assets/audio/game_over.mp3'); // GAME OVER SOUND attribution https://freesound.org/people/AdamWeeden/sounds/157218/
 
 function init() {
     menu_music.play();
@@ -33,6 +34,7 @@ function pauseCharacterSounds() {
 
 function stopGameWin() {
     pauseAllSounds();
+    playWinningSound();
     setTimeout(() => {
         document.getElementById('winningScreen').classList.remove('d-none');
         document.getElementById('loseScreen').classList.add('d-none');
@@ -43,13 +45,23 @@ function stopGameWin() {
 }
 
 function stopGameLose() {
-    pauseAllSounds()
+    pauseAllSounds();
+    playLosingSound();
     document.getElementById('loseScreen').classList.remove('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('loadingScreen').classList.add('d-none');
 }
 
+function playLosingSound(){
+    game_over_sound.play();
+    game_over_sound.volume = 0.5;
+}
+
+function playWinningSound(){
+    victory_sound.play();
+    victory_sound.volume = 0.5;
+}
 
 function loadingScreen() {
     document.getElementById('loadingScreen').classList.remove('d-none');
