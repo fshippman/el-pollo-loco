@@ -117,10 +117,9 @@ class Character extends MovableObject {
     }
 
     playGameSound() {
-        // this.game_music.muted = true 
-        // this.game_music.muted = false 
-        this.game_music.volume = 0.5;
         this.game_music.play();
+        this.game_music.volume = 0.5;
+        this.game_music.loop = true;
     }
 
     playThrowingSound() {
@@ -286,6 +285,7 @@ class Character extends MovableObject {
                     this.game_music.pause();
                     this.boss_music.play();
                     this.boss_music.volume = 0.5;
+                    this.boss_music.loop = true;
                 }
 
                 if (this.isDead() && this.world.gameIsRunning) {
