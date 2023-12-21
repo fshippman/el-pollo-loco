@@ -73,7 +73,7 @@ class Endboss extends MovableObject {
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
         this.deadAnimation = false;
-        this.attackDamage = 25;
+        this.attackDamage = 100;
 
     }
 

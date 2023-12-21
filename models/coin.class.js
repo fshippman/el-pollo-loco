@@ -7,14 +7,27 @@ class Coin extends MovableObject {
     offsetYD = 30 //30
     coin_sound = new Audio('assets/audio/coin.mp3');
 
+
+    COIN_ANIMATION = [
+        'assets/img/8_coin/coin_1.png',
+        'assets/img/8_coin/coin_2.png'
+    ]
+
         constructor(x) {
             super().loadImage('assets/img/8_coin/coin_1.png');
-            // this.loadImages(this.BOTTLE_ANIMATION);
-            // this.animate() 
-
+            this.loadImages(this.COIN_ANIMATION)
             this.x = x
             this.y = 50 + Math.random() * 250;
+            this.animate() 
         }
 
-
+        animate() {
+            setInterval(() => {
+                // if (world.gameIsRunning) {
+                  this.playAnimation(this.COIN_ANIMATION)
+                // }
+               
+               
+            }, 500);
+        }
 }

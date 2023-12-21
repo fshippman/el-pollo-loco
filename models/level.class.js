@@ -1,4 +1,5 @@
 class Level {
+    // statusbar;
     enemies;
     boss;
     clouds;
@@ -11,6 +12,7 @@ class Level {
 
 
     constructor(enemies, boss, clouds, backgroundObjects, bottles, coins) {
+        // this.statusbar = statusbar
         this.enemies = enemies
         this.boss = boss
         this.clouds = clouds

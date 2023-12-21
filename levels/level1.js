@@ -1,5 +1,6 @@
 function startLevel1() {
     level1 = new Level(
+        // createStatusbar(),
         createEnemies(),
         createEndboss(),
         createClouds(),
@@ -7,6 +8,18 @@ function startLevel1() {
         createBottles(),
         createCoins(),
     );
+}
+
+
+// statusbar = new StatusBar();
+// bottlebar = new BottleBar();
+// coinbar = new CoinBar();
+// endbossbar = new EndbossBar();
+
+function createStatusbar(){
+    return [
+        new StatusBar()
+    ]
 }
 
 function createEnemies() {

@@ -16,7 +16,7 @@ class ThrowableObject extends MovableObject {
         this.y = y
         this.height = 70;
         this.width = 70;
-        this.attackDamage = 15; //DO NOT CHANGE! 15
+        this.attackDamage = 100; //DO NOT CHANGE! 15
 
     }
 

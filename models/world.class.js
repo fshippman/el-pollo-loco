@@ -5,7 +5,6 @@ class World {
     coinbar = new CoinBar();
     endbossbar = new EndbossBar();
     CHICKEN_DEAD = [];
-   
     canvas;
     ctx;
     keyboard;
@@ -258,7 +257,7 @@ class World {
 
         mo.draw(this.ctx);
 
-        mo.drawHitBox(this.ctx);
+        // mo.drawHitBox(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

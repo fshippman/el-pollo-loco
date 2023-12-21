@@ -16,7 +16,7 @@ function init() {
 // not just quick and dirty
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
-  }
+}
 
 function pauseAllSounds() {
     pauseCharacterSounds();
@@ -30,8 +30,10 @@ function pauseCharacterSounds() {
     world.character.throwing_sound.pause();
     world.character.sleeping_sound.pause();
 }
-function restartGame(){
+
+function restartGame() {
     clearAllIntervals();
+    clearArrays();
     document.getElementById('loseScreen').classList.add('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     startGame();
@@ -40,7 +42,6 @@ function restartGame(){
 function stopGameWin() {
     pauseAllSounds();
     playWinningSound();
-    clearArrays();
     setTimeout(() => {
         document.getElementById('winningScreen').classList.remove('d-none');
         document.getElementById('loseScreen').classList.add('d-none');
@@ -53,27 +54,32 @@ function stopGameWin() {
 function stopGameLose() {
     pauseAllSounds();
     playLosingSound();
-    clearArrays();
     document.getElementById('loseScreen').classList.remove('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('loadingScreen').classList.add('d-none');
 }
 
-function playLosingSound(){
+
+function playLosingSound() {
     game_over_sound.play();
     game_over_sound.volume = 0.5;
 }
 
-function clearArrays(){
+function clearArrays() {
     world.level.bottles = []
     world.level.coins = []
     world.level.enemies = []
     world.level.backgroundObjects = []
     world.level.clouds = []
+    world.statusbar = []
+    world.coinbar = []
+    world.bottlebar = []
+    world.endbossbar = []
+    world.character = []
 }
 
-function playWinningSound(){
+function playWinningSound() {
     victory_sound.play();
     victory_sound.volume = 0.5;
 }
