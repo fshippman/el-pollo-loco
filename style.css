@@ -38,18 +38,21 @@ h1 {
 }
 
 #startScreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: flex-end;
 }
 
 #startScreen img {
-    width: 720px;
-    height: 480px;
+    height: 100%;
+    width: 100%;
 }
 
 .startscreen-buttons {
     height: 70px;
-    width: 720px;
+    width: 100%;
     position: absolute;
     display: flex;
     align-items: center;
@@ -77,19 +80,21 @@ h1 {
 }
 
 .end-screen-buttons {
-    width: 280px;
+    width: 100%;
     display: flex;
     position: absolute;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 
 }
 
 .margin-top-lose {
-    margin-top: 330px;
+    margin-top: 45%;
 }
 
 .margin-top-win {
-    margin-top: 250px;
+    margin-top: 40%;
 }
 
 @media only screen and (max-width: 720px) {
@@ -98,6 +103,19 @@ h1 {
         height: auto;
     }
 
+}
+
+@media (max-width: 420px){
+  
+
+   .loader {
+    height: 80px !important;
+    width: 80px !important;
+   }
+
+   .loading-text {
+    font-size: 20px;
+   }
 }
 
 #loseScreen {
@@ -130,8 +148,8 @@ h1 {
 }
 
 #winningScreen img {
-    height: 77px;
-    width: 358px;
+    height: 15%;
+    width: 50%;
 }
 
 #loadingScreen {
@@ -141,15 +159,15 @@ h1 {
     height: 100%;
     background-color: black;
     color: white;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr; 
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 100; 
 }
 
 .loadinganimation-container {
-    grid-row: 2/3;
+    
 }
 
 
@@ -161,8 +179,8 @@ h1 {
 }
 
 .loader {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     animation: spin 2s linear infinite;
 
 }

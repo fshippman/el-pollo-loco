@@ -46,7 +46,6 @@ function stopGameWin() {
         document.getElementById('winningScreen').classList.remove('d-none');
         document.getElementById('loseScreen').classList.add('d-none');
         document.getElementById('startScreen').classList.add('d-none');
-        // document.getElementById('canvas').classList.add('d-none');
         document.getElementById('loadingScreen').classList.add('d-none');
     }, 3000);
 }
@@ -87,8 +86,7 @@ function playWinningSound() {
 function loadingScreen() {
     document.getElementById('loadingScreen').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
-    document.getElementById('canvas').classList.add('d-none');
-
+    document.getElementById('canvas').classList.remove('d-none');
 }
 
 
