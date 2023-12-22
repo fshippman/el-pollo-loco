@@ -1,8 +1,6 @@
 @font-face {
     font-family: 'zabras';
-    src: url('myfont.woff') format('woff'),
-        /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-        url('/assets/fonts/Zabars.ttf') format('truetype');
+    src: url('/assets/fonts/Zabars.ttf') format('truetype');
     /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
@@ -15,8 +13,8 @@ body {
     height: 100vh;
     background-image: url('assets/img/background.png');
     background-position: center;
-    /* background-size: cover; */
-    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    background-size: cover;
+    font-family: 'zabras', Arial, Helvetica, sans-serif !important;
 }
 
 
@@ -26,18 +24,105 @@ canvas {
 
 h1 {
     font-size: 84px;
-    margin: 0;
-    letter-spacing: 6px;
+    margin: 20px;
     text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+    letter-spacing: 6px;
 }
 
-#startscreen img {
+.game-container{
+    display: flex;
     width: 720px;
     height: 480px;
 }
 
+#startScreen {
+    display: flex;
+    align-items: flex-end;
+}
 
-#loadingscreen {
+#startScreen img {
+    width: 720px;
+    height: 480px;
+}
+
+.startscreen-buttons {
+    height: 70px;
+    width: 720px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    /* padding: 0px 20px 0px 20px; */
+}
+
+.button {
+    /* position:absolute; */
+    background-color: #FFDB04;
+    height: 40px;
+    width: 80px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    padding: 5px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #ffd904d8;
+    
+}
+
+.end-screen-buttons{
+    width: 280px;
+    display: flex;
+    position: absolute;
+    justify-content: space-around;
+  
+}
+
+.margin-top-lose {
+    margin-top: 330px;
+}
+
+.margin-top-win {
+    margin-top: 250px;
+}
+
+#loseScreen {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 720px !important;
+    height: 480px !important;
+    z-index: 100;
+}
+
+#loseScreen img {
+    width: 720px !important;
+    height: 480px !important;
+}
+
+
+#winningScreen {
+    width: 720px;
+    height: 480px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#winningScreen img {
+    height: 77px;
+    width: 358px;
+}
+
+#loadingScreen {
     height: 480px;
     width: 720px;
     background-color: black;

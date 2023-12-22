@@ -6,6 +6,7 @@ class SmallChicken extends MovableObject {
     offsetXR = 7   //35
     offsetYU = 4 //120
     offsetYD = 10 //30
+    chicken_sound = new Audio('assets/audio/chicken.mp3');
   
 
 
@@ -24,11 +25,12 @@ class SmallChicken extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGE_DEAD)
         this.x = 400;
-
+        this.thisRightOffset = this.offsetXR;
+        this.thisLeftOffset = this.offsetXL;
          //original
         // this.x = 200 + Math.random() * 2500;
         this.speed = 0.15 + Math.random() * 0.5; //0.25
-
+        this.attackDamage = 2;
         // this.animate();
     }
 
@@ -37,18 +39,22 @@ class SmallChicken extends MovableObject {
     animate() {
       
         setInterval(() => {
-            this.moveLeft();
+            if (world.gameIsRunning) {
+                this.moveLeft();
+            }
+           
         }, 1000 / 60);
 
         // modulu = hebt Rest auf
         setInterval(() => {
-            
-            if (this.energy == 0) {
-                this.playAnimation(this.IMAGE_DEAD);
-            } else {
-                console.log('moving!')
-                this.playAnimation(this.IMAGES_WALKING)
+            if (world.gameIsRunning) {
+                if (this.energy == 0) {
+                    this.playAnimation(this.IMAGE_DEAD);
+                } else {
+                    this.playAnimation(this.IMAGES_WALKING)
+                }
             }
+            
         }, 200)
     }
 

@@ -16,7 +16,7 @@ class ThrowableObject extends MovableObject {
         this.y = y
         this.height = 70;
         this.width = 70;
-        this.attackDamage = 15; //DO NOT CHANGE!
+        this.attackDamage = 100; //DO NOT CHANGE! 15
 
     }
 
@@ -36,18 +36,27 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
-    throw () {
+    throw (otherDirection) {
         //Flugbogen
-        this.speedY = 18; //18
+        this.speedY = 12; //18
 
         this.applyGravity();
         //Fluggeschwindigkeit
         setInterval(() => {
             if (!this.bottleCollision) {
-                this.x += 8;
+                if(!otherDirection){
+                    this.x += 5; //8
+                } else {
+                    this.x -= 5;
+                }
+               
             }
-        }, 25);
+        }, 1000 / 60); //25
         this.animate();
+    }
+
+    hitsGround(){
+        return this. y > 300 + this.height
     }
 
 
@@ -55,14 +64,24 @@ class ThrowableObject extends MovableObject {
         this.bottle_smash_sound.play();
     }
 
+    showBottlesmash(throwableObjects, index){
+        this.playBottlesmashSound();
+        this.bottleCollision = true;
+        setTimeout(() => throwableObjects.splice(index, 1), 500);
+    }
+
     animate() {
+      
         setInterval(() => {
-            if (this.bottleCollision) {
-                this.playAnimation(this.BOTTLE_SPLASH_IMAGES)
-            } else if (!this.bottleCollision) {
-                this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
+            if (world.gameIsRunning) {
+                if (this.bottleCollision) {
+                    // this.y = 350;
+                    this.playAnimation(this.BOTTLE_SPLASH_IMAGES)
+                } else if (!this.bottleCollision) {
+                    this.playAnimation(this.BOTTLE_ROTATION_IMAGES)
+                } 
             }
-        }, 200);
+        }, 100);
     }
 
 }

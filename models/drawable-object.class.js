@@ -11,6 +11,7 @@
      img;
      imageCache = {};
      currentImage = 0;
+     
 
      /**
       * This function
@@ -58,8 +59,6 @@
 
  
 
-
-
      draw(ctx) {
          try {
              ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -70,7 +69,7 @@
      }
 
      drawHitBox(ctx) {
-         if (this instanceof Endboss || this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof ThrowableObject || this instanceof Bottle) {
+         if (this instanceof Character  || this instanceof Coin) {
              ctx.beginPath();
              ctx.rect(
                  this.x + this.offsetXL,

@@ -2,14 +2,17 @@ class Character extends MovableObject {
     y = 150; //160
     height = 280; //270
     width = 107;
-    offsetXL = 15 //25
-    offsetXR = 30 //35
-    offsetYU = 15 //120
-    offsetYD = 15 //30
+    offsetXL = 15 //15
+    offsetXR = 30 //30
+    offsetYU = 110 //15
+    offsetYD = 15 //15
     speed = 5;
     currentImage = 0;
     inventoryCounter = 0;
     inventoryMax = 8;
+    coinInventory = 0;
+    coinMax = 15;
+
     isIdle = false;
     idleTimer;
     throwTimePassed;
@@ -81,12 +84,14 @@ class Character extends MovableObject {
 
     world;
 
-    game_music = new Audio('assets/audio/music.mp3');
+    game_music = new Audio('assets/audio/game_music.mp3');
     boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
     walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
     throwing_sound = new Audio('assets/audio/throwing.mp3');
     sleeping_sound = new Audio('assets/audio/sleep.mp3');
+    hit_sound = new Audio('assets/audio/hit.mp3'); //HIT SOUND attribution https://freesound.org/people/Cigaro30/sounds/420932/
+    
     // new Audio('audio/bottle.mp3') 
 
     character;
@@ -102,21 +107,22 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.animate();
         this.applyGravity();
         this.setThrowingTimer();
+
+        // ---- IN WORLD! 
+        // this.animate();
         // this.playGameSound();
 
     }
 
     playGameSound() {
-        // this.game_music.muted = true 
-        // this.game_music.muted = false 
-        this.game_music.volume = 0.5;
         this.game_music.play();
+        this.game_music.volume = 0.5;
+        this.game_music.loop = true;
     }
 
-    playThrowingSound(){
+    playThrowingSound() {
         this.throwing_sound.play();
     }
 
@@ -185,6 +191,10 @@ class Character extends MovableObject {
         //  1/8 * 100
     }
 
+    calculateCoinPercentage() {
+        return (this.coinInventory / this.coinMax) * 100
+    }
+
     playIdleAnimations() {
         this.shortIdleAnimation();
         this.longIdleAnimation();
@@ -224,75 +234,94 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
-            // console.log(this.isIdle)
+          
             // this.playGameSound();
 
-            this.walking_sound.pause();
+            if (world.gameIsRunning) {
+                this.walking_sound.pause();
 
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.setStatusIdle(false);
-                this.stopSleepingSound();
-                if (this.isAboveGround()) {
-                    this.jumpingSpeed();
-                    this.moveCharacterRight();
-                } else {
-                    this.walkingSpeed();
-                    this.moveCharacterRight();
-                    this.walking_sound.play();
+                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                    this.setStatusIdle(false);
+                    this.stopSleepingSound();
+                    if (this.isAboveGround()) {
+                        this.jumpingSpeed();
+                        this.moveCharacterRight();
+                    } else {
+                        this.walkingSpeed();
+                        this.moveCharacterRight();
+                        this.walking_sound.play();
+                    }
                 }
-            }
 
-            if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
-                this.setStatusIdle(false);
-                this.stopSleepingSound();
-                if (this.isAboveGround()) {
-                    this.jumpingSpeed();
-                    this.moveCharacterLeft();
-                } else {
-                    this.walkingSpeed();
-                    this.moveCharacterLeft();
-                    this.walking_sound.play();
+                if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
+                    this.setStatusIdle(false);
+                    this.stopSleepingSound();
+                    if (this.isAboveGround()) {
+                        this.jumpingSpeed();
+                        this.moveCharacterLeft();
+                    } else {
+                        this.walkingSpeed();
+                        this.moveCharacterLeft();
+                        this.walking_sound.play();
+                    }
                 }
+
+                if (this.world.keyboard.D) {
+                    this.setStatusIdle(false);
+                }
+
+                if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                    this.setStatusIdle(false);
+                    this.stopSleepingSound();
+                    this.jump();
+                    this.jumping_sound.play();
+                }
+
+                if (this.idleTime()) {
+                    this.sleeping_sound.play();
+                }
+
+                if (this.x > 2100) {
+                    this.game_music.pause();
+                    this.boss_music.play();
+                    this.boss_music.volume = 0.5;
+                    this.boss_music.loop = true;
+                }
+
+                if (this.isDead() && this.world.gameIsRunning) {
+                    setTimeout(() => {
+                        world.gameIsRunning = false;
+                        stopGameLose();
+                    }, 1000);
+                   
+                }
+
+                this.world.camera_x = -this.x + 100;
             }
 
-            if (this.world.keyboard.D) {
-                this.setStatusIdle(false);
-            }
 
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.setStatusIdle(false);
-                this.stopSleepingSound();
-                this.jump();
-                this.jumping_sound.play();
-            }
-
-            if (this.idleTime()) {
-                this.sleeping_sound.play();
-            }
-
-            if (this.x > 600) {
-                this.game_music.pause();
-                this.boss_music.play();
-                this.boss_music.volume = 0.5;
-            }
-
-            this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
 
 
         // modulu = hebt Rest auf
         setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD)
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT)
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING)
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-            } else {
-                this.playIdleAnimations();
+
+            if (world.gameIsRunning) {
+                if (this.isDead()) {
+                    this.playAnimation(this.IMAGES_DEAD)
+                } else if (this.isHurt()) {
+                    this.hit_sound.play();
+                    this.playAnimation(this.IMAGES_HURT)
+                } else if (this.isAboveGround()) {
+                    this.playAnimation(this.IMAGES_JUMPING)
+                } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                } else {
+                    this.playIdleAnimations();
+                }
             }
+
+
         }, 150) //50
     }
 }
