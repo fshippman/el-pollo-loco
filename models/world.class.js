@@ -169,7 +169,7 @@ class World {
             this.character.speedY = 0
         }
     }
-
+   
 
     // Die Bottle verschwindet weil die Welt ja ständig aktualisiert wird
     // Array mit Flaschen kleiner weil konkrete Flasche gespliced --> konkrete Flasche verschwindet
@@ -185,7 +185,7 @@ class World {
             }
         });
     }
-  
+   
     collectCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin, index)) {

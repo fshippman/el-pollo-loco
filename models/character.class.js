@@ -84,9 +84,9 @@ class Character extends MovableObject {
 
     world;
 
-    game_music = new Audio('assets/audio/game_music.mp3');
+    // game_music = new Audio('assets/audio/game_music.mp3');
     boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
-    walking_sound = new Audio('assets/audio/running.mp3');
+    // walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
     throwing_sound = new Audio('assets/audio/throwing.mp3');
     sleeping_sound = new Audio('assets/audio/sleep.mp3');
@@ -117,9 +117,9 @@ class Character extends MovableObject {
     }
 
     playGameSound() {
-        this.game_music.play();
-        this.game_music.volume = 0.5;
-        this.game_music.loop = true;
+        GAME_MUSIC.play();
+        GAME_MUSIC.volume = 0.5;
+        GAME_MUSIC.loop = true;
     }
 
     playThrowingSound() {
@@ -238,7 +238,8 @@ class Character extends MovableObject {
             // this.playGameSound();
 
             if (world.gameIsRunning) {
-                this.walking_sound.pause();
+                // this.walking_sound.pause();
+                WALKING_SOUND.pause()
 
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.setStatusIdle(false);
@@ -249,7 +250,8 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterRight();
-                        this.walking_sound.play();
+                        // this.walking_sound.play();
+                        WALKING_SOUND.play();
                     }
                 }
 
@@ -262,7 +264,8 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterLeft();
-                        this.walking_sound.play();
+                        // this.walking_sound.play();
+                        WALKING_SOUND.play();
                     }
                 }
 
@@ -282,7 +285,7 @@ class Character extends MovableObject {
                 }
 
                 if (this.x > 2100) {
-                    this.game_music.pause();
+                    GAME_MUSIC.pause();
                     this.boss_music.play();
                     this.boss_music.volume = 0.5;
                     this.boss_music.loop = true;

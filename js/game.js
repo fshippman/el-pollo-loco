@@ -7,6 +7,8 @@ let victory_sound = new Audio('assets/audio/good_end_C0.mp3');
 let menu_music = new Audio('assets/audio/menu_music.mp3');
 let game_over_sound = new Audio('assets/audio/game_over.mp3'); // GAME OVER SOUND attribution https://freesound.org/people/AdamWeeden/sounds/157218/
 
+let soundsMuted = false;
+
 function init() {
     bindBTsPressEvents();
     menu_music.play();
@@ -14,22 +16,53 @@ function init() {
     menu_music.loop = true;
 }
 
+
+
+function muteSounds() {
+    GAME_MUSIC.volume = 0;
+    WALKING_SOUND.volume = 0;
+}
+function unMuteSounds(){
+    GAME_MUSIC.volume = 0.5
+    WALKING_SOUND.volume = 1;
+}
+
+function toggleMute(){
+    if (!soundsMuted) {
+        muteSounds();
+        soundsMuted = true;
+    } else {
+        unMuteSounds();
+        soundsMuted = false;
+    }
+}
+
+
+
+function pauseGameSounds() {
+    world.character.game_music.volume = 0
+    world.character.boss_music.volume = 0
+    world.character.walking_sound.volume = 0
+    world.character.jumping_sound.volume = 0;
+    world.character.throwing_sound.volume = 0
+    world.character.sleeping_sound.volume = 0
+    world.character.hit_sound.pvolume = 0
+    world.level.bottles.bottle_sound.volume = 0
+    world.level.coins.coin_sound.volume = 0
+    world.throwableObjects.bottle_smash_sound.volume = 0
+    world.level.boss[0].chicken_sound.volume = 0
+    world.level.enemies.chicken_sound.volume = 0
+}
+
+function pauseScreenSounds() {
+    menu_music.volume = 0;
+    game_over_sound = 0;
+    victory_sound.volume = 0;
+}
+
 // not just quick and dirty
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
-}
-
-function pauseAllSounds() {
-    pauseCharacterSounds();
-}
-
-function pauseCharacterSounds() {
-    world.character.game_music.pause();
-    world.character.boss_music.pause();
-    world.character.walking_sound.pause();
-    world.character.jumping_sound.pause();
-    world.character.throwing_sound.pause();
-    world.character.sleeping_sound.pause();
 }
 
 function restartGame() {
@@ -119,7 +152,7 @@ document.addEventListener("keypress", (e) => {
 
 
 
-function bindBTsPressEvents(){
+function bindBTsPressEvents() {
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.LEFT = true;
@@ -154,7 +187,7 @@ function bindBTsPressEvents(){
     });
 
 }
-   
+
 
 
 
