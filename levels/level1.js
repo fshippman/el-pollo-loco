@@ -25,9 +25,9 @@ function createStatusbar(){
 function createEnemies() {
     return [
         // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
         // new Chicken(),
 
         // new SmallChicken(),

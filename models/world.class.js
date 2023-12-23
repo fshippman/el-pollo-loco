@@ -87,7 +87,7 @@ class World {
 
 
     checkThrow() {
-        if (this.keyboard.D && this.character.inventoryCounter > 0 && this.character.throwTime()) {
+        if (this.keyboard.D && this.character.inventoryCounter > 0 && this.character.throwTime() && this.gameIsRunning) {
 
             let throwableObjectOffset = 50;
             if (this.character.otherDirection) {

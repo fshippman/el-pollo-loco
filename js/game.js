@@ -22,22 +22,40 @@ function muteSounds() {
     GAME_MUSIC.volume = 0;
     WALKING_SOUND.volume = 0;
 }
-function unMuteSounds(){
+
+function unMuteSounds() {
     GAME_MUSIC.volume = 0.5
     WALKING_SOUND.volume = 1;
 }
 
-function toggleMute(){
-    if (!soundsMuted) {
-        muteSounds();
-        soundsMuted = true;
-    } else {
+function toggleMute() {
+    if (soundsMuted) {
         unMuteSounds();
-        soundsMuted = false;
+    } else {
+        muteSounds();
     }
+    soundsMuted = !soundsMuted
 }
 
 
+
+// function toggleMute(){
+//     if (!soundsMuted) {
+//         muteSounds();
+//         soundsMuted = true;
+//     } else {
+//         unMuteSounds();
+//         soundsMuted = false;
+//     }
+// }
+
+function pauseGame() {
+    world.gameIsRunning = false;
+}
+
+function unpauseGame() {
+    world.gameIsRunning = true;
+}
 
 function pauseGameSounds() {
     world.character.game_music.volume = 0
@@ -74,7 +92,7 @@ function restartGame() {
 }
 
 function stopGameWin() {
-    pauseAllSounds();
+    // pauseAllSounds();
     playWinningSound();
     setTimeout(() => {
         document.getElementById('winningScreen').classList.remove('d-none');
@@ -85,7 +103,7 @@ function stopGameWin() {
 }
 
 function stopGameLose() {
-    pauseAllSounds();
+    // pauseAllSounds();
     playLosingSound();
     document.getElementById('loseScreen').classList.remove('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
