@@ -8,6 +8,7 @@ let menu_music = new Audio('assets/audio/menu_music.mp3');
 let game_over_sound = new Audio('assets/audio/game_over.mp3'); // GAME OVER SOUND attribution https://freesound.org/people/AdamWeeden/sounds/157218/
 
 function init() {
+    bindBTsPressEvents();
     menu_music.play();
     menu_music.volume = 0.5;
     menu_music.loop = true;
@@ -52,7 +53,7 @@ function stopGameWin() {
 
 function stopGameLose() {
     pauseAllSounds();
-    playLosingSound(); 
+    playLosingSound();
     document.getElementById('loseScreen').classList.remove('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     document.getElementById('startScreen').classList.add('d-none');
@@ -115,6 +116,46 @@ document.addEventListener("keypress", (e) => {
         //Code 77 = M
     }
 });
+
+
+
+function bindBTsPressEvents(){
+    document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+    document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+    document.getElementById('btnRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+    document.getElementById('btnJump').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+    document.getElementById('btnJump').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+    document.getElementById('btnThrow').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.D = true;
+    });
+    document.getElementById('btnThrow').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.D = false;
+    });
+
+}
+   
+
 
 
 document.addEventListener("keydown", (e) => {
