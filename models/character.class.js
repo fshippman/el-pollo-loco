@@ -85,7 +85,7 @@ class Character extends MovableObject {
     world;
 
     // game_music = new Audio('assets/audio/game_music.mp3');
-    boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
+    // boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
     // walking_sound = new Audio('assets/audio/running.mp3');
     jumping_sound = new Audio('assets/audio/jump.mp3');
     throwing_sound = new Audio('assets/audio/throwing.mp3');
@@ -286,9 +286,9 @@ class Character extends MovableObject {
 
                 if (this.x > 2100) {
                     GAME_MUSIC.pause();
-                    this.boss_music.play();
-                    this.boss_music.volume = 0.5;
-                    this.boss_music.loop = true;
+                    BOSS_MUSIC.play();
+                    BOSS_MUSIC.volume = 0.5;
+                    BOSS_MUSIC.loop = true;
                 }
 
                 if (this.isDead() && this.world.gameIsRunning) {
