@@ -3,22 +3,22 @@ let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
 // let lose_music =
-let victory_sound = new Audio('assets/audio/good_end_C0.mp3');
-let menu_music = new Audio('assets/audio/menu_music.mp3');
-let game_over_sound = new Audio('assets/audio/game_over.mp3'); // GAME OVER SOUND attribution https://freesound.org/people/AdamWeeden/sounds/157218/
+//let victory_sound = new Audio('assets/audio/good_end_C0.mp3');
+//let menu_music = new Audio('assets/audio/menu_music.mp3');
+//let game_over_sound = new Audio('assets/audio/game_over.mp3'); // GAME OVER SOUND attribution https://freesound.org/people/AdamWeeden/sounds/157218/
 
 let soundsMuted = false;
 
 function init() {
     bindBTsPressEvents();
-    menu_music.play();
-    menu_music.volume = 0.5;
-    menu_music.loop = true;
+    MENU_MUSIC.play();
+    MENU_MUSIC.volume = 0.5;
+    MENU_MUSIC.loop = true;
 }
 
 
-
 function muteSounds() {
+    BOSS_MUSIC.volume = 0;
     GAME_MUSIC.volume = 0;
     WALKING_SOUND.volume = 0;
 }
@@ -61,7 +61,7 @@ function pauseGameSounds() {
     world.character.game_music.volume = 0
     world.character.boss_music.volume = 0
     world.character.walking_sound.volume = 0
-    world.character.jumping_sound.volume = 0;
+    world.character.jumping_sound.volume = 0
     world.character.throwing_sound.volume = 0
     world.character.sleeping_sound.volume = 0
     world.character.hit_sound.pvolume = 0
@@ -73,9 +73,9 @@ function pauseGameSounds() {
 }
 
 function pauseScreenSounds() {
-    menu_music.volume = 0;
-    game_over_sound = 0;
-    victory_sound.volume = 0;
+    MENU_MUSIC.volume = 0;
+    GAME_OVER_MUSIC.volume = 0;
+    VICTORY_MUSIC.volume = 0;
 }
 
 // not just quick and dirty
@@ -86,13 +86,14 @@ function clearAllIntervals() {
 function restartGame() {
     clearAllIntervals();
     clearArrays();
+    muteSounds();
     document.getElementById('loseScreen').classList.add('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     startGame();
 }
 
 function stopGameWin() {
-    // pauseAllSounds();
+    muteSounds();
     playWinningSound();
     setTimeout(() => {
         document.getElementById('winningScreen').classList.remove('d-none');
@@ -103,7 +104,7 @@ function stopGameWin() {
 }
 
 function stopGameLose() {
-    // pauseAllSounds();
+    muteSounds();
     playLosingSound();
     document.getElementById('loseScreen').classList.remove('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
@@ -113,8 +114,8 @@ function stopGameLose() {
 
 
 function playLosingSound() {
-    game_over_sound.play();
-    game_over_sound.volume = 0.5;
+    GAME_OVER_MUSIC.play();
+    GAME_OVER_MUSIC.volume = 0.5;
 }
 
 function clearArrays() {
@@ -131,8 +132,8 @@ function clearArrays() {
 }
 
 function playWinningSound() {
-    victory_sound.play();
-    victory_sound.volume = 0.5;
+    VICTORY_MUSIC.play();
+    VICTORY_MUSIC.volume = 0.5;
 }
 
 function loadingScreen() {
@@ -144,8 +145,8 @@ function loadingScreen() {
 
 function startGame() {
     startLevel1();
-    menu_music.pause();
-    menu_music.currentTime = 0;
+    MENU_MUSIC.pause();
+    MENU_MUSIC.currentTime = 0;
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     canvas = document.getElementById('canvas');
@@ -155,7 +156,7 @@ function startGame() {
 }
 
 function showWorld() {
-    menu_music.pause();
+    MENU_MUSIC.pause();
     document.getElementById('loadingScreen').classList.add('d-none');
     canvas.classList.remove('d-none');
     world.startAnimations();
@@ -252,3 +253,28 @@ document.addEventListener("keyup", (e) => {
         keyboard.D = false;
     }
 });
+
+
+function fullscreen(){
+    let fullscreen = document.getElementById('fullscreen');
+    enterFullscreen(fullscreen);
+}
+
+
+function enterFullscreen(element) {
+    if(element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if(element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+      element.msRequestFullscreen();
+    } else if(element.webkitRequestFullscreen) {  // iOS Safari
+      element.webkitRequestFullscreen();
+    }
+  }
+  
+  function exitFullscreen() {
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
