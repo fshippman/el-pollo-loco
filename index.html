@@ -30,13 +30,16 @@
     <script src="js/game.js"></script>
 
 </head>
-
+<!-- <a href="https://www.flaticon.com/free-icons/rotate" title="rotate icons">Rotate icons created by Pixel perfect - Flaticon</a> -->
 <body onload="init()">
-
+   <div id="rotate-device">
+            <span>Please rotate your device</span>
+            <img src="assets/img/rotate.png" alt="">
+        </div>
     <h1>El Pollo Loco</h1>
 
     <div class="game-container">
-
+     
 
         <canvas id="canvas" width="720" height="480" >
 
@@ -67,14 +70,14 @@
         </div>
     
         <div id="loadingScreen" class="d-none">
-            <div class="loadinganimation-container">
+            <div>
                 <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="" class="loader">
             </div>
     
             <h1 class="loading-text">load...</h1>
         </div>
 
-<button onclick="loadingScreen()"></button>
+
 
     </div>
 

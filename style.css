@@ -102,6 +102,10 @@ h1 {
         width: 100%;
         height: auto;
     }
+  
+    h1 {
+        display: none;
+    }
 
 }
 
@@ -117,6 +121,41 @@ h1 {
     font-size: 20px;
    }
 }
+@media screen and (orientation: portrait){
+    #rotate-device{
+        display: flex;
+    }
+}
+
+@media screen and (orientation: landscape){
+    #rotate-device{
+        display: none;
+    }
+}
+  
+   
+#rotate-device {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(190, 190, 190);
+    z-index: 1000;
+}
+#rotate-device span {
+   font-size: 40px;
+   margin-bottom: 20px;
+}
+
+#rotate-device img {
+    height: 200px;
+    width: 200px;
+}
+
+
 
 #loseScreen {
     height: 100%;
@@ -165,11 +204,6 @@ h1 {
     align-items: center;
     z-index: 100; 
 }
-
-.loadinganimation-container {
-    
-}
-
 
 .loading-text {
     font-size: 30px;
