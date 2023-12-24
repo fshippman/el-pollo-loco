@@ -7,7 +7,7 @@ class Bottle extends MovableObject {
   offsetYD = 10 //10
   height = 80;
   width = 80;
-  bottle_sound = new Audio('assets/audio/bottle.mp3');
+  
 
 
   BOTTLE_ANIMATION = [

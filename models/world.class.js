@@ -70,7 +70,7 @@ class World {
 
                 if (!this.level.boss[0].isHurt()) {
                     this.level.boss[0].hit(ThrowableObject.attackDamage)
-                    this.level.boss[0].chicken_sound.play();
+                    CHICKEN_SOUND.play();
                     this.endbossbar.setPercentage(this.level.boss[0].energy)
                 }
             }
@@ -145,7 +145,7 @@ class World {
     }
 
     killChicken(enemy) {
-        enemy.chicken_sound.play();
+        CHICKEN_SOUND.play();
         enemy.speed = 0;
         enemy.energy = 0;
     }
@@ -176,9 +176,9 @@ class World {
     collectBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle, index) && this.character.checkInventorySpace()) {
-                bottle.bottle_sound.pause();
-                bottle.bottle_sound.currentTime = 0;
-                bottle.bottle_sound.play();
+                BOTTLE_SOUND.pause();
+                BOTTLE_SOUND.currentTime = 0;
+                BOTTLE_SOUND.play();
                 this.character.inventoryCounter++;
                 this.level.bottles.splice(index, 1) // Die richtige FLasche wird gelöscht
                 this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
@@ -193,7 +193,7 @@ class World {
                 this.character.coinInventory++;
                 this.level.coins.splice(index,1)
                 this.coinbar.setPercentage(this.character.calculateCoinPercentage());
-                coin.coin_sound.play();
+                COIN_SOUND.play();
             }
         });
     }

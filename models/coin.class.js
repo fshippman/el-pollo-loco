@@ -5,7 +5,7 @@ class Coin extends MovableObject {
     offsetXR = 30 //35
     offsetYU = 30 //120
     offsetYD = 30 //30
-    coin_sound = new Audio('assets/audio/coin.mp3');
+   
 
 
     COIN_ANIMATION = [

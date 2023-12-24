@@ -6,7 +6,7 @@ class Chicken extends MovableObject {
     offsetXR = 4 //35
     offsetYU = 5 //120
     offsetYD = 17 //30
-    chicken_sound = new Audio('assets/audio/chicken.mp3');
+    
 
     
 

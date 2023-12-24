@@ -57,18 +57,27 @@ function unpauseGame() {
 }
 
 function pauseGameSounds() {
-    world.character.game_music.volume = 0
-    world.character.boss_music.volume = 0
-    world.character.walking_sound.volume = 0
-    world.character.jumping_sound.volume = 0
-    world.character.throwing_sound.volume = 0
-    world.character.sleeping_sound.volume = 0
-    world.character.hit_sound.pvolume = 0
-    world.level.bottles.bottle_sound.volume = 0
-    world.level.coins.coin_sound.volume = 0
-    world.throwableObjects.bottle_smash_sound.volume = 0
-    world.level.boss[0].chicken_sound.volume = 0
-    world.level.enemies.chicken_sound.volume = 0
+    /* GAME_OVER_MUSIC.volume = 0;
+    VICTORY_MUSIC.volume = 0; */
+
+    /* MENU_MUSIC.volume = 0; */
+  /*   world.character.game_music.volume = 0 */
+  /*   world.character.boss_music.volume = 0 */
+
+    /* world.character.walking_sound.volume = 0 */
+ /*    world.character.jumping_sound.volume = 0 */
+    /* world.character.throwing_sound.volume = 0 */
+   /*  world.character.sleeping_sound.volume = 0 */
+   /*  world.character.hit_sound.pvolume = 0 */
+
+    /* world.level.bottles.bottle_sound.volume = 0 */
+
+    /* COIN_SOUND.volume = 0 */
+
+    /* world.throwableObjects.bottle_smash_sound.volume = 0
+ */
+   /*  world.level.boss[0].chicken_sound.volume = 0 */
+    
 }
 
 function pauseScreenSounds() {

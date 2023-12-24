@@ -14,7 +14,7 @@ class Endboss extends MovableObject {
     deadAnimation;
     hadFirstEndbossContact = false;
     endfightStart = false;
-    chicken_sound = new Audio('assets/audio/chicken.mp3');
+  
 
 
     IMAGES_WALKING = [

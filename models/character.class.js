@@ -230,7 +230,6 @@ class Character extends MovableObject {
             // this.playGameSound();
 
             if (world.gameIsRunning) {
-                // this.walking_sound.pause();
                 WALKING_SOUND.pause()
 
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
