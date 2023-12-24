@@ -2,29 +2,31 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
-// let lose_music =
-//let victory_sound = new Audio('assets/audio/good_end_C0.mp3');
-//let menu_music = new Audio('assets/audio/menu_music.mp3');
-//let game_over_sound = new Audio('assets/audio/game_over.mp3'); // GAME OVER SOUND attribution https://freesound.org/people/AdamWeeden/sounds/157218/
-
 let soundsMuted = false;
 
 function init() {
     bindBTsPressEvents();
     MENU_MUSIC.play();
-    MENU_MUSIC.volume = 0.5;
+    MENU_MUSIC.volume = 1;
     MENU_MUSIC.loop = true;
 }
 
+function pauseGame() {
+    world.gameIsRunning = false;
+}
+
+function unpauseGame() {
+    world.gameIsRunning = true;
+}
 
 function muteSounds() {
-    BOSS_MUSIC.volume = 0;
-    GAME_MUSIC.volume = 0;
+    muteGameSounds();
+    muteMusic();
 }
 
 function unMuteSounds() {
-    GAME_MUSIC.volume = 0.5
-    WALKING_SOUND.volume = 1;
+    unMuteGameSounds();
+    unMuteMusic();
 }
 
 function toggleMute() {
@@ -35,9 +37,6 @@ function toggleMute() {
     }
     soundsMuted = !soundsMuted
 }
-
-
-
 // function toggleMute(){
 //     if (!soundsMuted) {
 //         muteSounds();
@@ -48,43 +47,46 @@ function toggleMute() {
 //     }
 // }
 
-function pauseGame() {
-    world.gameIsRunning = false;
+function muteGameSounds() {
+    WALKING_SOUND.volume = 0;
+    JUMPING_SOUND.volume = 0;
+    HIT_SOUND.volume = 0;
+    SLEEPING_SOUND.volume = 0;
+    THROWING_SOUND.volume = 0;
+    BOTTLE_SOUND.volume = 0;
+    BOTTLE_SMASH_SOUND.volume = 0;
+    COIN_SOUND.volume = 0;
+    CHICKEN_SOUND.volume = 0;
 }
 
-function unpauseGame() {
-    world.gameIsRunning = true;
-}
-
-function pauseGameSounds() {
-    /* GAME_OVER_MUSIC.volume = 0;
-    VICTORY_MUSIC.volume = 0; */
-
-    /* MENU_MUSIC.volume = 0; */
-  /*   world.character.game_music.volume = 0 */
-  /*   world.character.boss_music.volume = 0 */
-
-    /* world.character.walking_sound.volume = 0 */
- /*    world.character.jumping_sound.volume = 0 */
-    /* world.character.throwing_sound.volume = 0 */
-   /*  world.character.sleeping_sound.volume = 0 */
-   /*  world.character.hit_sound.pvolume = 0 */
-
-    /* world.level.bottles.bottle_sound.volume = 0 */
-
-    /* COIN_SOUND.volume = 0 */
-
-    /* world.throwableObjects.bottle_smash_sound.volume = 0
- */
-   /*  world.level.boss[0].chicken_sound.volume = 0 */
-    
-}
-
-function pauseScreenSounds() {
-    MENU_MUSIC.volume = 0;
+function muteMusic() {
     GAME_OVER_MUSIC.volume = 0;
     VICTORY_MUSIC.volume = 0;
+    MENU_MUSIC.volume = 0;
+    GAME_MUSIC.volume = 0;
+    BOSS_MUSIC.volume = 0;
 }
+
+function unMuteGameSounds() {
+    WALKING_SOUND.volume = 1;
+    JUMPING_SOUND.volume = 1;
+    HIT_SOUND.volume = 1;
+    SLEEPING_SOUND.volume = 1;
+    THROWING_SOUND.volume = 1;
+    BOTTLE_SOUND.volume = 1;
+    BOTTLE_SMASH_SOUND.volume = 1;
+    COIN_SOUND.volume = 1;
+    CHICKEN_SOUND.volume = 1;
+}
+
+function unMuteMusic() {
+    GAME_OVER_MUSIC.volume = 1;
+    VICTORY_MUSIC.volume = 1;
+    MENU_MUSIC.volume = 1;
+    GAME_MUSIC.volume = 0.5;
+    BOSS_MUSIC.volume = 0.5;
+}
+
 
 // not just quick and dirty
 function clearAllIntervals() {
@@ -123,9 +125,14 @@ function stopGameLose() {
 
 function playLosingSound() {
     GAME_OVER_MUSIC.play();
-    GAME_OVER_MUSIC.volume = 0.5;
+    GAME_OVER_MUSIC.volume = 1;
+    GAME_OVER_MUSIC.loop = true;
 }
-
+function playWinningSound() {
+    VICTORY_MUSIC.play();
+    VICTORY_MUSIC.volume = 1;
+    VICTORY_MUSIC.loop = true;
+}
 function clearArrays() {
     world.level.bottles = []
     world.level.coins = []
@@ -139,17 +146,11 @@ function clearArrays() {
     world.character = []
 }
 
-function playWinningSound() {
-    VICTORY_MUSIC.play();
-    VICTORY_MUSIC.volume = 0.5;
-}
-
 function loadingScreen() {
     document.getElementById('loadingScreen').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
 }
-
 
 function startGame() {
     startLevel1();

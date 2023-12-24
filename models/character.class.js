@@ -110,7 +110,7 @@ class Character extends MovableObject {
 
     playGameSound() {
         GAME_MUSIC.play();
-        GAME_MUSIC.volume = 0.2;
+        GAME_MUSIC.volume = 0.5;
         GAME_MUSIC.loop = true;
     }
 
@@ -241,8 +241,9 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterRight();
-                        console.log('walking')
+                        console.log('walking');
                         WALKING_SOUND.play();
+                       
                     }
                 }
 
