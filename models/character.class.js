@@ -83,14 +83,6 @@ class Character extends MovableObject {
     ];
 
     world;
-
-    // game_music = new Audio('assets/audio/game_music.mp3');
-    // boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
-    // walking_sound = new Audio('assets/audio/running.mp3');
-    jumping_sound = new Audio('assets/audio/jump.mp3');
-    throwing_sound = new Audio('assets/audio/throwing.mp3');
-    sleeping_sound = new Audio('assets/audio/sleep.mp3');
-    hit_sound = new Audio('assets/audio/hit.mp3'); //HIT SOUND attribution https://freesound.org/people/Cigaro30/sounds/420932/
     
     // new Audio('audio/bottle.mp3') 
 
@@ -118,12 +110,12 @@ class Character extends MovableObject {
 
     playGameSound() {
         GAME_MUSIC.play();
-        GAME_MUSIC.volume = 0.5;
+        GAME_MUSIC.volume = 0.2;
         GAME_MUSIC.loop = true;
     }
 
     playThrowingSound() {
-        this.throwing_sound.play();
+        THROWING_SOUND.play();
     }
 
     setStatusbar() {
@@ -218,8 +210,8 @@ class Character extends MovableObject {
     }
 
     stopSleepingSound() {
-        this.sleeping_sound.pause();
-        this.sleeping_sound.currentTime = 0;
+        SLEEPING_SOUND.pause();
+        SLEEPING_SOUND.currentTime = 0;
     }
 
 
@@ -250,7 +242,7 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterRight();
-                        // this.walking_sound.play();
+                        console.log('walking')
                         WALKING_SOUND.play();
                     }
                 }
@@ -264,7 +256,7 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterLeft();
-                        // this.walking_sound.play();
+                        console.log('walking')
                         WALKING_SOUND.play();
                     }
                 }
@@ -277,11 +269,11 @@ class Character extends MovableObject {
                     this.setStatusIdle(false);
                     this.stopSleepingSound();
                     this.jump();
-                    this.jumping_sound.play();
+                    JUMPING_SOUND.play();
                 }
 
                 if (this.idleTime()) {
-                    this.sleeping_sound.play();
+                    SLEEPING_SOUND.play();
                 }
 
                 if (this.x > 2100) {
@@ -313,7 +305,7 @@ class Character extends MovableObject {
                 if (this.isDead()) {
                     this.playAnimation(this.IMAGES_DEAD)
                 } else if (this.isHurt()) {
-                    this.hit_sound.play();
+                    HIT_SOUND.play();
                     this.playAnimation(this.IMAGES_HURT)
                 } else if (this.isAboveGround()) {
                     this.playAnimation(this.IMAGES_JUMPING)

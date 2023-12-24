@@ -20,7 +20,6 @@ function init() {
 function muteSounds() {
     BOSS_MUSIC.volume = 0;
     GAME_MUSIC.volume = 0;
-    WALKING_SOUND.volume = 0;
 }
 
 function unMuteSounds() {
