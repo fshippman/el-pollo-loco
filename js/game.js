@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let intervalIds = [];
 let soundsMuted = false;
+let gamePaused = false;
 
 function init() {
     bindBTsPressEvents();
@@ -12,10 +13,12 @@ function init() {
 }
 
 function pauseGame() {
+    document.getElementById('pauseGame').src = 'assets/img/icons/play.png'
     world.gameIsRunning = false;
 }
 
 function unpauseGame() {
+    document.getElementById('pauseGame').src = 'assets/img/icons/pause.png'
     world.gameIsRunning = true;
 }
 
@@ -36,6 +39,15 @@ function toggleMute() {
         muteSounds();
     }
     soundsMuted = !soundsMuted
+}
+
+function togglePause() {
+    if (gamePaused) {
+        unpauseGame();
+    } else {
+        pauseGame();
+    }
+    gamePaused = !gamePaused
 }
 // function toggleMute(){
 //     if (!soundsMuted) {
