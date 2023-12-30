@@ -80,28 +80,29 @@
             <h1 class="loading-text">load...</h1>
         </div>
 
-        <div class="panel">
+        <div id="panel-top" class="panel">
             <div class="panel-wrapper">
-                <div onclick="toggleMute()" class="touch-button">Mute</div>
+                <div onclick="toggleMute()" class="touch-button"><img id="muteGame" src="assets/img/icons/sound_off.png" alt=""></div>
             </div>
             <div class="panel-wrapper">
                 <div onclick="togglePause()"class="touch-button"><img id="pauseGame" src="assets/img/icons/pause.png" alt=""></div>
             </div>
             <div class="panel-wrapper">
-                <button onclick="fullscreen()" class="touch-button">FS</button>
+                <div onclick="fullscreen()" class="touch-button"><img src="assets/img/icons/fullscreen.png" alt=""></div>
             </div>
         </div>
            
 
         <div id="panel-bottom" class="panel">
             <div class="panel-wrapper">
-                <div id="btnLeft" class="touch-button"> <img src="assets/img/icons/left.png" alt=""></div>
+                <div id="btnLeft" class="touch-button"><img src="assets/img/icons/left.png" alt=""></div>
                 <div id="btnRight" class="touch-button"><img src="assets/img/icons/right.png" alt=""></div>
             </div>
             <div class="panel-wrapper">
              
-                <button id="btnJump" class="touch-button">Jump</button>
-                <button id="btnThrow" class="touch-button">Throw</button>
+                <div id="btnJump" class="touch-button"><img src="assets/img/icons/space.png" alt=""></div>
+                <div id="btnThrow" class="touch-button"><img src="assets/img/icons/throw.png" alt=""></div>
+
             </div>
         </div>
     </div> 

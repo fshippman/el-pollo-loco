@@ -23,11 +23,13 @@ function unpauseGame() {
 }
 
 function muteSounds() {
+    document.getElementById('muteGame').src = 'assets/img/icons/sound_on.png'
     muteGameSounds();
     muteMusic();
 }
 
 function unMuteSounds() {
+    document.getElementById('muteGame').src = 'assets/img/icons/sound_off.png'
     unMuteGameSounds();
     unMuteMusic();
 }
