@@ -10,6 +10,8 @@ function init() {
     MENU_MUSIC.play();
     MENU_MUSIC.volume = 1;
     MENU_MUSIC.loop = true;
+    document.getElementById('pauseButton').classList.add('d-none')
+    document.getElementById('panelBottom').classList.add('d-none')
 }
 
 function pauseGame() {
@@ -176,11 +178,13 @@ function startGame() {
     world = new World(canvas, keyboard);
     loadingScreen();
     setTimeout(() => showWorld(), 10000);
-}
+} 
 
 function showWorld() {
     MENU_MUSIC.pause();
     document.getElementById('loadingScreen').classList.add('d-none');
+    document.getElementById('pauseButton').classList.remove('d-none');
+    document.getElementById('panelBottom').classList.remove('d-none')
     canvas.classList.remove('d-none');
     world.startAnimations();
 }
