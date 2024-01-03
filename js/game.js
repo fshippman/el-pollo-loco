@@ -62,13 +62,13 @@ function resetMusic() {
 }
 
 function pauseGame() {
-    document.getElementById('pauseGame').src = 'assets/img/icons/play.png'
+    document.getElementById('pauseGame').src = './assets/img/icons/play.png'
     world.gameIsRunning = false;
     muteAllSounds();
 }
 
 function unpauseGame() {
-    document.getElementById('pauseGame').src = 'assets/img/icons/pause.png'
+    document.getElementById('pauseGame').src = './assets/img/icons/pause.png'
     world.gameIsRunning = true;
     unMuteAllSounds();
 }
@@ -84,13 +84,13 @@ function toggleMute() {
 }
 
 function muteAllSounds() {
-    document.getElementById('muteGame').src = 'assets/img/icons/sound_on.png'
+    document.getElementById('muteGame').src = './assets/img/icons/sound_on.png'
     muteGameSounds();
     muteMusic();
 }
 
 function unMuteAllSounds() {
-    document.getElementById('muteGame').src = 'assets/img/icons/sound_off.png'
+    document.getElementById('muteGame').src = './assets/img/icons/sound_off.png'
     unMuteGameSounds();
     unMuteMusic();
 }

@@ -5,30 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>El Pollo Loco</title>
 
-    <script src="models/drawable-object.class.js"></script>
-    <script src="models/movable-object.class.js"></script>
-    <script src="models/character.class.js"></script>
-    <script src="models/chicken.class.js"></script>
-    <script src="models/chicken-small.class.js"></script>
-    <script src="models/cloud.class.js"></script>
-    <script src="models/world.class.js"></script>
-    <script src="models/background-object.class.js"></script>
-    <script src="models/keyboard.class.js"></script>
-    <script src="models/level.class.js"></script>
-    <script src="models/endboss.class.js"></script>
-    <script src="models/status-bar.class.js"></script>
-    <script src="models/coin-bar.class.js"></script>
-    <script src="models/bottle-bar.class.js"></script>
-    <script src="models/endboss-bar.class.js"></script>
-    <script src="models/throwable-object.class.js"></script>
-    <script src="models/bottle.class.js"></script>
-    <script src="models/coin.class.js"></script>
-    <script src="levels/level1.js"></script>
-    <script src="js/sounds.js"></script>
-    <script src="js/game.js"></script>
+    <script src="./models/drawable-object.class.js"></script>
+    <script src="./models/movable-object.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/chicken.class.js"></script>
+    <script src="./models/chicken-small.class.js"></script>
+    <script src="./models/cloud.class.js"></script>
+    <script src="./models/world.class.js"></script>
+    <script src="./models/background-object.class.js"></script>
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/level.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
+    <script src="./models/status-bar.class.js"></script>
+    <script src="./models/coin-bar.class.js"></script>
+    <script src="./models/bottle-bar.class.js"></script>
+    <script src="./models/endboss-bar.class.js"></script>
+    <script src="./models/throwable-object.class.js"></script>
+    <script src="./models/bottle.class.js"></script>
+    <script src="./models/coin.class.js"></script>
+    <script src="./levels/level1.js"></script>
+    <script src="./js/sounds.js"></script>
+    <script src="./js/game.js"></script>
 
 
 </head>
@@ -37,7 +37,7 @@
 <body onload="init()">
     <div id="rotate-device">
         <span>Please rotate your device</span>
-        <img src="assets/img/rotate.png" alt="">
+        <img src="./assets/img/rotate.png" alt="">
     </div>
 
     <!-- <h1>El Pollo Loco</h1> -->
@@ -49,7 +49,7 @@
         </canvas>
 
         <div id="winningScreen" class="d-none">
-            <img src="assets/img/9_intro_outro_screens/win.png" alt="">
+            <img src="./assets/img/9_intro_outro_screens/win.png" alt="">
             <div class="end-screen-buttons margin-top-win">
                 <button onclick="restartGame()" class="button">Restart</button>
                 <button onclick="window.close()" class="button">Exit</button>
@@ -57,7 +57,7 @@
         </div>
 
         <div id="loseScreen" class="d-none">
-            <img src="assets/img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="">
+            <img src="./assets/img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="">
             <div class="end-screen-buttons margin-top-lose">
                 <button onclick="restartGame()" class="button margin-restart-button">Restart</button>
                 <button onclick="window.close()" class="button">Exit</button>
@@ -65,7 +65,7 @@
         </div>
 
         <div id="startScreen">
-            <img src="assets/img/9_intro_outro_screens/start/startscreen_2.png" alt="">
+            <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png" alt="">
             <div class="startscreen-buttons">
                 <button onclick="startGame()" class="button">Start</button>
                 <button onclick="window.close()" class="button">Exit</button>
@@ -74,7 +74,7 @@
 
         <div id="loadingScreen" class="d-none">
             <div>
-                <img src="assets/img/6_salsa_bottle/salsa_bottle.png" alt="" class="loader">
+                <img src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="" class="loader">
             </div>
 
             <h1 class="loading-text">load...</h1>
@@ -82,26 +82,26 @@
 
         <div id="panelTop" class="panel">
             <div class="panel-wrapper">
-                <div onclick="toggleMute()" class="touch-button buttons-top-size"><img id="muteGame" src="assets/img/icons/sound_off.png" alt=""></div>
+                <div onclick="toggleMute()" class="touch-button buttons-top-size"><img id="muteGame" src="./assets/img/icons/sound_off.png" alt=""></div>
             </div>
             <div class="panel-wrapper">
-                <div id="pauseButton" onclick="togglePause()"class="touch-button buttons-top-size"><img id="pauseGame" src="assets/img/icons/pause.png" alt=""></div>
+                <div id="pauseButton" onclick="togglePause()"class="touch-button buttons-top-size"><img id="pauseGame" src="./assets/img/icons/pause.png" alt=""></div>
             </div>
             <div class="panel-wrapper">
-                <div onclick="fullscreen()" class="touch-button buttons-top-size"><img src="assets/img/icons/fullscreen.png" alt=""></div>
+                <div onclick="fullscreen()" class="touch-button buttons-top-size"><img src="./assets/img/icons/fullscreen.png" alt=""></div>
             </div>
         </div>
            
 
         <div id="panelBottom" class="panel">
             <div class="panel-wrapper">
-                <div id="btnLeft" class="touch-button"><img src="assets/img/icons/left.png" alt=""></div>
-                <div id="btnRight" class="touch-button"><img src="assets/img/icons/right.png" alt=""></div>
+                <div id="btnLeft" class="touch-button"><img src="./assets/img/icons/left.png" alt=""></div>
+                <div id="btnRight" class="touch-button"><img src="./assets/img/icons/right.png" alt=""></div>
             </div>
             <div class="panel-wrapper">
              
-                <div id="btnJump" class="touch-button"><img src="assets/img/icons/space.png" alt=""></div>
-                <div id="btnThrow" class="touch-button"><img src="assets/img/icons/throw.png" alt=""></div>
+                <div id="btnJump" class="touch-button"><img src="./assets/img/icons/space.png" alt=""></div>
+                <div id="btnThrow" class="touch-button"><img src="./assets/img/icons/throw.png" alt=""></div>
 
             </div>
         </div>
