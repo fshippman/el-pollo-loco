@@ -16,6 +16,45 @@ body {
     background-size: cover;
     font-family: 'zabras', Arial, Helvetica, sans-serif !important;
 }
+
+#gameInstructions{
+    top: 0;
+    position: absolute;
+    font-size: 30px;
+    z-index: 2;
+    gap: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:rgba(0, 0, 0, 0.2);
+}
+
+#gameInstructions h2 {
+    font-size: 48px;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+
+.single-instruction-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.single-instruction-container span{
+   width: 160px;
+   text-align: center;
+}
+
+.single-instruction-container img{
+    width: 34px;
+ }
+
 .panel{
     width: 100%;
     position: absolute;

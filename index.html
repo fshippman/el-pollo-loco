@@ -37,7 +37,7 @@
 <body onload="init()">
     <div id="rotate-device">
         <span>Please rotate your device</span>
-        <img src="./assets/img/rotate.png" alt="">
+        <img src="./assets/img/rotate.png">
     </div>
 
     <!-- <h1>El Pollo Loco</h1> -->
@@ -48,8 +48,18 @@
 
         </canvas>
 
+        <div id="gameInstructions" class="d-none">
+            <h2>HOW TO PLAY</h2>
+            <div class="single-instruction-container"><span>LEFT ARROW</span><img src="./assets/img/icons/left.png"><span>MOVE LEFT</span></div>
+            <div class="single-instruction-container"><span>RIGHT ARROW</span><img src="./assets/img/icons/right.png"><span>MOVE RIGHT</span></div>
+            <div class="single-instruction-container"><span>SPACEBAR</span><img src="./assets/img/icons/space.png"><span>JUMP</span></div>
+            <div class="single-instruction-container"><span>D</span><img src="./assets/img/icons/throw.png"><span>THROW BOTTLE</span></div>
+            <div class="single-instruction-container"><span>P</span><img src="./assets/img/icons/pause.png"><span>PAUSE GAME</span></div>
+            <div class="single-instruction-container"><span>M</span><img src="./assets/img/icons/sound_off.png"><span>MUTE SOUND</span></div>
+        </div>
+
         <div id="winningScreen" class="d-none">
-            <img src="./assets/img/9_intro_outro_screens/win.png" alt="">
+            <img src="./assets/img/9_intro_outro_screens/win.png">
             <div class="end-screen-buttons margin-top-win">
                 <button onclick="restartGame()" class="button">Restart</button>
                 <button onclick="window.close()" class="button">Exit</button>
@@ -57,7 +67,7 @@
         </div>
 
         <div id="loseScreen" class="d-none">
-            <img src="./assets/img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="">
+            <img src="./assets/img/9_intro_outro_screens/game_over/oh no you lost!.png">
             <div class="end-screen-buttons margin-top-lose">
                 <button onclick="restartGame()" class="button margin-restart-button">Restart</button>
                 <button onclick="window.close()" class="button">Exit</button>
@@ -65,43 +75,45 @@
         </div>
 
         <div id="startScreen">
-            <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png" alt="">
+            <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png">
             <div class="startscreen-buttons">
                 <button onclick="startGame()" class="button">Start</button>
+                <button onclick="openInstructions()" class="button">?</button>
                 <button onclick="window.close()" class="button">Exit</button>
             </div>
         </div>
 
         <div id="loadingScreen" class="d-none">
             <div>
-                <img src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="" class="loader">
+                <img src="./assets/img/6_salsa_bottle/salsa_bottle.png" class="loader">
             </div>
 
             <h1 class="loading-text">load...</h1>
         </div>
+       
 
         <div id="panelTop" class="panel">
             <div class="panel-wrapper">
-                <div onclick="toggleMute()" class="touch-button buttons-top-size"><img id="muteGame" src="./assets/img/icons/sound_off.png" alt=""></div>
+                <div onclick="toggleMute()" class="touch-button buttons-top-size"><img id="muteGame" src="./assets/img/icons/sound_off.png"></div>
             </div>
             <div class="panel-wrapper">
-                <div id="pauseButton" onclick="togglePause()"class="touch-button buttons-top-size"><img id="pauseGame" src="./assets/img/icons/pause.png" alt=""></div>
+                <div id="pauseButton" onclick="togglePause()"class="touch-button buttons-top-size"><img id="pauseGame" src="./assets/img/icons/pause.png"></div>
             </div>
             <div class="panel-wrapper">
-                <div onclick="fullscreen()" class="touch-button buttons-top-size"><img src="./assets/img/icons/fullscreen.png" alt=""></div>
+                <div onclick="fullscreen()" class="touch-button buttons-top-size"><img src="./assets/img/icons/fullscreen.png"></div>
             </div>
         </div>
            
 
         <div id="panelBottom" class="panel">
             <div class="panel-wrapper">
-                <div id="btnLeft" class="touch-button"><img src="./assets/img/icons/left.png" alt=""></div>
-                <div id="btnRight" class="touch-button"><img src="./assets/img/icons/right.png" alt=""></div>
+                <div id="btnLeft" class="touch-button"><img src="./assets/img/icons/left.png"></div>
+                <div id="btnRight" class="touch-button"><img src="./assets/img/icons/right.png"></div>
             </div>
             <div class="panel-wrapper">
              
-                <div id="btnJump" class="touch-button"><img src="./assets/img/icons/space.png" alt=""></div>
-                <div id="btnThrow" class="touch-button"><img src="./assets/img/icons/throw.png" alt=""></div>
+                <div id="btnJump" class="touch-button"><img src="./assets/img/icons/space.png"></div>
+                <div id="btnThrow" class="touch-button"><img src="./assets/img/icons/throw.png"></div>
 
             </div>
         </div>
