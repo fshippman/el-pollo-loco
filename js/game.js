@@ -25,10 +25,14 @@ function startGame() {
     setTimeout(() => showWorld(), 10000); 
 }
 
-function openInstructions(){
+function openHelp(){
     document.getElementById('gameInstructions').classList.remove('d-none');
     document.getElementById('startScreen').style.filter = "blur(10px)";
     // document.getElementById('startScreen').classList.add('d-none');
+}
+function closeHelp(){
+    document.getElementById('gameInstructions').classList.add('d-none');
+    document.getElementById('startScreen').style.filter = "none";
 }
 
 function stopMenuSound() {

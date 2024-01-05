@@ -77,9 +77,9 @@
         <div id="startScreen">
             <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png">
             <div class="startscreen-buttons">
-                <button onclick="startGame()" class="button">Start</button>
-                <button onclick="openInstructions()" class="button">?</button>
-                <button onclick="window.close()" class="button">Exit</button>
+                <button onclick="startGame()" class="button">START</button>
+                <button onclick="openHelp()" class="button">HELP</button>
+                <button onclick="window.close()" class="button">EXIT</button>
             </div>
         </div>
 
@@ -96,11 +96,14 @@
             <div class="panel-wrapper">
                 <div onclick="toggleMute()" class="touch-button buttons-top-size"><img id="muteGame" src="./assets/img/icons/sound_off.png"></div>
             </div>
-            <div class="panel-wrapper">
-                <div id="pauseButton" onclick="togglePause()"class="touch-button buttons-top-size"><img id="pauseGame" src="./assets/img/icons/pause.png"></div>
+            <div  id="pauseButton" class="panel-wrapper">
+                <div  onclick="togglePause()"class="touch-button buttons-top-size"><img id="pauseGame" src="./assets/img/icons/pause.png"></div>
             </div>
             <div class="panel-wrapper">
                 <div onclick="fullscreen()" class="touch-button buttons-top-size"><img src="./assets/img/icons/fullscreen.png"></div>
+            </div>
+            <div class="panel-wrapper">
+                <div id="closeButton" onclick="closeHelp()" class="touch-button buttons-top-size"><img src="./assets/img/icons/close.png"></div>
             </div>
         </div>
            
