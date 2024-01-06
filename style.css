@@ -15,6 +15,7 @@ body {
     background-position: center;
     background-size: cover;
     font-family: 'zabras', Arial, Helvetica, sans-serif !important;
+    overflow: hidden;
 }
 
 #gameInstructions{
@@ -192,11 +193,17 @@ h1 {
         display: none;
     }
 
+   
+
 }
 @media (max-height: 430px){
     .game-container{
         height: 100vh;
         width: 100vw;
+    }
+
+    #fullscreenButton{
+        display: none;
     }
     #panelBottom{
         display: flex;

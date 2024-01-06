@@ -24,17 +24,47 @@ function createStatusbar(){
 
 function createEnemies() {
     return [
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+
         // new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
         // new Chicken(),
 
-        // new SmallChicken(),
-        // new SmallChicken(),
-        // new SmallChicken(),
-        // new SmallChicken(),
-        // new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
     ]
 }
 
@@ -46,6 +76,8 @@ function createEndboss() {
 
 function createClouds() {
     return [
+        new Cloud(),
+        new Cloud(),
         new Cloud(),
         new Cloud(),
         new Cloud(),
@@ -100,9 +132,9 @@ function createBottles() {
 function createCoins() {
     return [
         new Coin(-550),
+        new Coin(-400),
         new Coin(-250),
         new Coin(-150),
-        new Coin(0),
         new Coin(0),
         new Coin(300),
         new Coin(500),

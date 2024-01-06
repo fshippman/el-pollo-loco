@@ -4,17 +4,26 @@ let keyboard = new Keyboard();
 let intervalIds = [];
 let soundsMuted = false;
 let gamePaused = false;
+let gameStarted = false;
+let fullscreenActive = false;
 
 function init() {
+    playMenuMusic();
     bindBTsPressEvents();
-    MENU_MUSIC.play();
-    MENU_MUSIC.volume = 1;
-    MENU_MUSIC.loop = true;
     document.getElementById('pauseButton').classList.add('d-none');
     document.getElementById('panelBottom').classList.add('d-none');
 }
 
+    
+function playMenuMusic() {
+    MENU_MUSIC.volume = 1;
+    MENU_MUSIC.loop = true;
+    MENU_MUSIC.play().catch(() => setTimeout(playMenuMusic, 500));   
+}
+
+
 function startGame() {
+    gameStarted = true;
     stopMenuSound();
     startLevel1();
     document.getElementById('startScreen').classList.add('d-none');
@@ -22,24 +31,28 @@ function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     loadingScreen();
-    setTimeout(() => showWorld(), 10000); 
+    setTimeout(() => showWorld(), 10000);
 }
 
-function openHelp(){
+function openHelp() {
     document.getElementById('gameInstructions').classList.remove('d-none');
     document.getElementById('closeButton').classList.remove('d-none');
+
     document.getElementById('startScreen').style.filter = "blur(10px)";
-    document.getElementById('canvas').style.filter = "blur(2px)";
-    // document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('canvas').style.filter = "blur(10px)";
+    document.getElementById('panelBottom').style.filter = "blur(10px)";
+    if (gameStarted) {
+        document.getElementById('closeButton').classList.add('d-none');
+    }
 }
-function closeHelp(){
+
+function closeHelp() {
     document.getElementById('gameInstructions').classList.add('d-none');
     document.getElementById('closeButton').classList.add('d-none');
+
     document.getElementById('startScreen').style.filter = "none";
     document.getElementById('canvas').style.filter = "none";
-    if(world === !undefined){
-        unpauseGame();
-    }
+    document.getElementById('panelBottom').style.filter = "none";
 }
 
 function stopMenuSound() {
@@ -81,14 +94,12 @@ function resetMusic() {
 function pauseGame() {
     document.getElementById('pauseGame').src = './assets/img/icons/play.png';
     world.gameIsRunning = false;
-    muteAllSounds();
     openHelp();
 }
 
 function unpauseGame() {
     document.getElementById('pauseGame').src = './assets/img/icons/pause.png'
     world.gameIsRunning = true;
-    unMuteAllSounds();
     closeHelp();
 }
 
@@ -162,17 +173,10 @@ function togglePause() {
     }
     gamePaused = !gamePaused
 }
-// function toggleMute(){
-//     if (!soundsMuted) {
-//         muteAllSounds();
-//         soundsMuted = true;
-//     } else {
-//         unMuteAllSounds();
-//         soundsMuted = false;
-//     }
-// }
+
 
 function stopGameWin() {
+    gameStarted = false;
     muteAllSounds();
     stopBossMusic();
     stopGameMusic();
@@ -189,6 +193,7 @@ function stopGameWin() {
 
 
 function stopGameLose() {
+    gameStarted = false;
     muteAllSounds();
     stopBossMusic();
     stopGameMusic();
@@ -227,7 +232,7 @@ function stopGameMusic() {
 function restartGame() {
     clearAllIntervals();
     clearArrays();
-    muteAllSounds(); 
+    muteAllSounds();
     GAME_OVER_MUSIC.pause();
     VICTORY_MUSIC.pause();
     document.getElementById('loseScreen').classList.add('d-none');
@@ -276,12 +281,17 @@ function exitFullscreen() {
     }
 }
 
-// mute Sound with Key M
-document.addEventListener("keypress", (e) => {
-    if (e.keyCode == 77) {
-        //Code 77 = M
+function toggleFullscreen() {
+
+    if (fullscreenActive) {
+        exitFullscreen();
+    } else {
+        fullscreen();
     }
-});
+    fullscreenActive = !fullscreenActive
+}
+
+
 
 function bindBTsPressEvents() {
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
@@ -316,8 +326,24 @@ function bindBTsPressEvents() {
         e.preventDefault();
         keyboard.D = false;
     });
-
 }
+
+document.addEventListener("keypress", (e) => {
+    if (e.keyCode == 112) {
+        if (gameStarted) {
+            togglePause();
+        } else {
+            alert("You can't pause the game if it's not running!");
+        }
+    }
+});
+
+
+document.addEventListener("keypress", (e) => {
+    if (e.keyCode == 109) {
+        toggleMute();
+    }
+});
 
 
 document.addEventListener("keydown", (e) => {
@@ -361,5 +387,3 @@ document.addEventListener("keyup", (e) => {
         keyboard.D = false;
     }
 });
-
-

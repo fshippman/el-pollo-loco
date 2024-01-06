@@ -27,11 +27,9 @@ class SmallChicken extends MovableObject {
         this.x = 400;
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
-         //original
-        // this.x = 200 + Math.random() * 2500;
-        this.speed = 0.15 + Math.random() * 0.5; //0.25
+        this.x = 400 + Math.random() * 2500;
+        this.speed = 0.15 + Math.random() * 0.25; //0.25
         this.attackDamage = 2;
-        // this.animate();
     }
 
     

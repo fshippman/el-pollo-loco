@@ -66,15 +66,12 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
-
         this.speed = 0.02;
-        this.x = 2500 // 2500!
-        // this.animate();
+        this.x = 2400 // 2500 max
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
         this.deadAnimation = false;
         this.attackDamage = 100;
-
     }
 
     walkingBoss() {
@@ -106,9 +103,13 @@ class Endboss extends MovableObject {
                 } else if (this.isDead() && !this.deadAnimation) {
                     this.playAnimation(this.IMAGES_DEAD)
                     this.stopWalking();
-                    this.deadAnimation = true;
-                    world.gameIsRunning = false;
-                    stopGameWin();
+                   
+                    setTimeout(() => {
+                         this.deadAnimation = true;
+                        world.gameIsRunning = false;
+                        stopGameWin();
+                    }, 400);
+                  
 
                 } else if (!this.isDead() && !this.hadFirstEndbossContact) {
                     this.playAnimation(this.IMAGES_ALERT);

@@ -8,35 +8,30 @@ class Chicken extends MovableObject {
     offsetYD = 17 //30
     
 
-    
-
     IMAGES_WALKING = [
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
 
+
     IMAGE_DEAD = ['./assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png']
+
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGE_DEAD)
-
-        // this.speed = 0.15;
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
-        //original
         this.x = 400 + Math.random() * 2500;
-        this.speed = 0.15 + Math.random() * 0.5; //0.25
-        this.attackDamage = 5;
-        // this.animate();
+        this.speed = 0.15 + Math.random() * 0.25; //0.25
+        this.attackDamage = 5; //5?
     }
 
 
     //jede Sekunde ändert sich die Grafik
     animate() {
-
 
         setInterval(() => {
 
@@ -58,10 +53,6 @@ class Chicken extends MovableObject {
                 }
             }
 
-
         }, 200)
     }
-
-
-
 }

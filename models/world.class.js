@@ -64,7 +64,7 @@ class World {
                 }
             });
 
-
+           
             if (ThrowableObject.isColliding(this.level.boss[0]) && this.level.boss[0].endfightStart) {
                 ThrowableObject.showBottlesmash(this.throwableObjects, index);
 
@@ -189,9 +189,8 @@ class World {
     collectCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin, index)) {
-                console.log('coin')
                 this.character.coinInventory++;
-                this.level.coins.splice(index,1)
+                this.level.coins.splice(index,1);
                 this.coinbar.setPercentage(this.character.calculateCoinPercentage());
                 COIN_SOUND.play();
             }

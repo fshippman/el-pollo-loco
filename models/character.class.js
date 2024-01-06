@@ -241,7 +241,6 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterRight();
-                        console.log('walking');
                         WALKING_SOUND.play();
                        
                     }
@@ -256,7 +255,6 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterLeft();
-                        console.log('walking')
                         WALKING_SOUND.play();
                     }
                 }
