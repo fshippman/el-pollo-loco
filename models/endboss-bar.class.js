@@ -1,9 +1,9 @@
 class EndbossBar extends DrawableObject {
 
     ENDBOSS_ENERGY_BAR = [
-        'assets/img/7_statusbars/2_statusbar_endboss/green.png',
-        'assets/img/7_statusbars/2_statusbar_endboss/blue.png',
-        'assets/img/7_statusbars/2_statusbar_endboss/orange.png',
+        './assets/img/7_statusbars/2_statusbar_endboss/green.png',
+        './assets/img/7_statusbars/2_statusbar_endboss/blue.png',
+        './assets/img/7_statusbars/2_statusbar_endboss/orange.png',
     ];
 
     percentage = 100;

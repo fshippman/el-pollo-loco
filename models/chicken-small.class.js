@@ -6,18 +6,18 @@ class SmallChicken extends MovableObject {
     offsetXR = 7   //35
     offsetYU = 4 //120
     offsetYD = 10 //30
-    chicken_sound = new Audio('assets/audio/chicken.mp3');
+   
   
 
 
     IMAGES_WALKING = [
-        'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
-        'assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
-        'assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
+        './assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        './assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        './assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
 
     IMAGE_DEAD = [
-        'assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
+        './assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
 
     constructor() {
@@ -27,11 +27,9 @@ class SmallChicken extends MovableObject {
         this.x = 400;
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
-         //original
-        // this.x = 200 + Math.random() * 2500;
-        this.speed = 0.15 + Math.random() * 0.5; //0.25
+        this.x = 400 + Math.random() * 2500;
+        this.speed = 0.15 + Math.random() * 0.25; //0.25
         this.attackDamage = 2;
-        // this.animate();
     }
 
     

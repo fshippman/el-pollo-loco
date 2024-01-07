@@ -19,78 +19,70 @@ class Character extends MovableObject {
 
 
     IMAGES_IDLE = [
-        'assets/img/2_character_pepe/1_idle/idle/I-1.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-2.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-3.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-4.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-5.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-6.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-7.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-8.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-9.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-10.png'
+        './assets/img/2_character_pepe/1_idle/idle/I-1.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-2.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-3.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-4.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-5.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-6.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-7.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-8.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-9.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
     IMAGES_LONG_IDLE = [
-        'assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-20.png'
+        './assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
     //IMAGES_WALKING[0] lädt Bild 0
     IMAGES_WALKING = [
-        'assets/img/2_character_pepe/2_walk/W-21.png',
-        'assets/img/2_character_pepe/2_walk/W-22.png',
-        'assets/img/2_character_pepe/2_walk/W-23.png',
-        'assets/img/2_character_pepe/2_walk/W-24.png',
-        'assets/img/2_character_pepe/2_walk/W-25.png',
-        'assets/img/2_character_pepe/2_walk/W-26.png'
+        './assets/img/2_character_pepe/2_walk/W-21.png',
+        './assets/img/2_character_pepe/2_walk/W-22.png',
+        './assets/img/2_character_pepe/2_walk/W-23.png',
+        './assets/img/2_character_pepe/2_walk/W-24.png',
+        './assets/img/2_character_pepe/2_walk/W-25.png',
+        './assets/img/2_character_pepe/2_walk/W-26.png'
     ];
 
     IMAGES_JUMPING = [
-        'assets/img/2_character_pepe/3_jump/J-31.png',
-        'assets/img/2_character_pepe/3_jump/J-32.png',
-        'assets/img/2_character_pepe/3_jump/J-33.png',
-        'assets/img/2_character_pepe/3_jump/J-34.png',
-        'assets/img/2_character_pepe/3_jump/J-35.png',
-        'assets/img/2_character_pepe/3_jump/J-36.png',
-        'assets/img/2_character_pepe/3_jump/J-37.png',
-        'assets/img/2_character_pepe/3_jump/J-38.png',
-        'assets/img/2_character_pepe/3_jump/J-39.png'
+        './assets/img/2_character_pepe/3_jump/J-31.png',
+        './assets/img/2_character_pepe/3_jump/J-32.png',
+        './assets/img/2_character_pepe/3_jump/J-33.png',
+        './assets/img/2_character_pepe/3_jump/J-34.png',
+        './assets/img/2_character_pepe/3_jump/J-35.png',
+        './assets/img/2_character_pepe/3_jump/J-36.png',
+        './assets/img/2_character_pepe/3_jump/J-37.png',
+        './assets/img/2_character_pepe/3_jump/J-38.png',
+        './assets/img/2_character_pepe/3_jump/J-39.png'
     ];
 
     IMAGES_HURT = [
-        'assets/img/2_character_pepe/4_hurt/H-41.png',
-        'assets/img/2_character_pepe/4_hurt/H-42.png',
-        'assets/img/2_character_pepe/4_hurt/H-43.png'
+        './assets/img/2_character_pepe/4_hurt/H-41.png',
+        './assets/img/2_character_pepe/4_hurt/H-42.png',
+        './assets/img/2_character_pepe/4_hurt/H-43.png'
     ]
 
     IMAGES_DEAD = [
-        'assets/img/2_character_pepe/5_dead/D-51.png',
-        'assets/img/2_character_pepe/5_dead/D-52.png',
-        'assets/img/2_character_pepe/5_dead/D-53.png',
-        'assets/img/2_character_pepe/5_dead/D-54.png',
-        'assets/img/2_character_pepe/5_dead/D-55.png',
-        'assets/img/2_character_pepe/5_dead/D-51.png',
-        'assets/img/2_character_pepe/5_dead/D-57.png'
+        './assets/img/2_character_pepe/5_dead/D-51.png',
+        './assets/img/2_character_pepe/5_dead/D-52.png',
+        './assets/img/2_character_pepe/5_dead/D-53.png',
+        './assets/img/2_character_pepe/5_dead/D-54.png',
+        './assets/img/2_character_pepe/5_dead/D-55.png',
+        './assets/img/2_character_pepe/5_dead/D-51.png',
+        './assets/img/2_character_pepe/5_dead/D-57.png'
     ];
 
     world;
-
-    game_music = new Audio('assets/audio/game_music.mp3');
-    boss_music = new Audio('assets/audio/boss_music.mp3'); //BOSS MUSIC attribution https://freesound.org/people/FoolBoyMedia/sounds/530064/
-    walking_sound = new Audio('assets/audio/running.mp3');
-    jumping_sound = new Audio('assets/audio/jump.mp3');
-    throwing_sound = new Audio('assets/audio/throwing.mp3');
-    sleeping_sound = new Audio('assets/audio/sleep.mp3');
-    hit_sound = new Audio('assets/audio/hit.mp3'); //HIT SOUND attribution https://freesound.org/people/Cigaro30/sounds/420932/
     
     // new Audio('audio/bottle.mp3') 
 
@@ -117,13 +109,13 @@ class Character extends MovableObject {
     }
 
     playGameSound() {
-        this.game_music.play();
-        this.game_music.volume = 0.5;
-        this.game_music.loop = true;
+        GAME_MUSIC.play();
+        GAME_MUSIC.volume = 0.5;
+        GAME_MUSIC.loop = true;
     }
 
     playThrowingSound() {
-        this.throwing_sound.play();
+        THROWING_SOUND.play();
     }
 
     setStatusbar() {
@@ -218,17 +210,17 @@ class Character extends MovableObject {
     }
 
     stopSleepingSound() {
-        this.sleeping_sound.pause();
-        this.sleeping_sound.currentTime = 0;
+        SLEEPING_SOUND.pause();
+        SLEEPING_SOUND.currentTime = 0;
     }
 
 
     jumpingSpeed() {
-        this.speed = 2
+        this.speed = 0.4
     }
 
     walkingSpeed() {
-        this.speed = 5;
+        this.speed = 4.5;
     }
     //jede Sekunde ändert sich die Grafik
     animate() {
@@ -238,7 +230,7 @@ class Character extends MovableObject {
             // this.playGameSound();
 
             if (world.gameIsRunning) {
-                this.walking_sound.pause();
+                WALKING_SOUND.pause()
 
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.setStatusIdle(false);
@@ -249,7 +241,8 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterRight();
-                        this.walking_sound.play();
+                        WALKING_SOUND.play();
+                       
                     }
                 }
 
@@ -262,7 +255,7 @@ class Character extends MovableObject {
                     } else {
                         this.walkingSpeed();
                         this.moveCharacterLeft();
-                        this.walking_sound.play();
+                        WALKING_SOUND.play();
                     }
                 }
 
@@ -274,18 +267,18 @@ class Character extends MovableObject {
                     this.setStatusIdle(false);
                     this.stopSleepingSound();
                     this.jump();
-                    this.jumping_sound.play();
+                    JUMPING_SOUND.play();
                 }
 
-                if (this.idleTime()) {
-                    this.sleeping_sound.play();
+                if (this.idleTime() && this.world.gameIsRunning) {
+                    SLEEPING_SOUND.play();
                 }
 
                 if (this.x > 2100) {
-                    this.game_music.pause();
-                    this.boss_music.play();
-                    this.boss_music.volume = 0.5;
-                    this.boss_music.loop = true;
+                    GAME_MUSIC.pause();
+                    BOSS_MUSIC.play();
+                    BOSS_MUSIC.volume = 0.5;
+                    BOSS_MUSIC.loop = true;
                 }
 
                 if (this.isDead() && this.world.gameIsRunning) {
@@ -310,7 +303,7 @@ class Character extends MovableObject {
                 if (this.isDead()) {
                     this.playAnimation(this.IMAGES_DEAD)
                 } else if (this.isHurt()) {
-                    this.hit_sound.play();
+                    HIT_SOUND.play();
                     this.playAnimation(this.IMAGES_HURT)
                 } else if (this.isAboveGround()) {
                     this.playAnimation(this.IMAGES_JUMPING)
