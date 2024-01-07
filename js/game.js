@@ -94,6 +94,7 @@ function resetMusic() {
 function pauseGame() {
     document.getElementById('pauseGame').src = './assets/img/icons/play.png';
     world.gameIsRunning = false;
+    world.character.stopSleepingSound();
     openHelp();
 }
 
@@ -158,8 +159,8 @@ function unMuteGameSounds() {
 }
 
 function unMuteMusic() {
-    GAME_OVER_MUSIC.volume = 1;
-    VICTORY_MUSIC.volume = 1;
+    GAME_OVER_MUSIC.volume = 0.5;
+    VICTORY_MUSIC.volume = 0.5;
     MENU_MUSIC.volume = 1;
     GAME_MUSIC.volume = 0.5;
     BOSS_MUSIC.volume = 0.5;

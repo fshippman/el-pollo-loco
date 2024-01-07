@@ -270,7 +270,7 @@ class Character extends MovableObject {
                     JUMPING_SOUND.play();
                 }
 
-                if (this.idleTime()) {
+                if (this.idleTime() && this.world.gameIsRunning) {
                     SLEEPING_SOUND.play();
                 }
 
