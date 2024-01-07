@@ -69,8 +69,8 @@ function loadingScreen() {
 function showWorld() {
     unMuteAllSounds();
     muteEndscreenSounds();
-    MENU_MUSIC.pause();
     resetMusic();
+    MENU_MUSIC.pause();
     document.getElementById('loadingScreen').classList.add('d-none');
     document.getElementById('pauseButton').classList.remove('d-none');
     document.getElementById('panelBottom').classList.remove('d-none')
@@ -178,7 +178,8 @@ function togglePause() {
 
 function stopGameWin() {
     gameStarted = false;
-    muteAllSounds();
+    world.character.stopSleepingSound();
+    stopMenuSound();
     stopBossMusic();
     stopGameMusic();
     playWinningSound();
@@ -195,7 +196,8 @@ function stopGameWin() {
 
 function stopGameLose() {
     gameStarted = false;
-    muteAllSounds();
+    world.character.stopSleepingSound();
+    stopMenuSound();
     stopBossMusic();
     stopGameMusic();
     playLosingSound();

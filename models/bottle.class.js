@@ -1,6 +1,6 @@
 class Bottle extends MovableObject {
   x = 400; //2100 max x!
-  y = 350;
+  y = 350; // 350
   offsetXL = 33 //33
   offsetXR = 15 //15
   offsetYU = 15 //15
@@ -28,8 +28,6 @@ class Bottle extends MovableObject {
         // if (world.gameIsRunning) {
           this.playAnimation(this.BOTTLE_ANIMATION)
         // }
-       
-       
     }, 1000);
 }
 

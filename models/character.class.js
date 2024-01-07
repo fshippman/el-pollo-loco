@@ -216,11 +216,11 @@ class Character extends MovableObject {
 
 
     jumpingSpeed() {
-        this.speed = 2
+        this.speed = 0.4
     }
 
     walkingSpeed() {
-        this.speed = 5;
+        this.speed = 4.5;
     }
     //jede Sekunde ändert sich die Grafik
     animate() {
