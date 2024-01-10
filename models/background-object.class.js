@@ -2,6 +2,7 @@ class BackgroundObject extends MovableObject {
     width = 720;
     height = 480;
 
+    
     /**
      * Creates a new BackgroundObject instance.
      * It loads an image for the background object and sets its initial position.
