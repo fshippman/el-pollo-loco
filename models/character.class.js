@@ -83,7 +83,7 @@ class Character extends MovableObject {
     ];
 
     world;
-    
+
     // new Audio('audio/bottle.mp3') 
 
     character;
@@ -101,17 +101,13 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.setThrowingTimer();
-
-        // ---- IN WORLD! 
-        // this.animate();
-        // this.playGameSound();
-
     }
+
 
     playGameSound() {
         GAME_MUSIC.play();
-        GAME_MUSIC.volume = 0.5;
         GAME_MUSIC.loop = true;
+        checkSoundStatus(GAME_MUSIC);
     }
 
     playThrowingSound() {
@@ -226,7 +222,7 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
-          
+
             // this.playGameSound();
 
             if (world.gameIsRunning) {
@@ -242,7 +238,7 @@ class Character extends MovableObject {
                         this.walkingSpeed();
                         this.moveCharacterRight();
                         WALKING_SOUND.play();
-                       
+
                     }
                 }
 
@@ -277,8 +273,8 @@ class Character extends MovableObject {
                 if (this.x > 2100) {
                     GAME_MUSIC.pause();
                     BOSS_MUSIC.play();
-                    BOSS_MUSIC.volume = 0.5;
                     BOSS_MUSIC.loop = true;
+                    checkSoundStatus(BOSS_MUSIC);
                 }
 
                 if (this.isDead() && this.world.gameIsRunning) {
@@ -286,7 +282,7 @@ class Character extends MovableObject {
                         world.gameIsRunning = false;
                         stopGameLose();
                     }, 1000);
-                   
+
                 }
 
                 this.world.camera_x = -this.x + 100;

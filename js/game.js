@@ -14,11 +14,11 @@ function init() {
     document.getElementById('panelBottom').classList.add('d-none');
 }
 
-    
+
 function playMenuMusic() {
     MENU_MUSIC.volume = 1;
     MENU_MUSIC.loop = true;
-    MENU_MUSIC.play().catch(() => setTimeout(playMenuMusic, 500));   
+    MENU_MUSIC.play().catch(() => setTimeout(playMenuMusic, 500));
 }
 
 
@@ -67,7 +67,6 @@ function loadingScreen() {
 }
 
 function showWorld() {
-    unMuteAllSounds();
     muteEndscreenSounds();
     resetMusic();
     MENU_MUSIC.pause();
@@ -113,6 +112,7 @@ function toggleMute() {
     }
     soundsMuted = !soundsMuted
 }
+
 
 function muteAllSounds() {
     document.getElementById('muteGame').src = './assets/img/icons/sound_on.png'
@@ -208,18 +208,26 @@ function stopGameLose() {
     document.getElementById('pauseButton').classList.add('d-none');
     document.getElementById('panelBottom').classList.add('d-none');
 }
-
+function checkSoundStatus(musicSrc){
+    if (soundsMuted) {
+        muteAllSounds();
+        musicSrc.volume = 0;
+    } else {
+        unMuteAllSounds();
+        musicSrc.volume = 0.5;
+    }
+}
 
 function playLosingSound() {
     GAME_OVER_MUSIC.play();
-    GAME_OVER_MUSIC.volume = 1;
     GAME_OVER_MUSIC.loop = true;
+    checkSoundStatus(GAME_OVER_MUSIC);
 }
 
 function playWinningSound() {
     VICTORY_MUSIC.play();
-    VICTORY_MUSIC.volume = 1;
     VICTORY_MUSIC.loop = true;
+    checkSoundStatus(VICTORY_MUSIC);
 }
 
 function stopBossMusic() {
