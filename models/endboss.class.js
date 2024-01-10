@@ -118,13 +118,13 @@ class Endboss extends MovableObject {
 
                     if (i < 20 && this.hadFirstEndbossContact) {
                         this.playAnimation(this.IMAGES_ATTACK);
-                        world.level.level_end_x = 2140
-                        world.level.level_start_x = 2135
+                        world.level.end_x = 2140
+                        world.level.start_x = 2135
                     }
 
                     if (i > 20 && this.hadFirstEndbossContact && !this.isDead()) {
-                        world.level.level_end_x = 2200
-                        world.level.level_start_x = -600
+                        world.level.end_x = 2200
+                        world.level.start_x = -600
 
                         this.endfightStart = true
                         this.speed = 0.02;

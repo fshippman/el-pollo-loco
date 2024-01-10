@@ -7,8 +7,8 @@ class Level {
     deadChicken;
     bottles; // Das Bottle Array aus level1
     coins;
-    level_start_x = -600;
-    level_end_x = 2200;
+    start_x = -600;
+    end_x = 2200;
 
 
     constructor(enemies, boss, clouds, backgroundObjects, bottles, coins) {
