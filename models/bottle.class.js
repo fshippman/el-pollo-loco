@@ -30,7 +30,7 @@ class Bottle extends MovableObject {
 
 
   /**
-   * Animates the salsa bottle by cycling through the frames in `BOTTLE_ANIMATION`.
+   * Animates the salsa bottle.
    */
   animate() {
     setInterval(() => {
