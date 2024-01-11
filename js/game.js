@@ -21,10 +21,9 @@ function playMenuMusic() {
     MENU_MUSIC.play().catch(() => setTimeout(playMenuMusic, 500));
 }
 
-
 function startGame() {
     gameStarted = true;
-    stopMenuSound();
+    stopMenuMusic();
     startLevel1();
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
@@ -55,12 +54,13 @@ function closeHelp() {
     document.getElementById('panelBottom').style.filter = "none";
 }
 
-function stopMenuSound() {
+function stopMenuMusic() {
     MENU_MUSIC.pause();
     MENU_MUSIC.currentTime = 0;
 }
 
 function loadingScreen() {
+    stopMenuMusic();
     document.getElementById('loadingScreen').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
@@ -176,10 +176,11 @@ function togglePause() {
 }
 
 
+
 function stopGameWin() {
     gameStarted = false;
     stopSleepingSound();
-    stopMenuSound();
+    stopMenuMusic();
     stopBossMusic();
     stopGameMusic();
     playWinningSound();
@@ -197,7 +198,7 @@ function stopGameWin() {
 function stopGameLose() {
     gameStarted = false;
     stopSleepingSound();
-    stopMenuSound();
+    stopMenuMusic();
     stopBossMusic();
     stopGameMusic();
     playLosingSound();

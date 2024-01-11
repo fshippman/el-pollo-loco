@@ -2,20 +2,13 @@ class Endboss extends MovableObject {
     y = 45;
     height = 410;
     width = 260;
-    // offsetYU = 130; // offset for hitbox from top
-    // offsetYD = 100; // offset for hitbox from bottom
-    // offsetXR = 70; // offset for hitbox from right
-    // offsetXL = 30; // offset for hitbox from left
-
-    offsetYU = 160;
-    offsetYD = 15;
-    offsetXR = 40;
-    offsetXL = 30;
+    offsetXL = 30; //The horizontal offset on the left side.
+    offsetXR = 40; //The horizontal offset on the right side.
+    offsetYU = 160; //The vertical offset on the upper side.
+    offsetYD = 15; //The vertical offset on the lower side.
     deadAnimation;
     hadFirstEndbossContact = false;
     endfightStart = false;
-  
-
 
     IMAGES_WALKING = [
         './assets/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -59,6 +52,10 @@ class Endboss extends MovableObject {
     ];
 
 
+    /**
+     * Constructs a new Endboss instance.
+     * Initializes the endboss with various animations, sets its position and speed, and configures the initial animation state.
+     */
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -67,13 +64,89 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.02;
-        this.x = 2400 // 2500 max
+        this.x = 2400;
         this.thisRightOffset = this.offsetXR;
         this.thisLeftOffset = this.offsetXL;
         this.deadAnimation = false;
         this.attackDamage = 100;
     }
 
+
+    /**
+     * Manages the animation sequence of the endboss.
+     * This method uses a loop to handle different animation states based on the game situation and the endboss's condition.
+     */
+    animate() {
+        let i = 0
+        setInterval(() => {
+            if (world.gameIsRunning) {
+                this.handleEndbossAnimation(i)
+                i++;
+                if (world.character.x > 2100 && !this.hadFirstEndbossContact) {
+                    i = 0
+                    this.hadFirstEndbossContact = true
+                }
+            }
+        }, 200)
+    }
+
+    // setEndbossContactTrue(i) {
+
+    // }
+
+    /**
+     * Handles the endboss's animation based on its current state.
+     * Chooses different animation sequences depending on whether the endboss is hurt, dead, in an alert state, or in an attack sequence.
+     */
+    handleEndbossAnimation(i) {
+        if (this.isHurt() && this.energy < 100 && this.energy > 50) {
+            this.firstBossHurtAnimations();
+        } else if (this.isHurt() && this.energy < 49 && !this.isDead()) {
+            this.secondBossHurtAnimations()
+        } else if (this.isDead() && !this.deadAnimation) {
+            this.playDeadBossAnimation();
+        } else if (!this.isDead() && !this.hadFirstEndbossContact) {
+            this.playAnimation(this.IMAGES_ALERT);
+        } else {
+            this.playBossSequence(i);
+            this.startEndfight(i);
+        }
+    }
+
+
+    /**
+     * Plays the endboss's sequence.
+     * This method is triggered during the initial phase of the endboss encounter.
+     */
+    playBossSequence(i) {
+        if (i < 20 && this.hadFirstEndbossContact) {
+            this.playAnimation(this.IMAGES_ATTACK);
+            world.level.end_x = 2140
+            world.level.start_x = 2138
+        }
+    }
+
+
+    /**
+     * Initiates the final battle with the endboss.
+     * This method sets the stage for the endfight, adjusting level boundaries and starting the endboss's walking animation.
+     */
+    startEndfight(i) {
+        if (i > 20 && this.hadFirstEndbossContact && !this.isDead()) {
+            world.level.end_x = 2200
+            world.level.start_x = -600
+            this.endfightStart = true
+            this.speed = 0.02;
+            this.playAnimation(this.IMAGES_WALKING)
+            this.walkingBoss();
+        }
+    }
+
+
+    /**
+     * Manages the walking movement of the endboss.
+     * Sets an interval for the endboss to move left.
+     */
     walkingBoss() {
         setInterval(() => {
             if (world.gameIsRunning) {
@@ -83,64 +156,47 @@ class Endboss extends MovableObject {
     }
 
 
-    animate() {
-        let i = 0
+    /**
+     * Plays the first kind of hurt animation sequence for the endboss.
+     * Triggered when the endboss's energy is between certain thresholds.
+     */
+    firstBossHurtAnimations() {
+        this.playAnimation(this.IMAGES_ATTACK)
+        this.stopBoss();
+    }
 
-        setInterval(() => {
 
-            if (world.gameIsRunning) {
+    /**
+     * Plays the second kind of hurt animation sequence for the endboss.
+     * Triggered when the endboss's energy drops below a certain threshold.
+     */
+    secondBossHurtAnimations() {
+        this.playAnimation(this.IMAGES_HURT)
+        this.stopBoss();
+    }
 
-                if (this.isHurt() && this.energy < 100 && this.energy > 50) {
-                    this.playAnimation(this.IMAGES_ATTACK)
-                    this.stopWalking();
-                    this.deadAnimation = false;
 
-                } else if (this.isHurt() && this.energy < 49 && !this.isDead()) {
-                    this.playAnimation(this.IMAGES_HURT)
-                    this.stopWalking();
-                    this.deadAnimation = false;
+    /**
+     * Stops the endboss's movement and resets certain flags.
+     * Used when the endboss is playing a hurt or dead animation.
+     */
+    stopBoss() {
+        this.stopWalking();
+        this.deadAnimation = false;
+    }
 
-                } else if (this.isDead() && !this.deadAnimation) {
-                    this.playAnimation(this.IMAGES_DEAD)
-                    this.stopWalking();
-                   
-                    setTimeout(() => {
-                         this.deadAnimation = true;
-                        world.gameIsRunning = false;
-                        stopGameWin();
-                    }, 400);
-                  
-
-                } else if (!this.isDead() && !this.hadFirstEndbossContact) {
-                    this.playAnimation(this.IMAGES_ALERT);
-
-                } else {
-
-                    if (i < 20 && this.hadFirstEndbossContact) {
-                        this.playAnimation(this.IMAGES_ATTACK);
-                        world.level.end_x = 2140
-                        world.level.start_x = 2135
-                    }
-
-                    if (i > 20 && this.hadFirstEndbossContact && !this.isDead()) {
-                        world.level.end_x = 2200
-                        world.level.start_x = -600
-
-                        this.endfightStart = true
-                        this.speed = 0.02;
-                        this.playAnimation(this.IMAGES_WALKING)
-                        this.walkingBoss();
-                    }
-                }
-                i++;
-
-                if (world.character.x > 2100 && !this.hadFirstEndbossContact) {
-                    i = 0
-                    this.hadFirstEndbossContact = true
-                }
-            }
-
-        }, 200)
+    /**
+     * Plays the dead animation for the endboss.
+     * This method is triggered when the endboss is defeated, leading to the end of the game.
+     */
+    playDeadBossAnimation() {
+        this.playAnimation(this.IMAGES_DEAD)
+        this.stopWalking();
+        setTimeout(() => {
+            this.deadAnimation = true;
+            world.gameIsRunning = false;
+            stopGameWin();
+        }, 400);
     }
 
 

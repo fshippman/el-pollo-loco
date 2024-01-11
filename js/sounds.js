@@ -17,6 +17,7 @@ const COIN_SOUND = new Audio('./assets/audio/coin.mp3');
 const CHICKEN_SOUND = new Audio('./assets/audio/chicken.mp3');
 
 function playGameSound() {
+    MENU_MUSIC.pause();
     GAME_MUSIC.play();
     GAME_MUSIC.loop = true;
     checkSoundStatus(GAME_MUSIC);
