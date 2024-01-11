@@ -1,18 +1,25 @@
 class Level {
-    // statusbar;
     enemies;
     boss;
     clouds;
     backgroundObjects;
     deadChicken;
-    bottles; // Das Bottle Array aus level1
+    bottles;
     coins;
-    start_x = -600;
-    end_x = 2200;
+    start_x = -600; //x-coordinate - start of the level.
+    end_x = 2200; //x-coordinate - end of the level
 
 
+    /**
+     * Constructs a new Level instance.
+     * @param {MovableObject[]} enemies - The array of enemies in the level.
+     * @param {MovableObject} boss - The boss of the level.
+     * @param {MovableObject[]} clouds - The array of clouds in the level.
+     * @param {MovableObject[]} backgroundObjects - The array of background objects in the level.
+     * @param {MovableObject[]} bottles - The array of bottles in the level.
+     * @param {MovableObject[]} coins - The array of coins in the level.
+     */
     constructor(enemies, boss, clouds, backgroundObjects, bottles, coins) {
-        // this.statusbar = statusbar
         this.enemies = enemies
         this.boss = boss
         this.clouds = clouds
