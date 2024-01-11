@@ -2,11 +2,11 @@ class Chicken extends MovableObject {
     y = 360;
     height = 60;
     width = 70;
-    offsetXL = 2 //25
-    offsetXR = 4 //35
-    offsetYU = 5 //120
-    offsetYD = 17 //30
-    
+    offsetXL = 2 //The horizontal offset on the left side.
+    offsetXR = 4 //The horizontal offset on the right side.
+    offsetYU = 5 //The vertical offset on the upper side.
+    offsetYD = 17 //The vertical offset on the lower side.
+
 
     IMAGES_WALKING = [
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -14,10 +14,14 @@ class Chicken extends MovableObject {
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
 
-
     IMAGE_DEAD = ['./assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png']
 
 
+    /**
+     * Constructs a new Chicken instance.
+     * Initializes the chicken with walking and death animations, sets its position, speed, and attack damage.
+     * The position is randomly determined within a certain range to add variation in gameplay.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -30,21 +34,36 @@ class Chicken extends MovableObject {
     }
 
 
-    //jede Sekunde ändert sich die Grafik
+    /**
+     * Orchestrates the overall animation and movement of the chicken.
+     * Calls methods to separately manage the chicken's movement and animation state.
+     */
     animate() {
+        this.handleChickenMovement();
+        this.handleChickenAnimation();
+    }
 
+
+    /**
+     * Manages the movement of the chicken.
+     * Sets an interval to continuously move the chicken to the left if the game is active, simulating enemy approach behavior.
+     */
+    handleChickenMovement() {
         setInterval(() => {
-
             if (world.gameIsRunning) {
-             
                 this.moveLeft();
             }
-
         }, 1000 / 60);
+    }
 
-        // modulu = hebt Rest auf
+
+    /**
+     * Controls the animation state of the chicken.
+     * Sets an interval to update the chicken's animation depending on its energy level.
+     * Displays the death animation if the chicken is out of energy, or walking animation otherwise.
+     */
+    handleChickenAnimation() {
         setInterval(() => {
-
             if (world.gameIsRunning) {
                 if (this.energy == 0) {
                     this.playAnimation(this.IMAGE_DEAD);
@@ -52,7 +71,7 @@ class Chicken extends MovableObject {
                     this.playAnimation(this.IMAGES_WALKING)
                 }
             }
-
         }, 200)
     }
+    
 }

@@ -2,10 +2,10 @@ class SmallChicken extends MovableObject {
     y = 378;
     height = 40;
     width = 50;
-    offsetXL = 5 //25
-    offsetXR = 7 //35
-    offsetYU = 4 //120
-    offsetYD = 10 //30
+    offsetXL = 5  //The horizontal offset on the left side.
+    offsetXR = 7  //The horizontal offset on the right side.
+    offsetYU = 4  //The vertical offset on the upper side.
+    offsetYD = 10 //The vertical offset on the lower side.
 
 
     IMAGES_WALKING = [

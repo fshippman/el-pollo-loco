@@ -2,10 +2,10 @@ class Character extends MovableObject {
     y = 150;
     height = 280;
     width = 107;
-    offsetXL = 15;
-    offsetXR = 30;
-    offsetYU = 110;
-    offsetYD = 15;
+    offsetXL = 15; //The horizontal offset on the left side.
+    offsetXR = 30; //The horizontal offset on the right side.
+    offsetYU = 110; //The vertical offset on the upper side.
+    offsetYD = 15; //The vertical offset on the lower side.
     speed = 5;
     currentImage = 0;
     inventoryCounter = 0;
