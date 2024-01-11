@@ -11,7 +11,7 @@ class World {
     camera_x = 0;
     throwableObjects = [];
     gameIsRunning = true;
-
+    throwingTime;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -20,7 +20,7 @@ class World {
         this.level = level1;
         this.draw();
         this.setWorld();
-
+        this.setThrowingTimer();
         setInterval(() => {
 
             this.checkEnemyCollisions();
@@ -48,7 +48,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             enemy.animate();
         })
-        this.character.playGameSound();
+        playGameSound();
         this.character.animate();
         this.level.boss[0].animate();
     }
@@ -85,9 +85,28 @@ class World {
 
     }
 
+    /**
+     * Initializes the throwing timer for the character.
+     * Sets the current time as the reference time for throwing actions.
+     */
+    setThrowingTimer() {
+        this.throwingTime = new Date().getTime();
+    }
 
+
+    /**
+     * Calculates if a specified time duration has passed since the last throw.
+     * @returns {boolean} Returns true if more than 3 seconds have passed since the last throw, otherwise false.
+     */
+    throwTime() {
+        let throwTimePassed = new Date().getTime() - this.throwingTime;
+        throwTimePassed = throwTimePassed / 1000;
+        return throwTimePassed > 3;
+    }
+
+   
     checkThrow() {
-        if (this.keyboard.D && this.character.inventoryCounter > 0 && this.character.throwTime() && this.gameIsRunning) {
+        if (this.keyboard.D && this.character.inventoryCounter > 0 && this.throwTime() && this.gameIsRunning) {
 
             let throwableObjectOffset = 50;
             if (this.character.otherDirection) {
@@ -99,8 +118,8 @@ class World {
             this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
             this.throwableObjects.push(bottle)
             bottle.throw(this.character.otherDirection);
-            this.character.setThrowingTimer();
-            this.character.playThrowingSound();
+            this.setThrowingTimer();
+            playThrowingSound();
         }
     }
 

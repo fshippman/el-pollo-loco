@@ -15,3 +15,25 @@ const BOTTLE_SOUND = new Audio('./assets/audio/bottle.mp3');
 const BOTTLE_SMASH_SOUND = new Audio('./assets/audio/bottlesmash.mp3');
 const COIN_SOUND = new Audio('./assets/audio/coin.mp3');
 const CHICKEN_SOUND = new Audio('./assets/audio/chicken.mp3');
+
+function playGameSound() {
+    GAME_MUSIC.play();
+    GAME_MUSIC.loop = true;
+    checkSoundStatus(GAME_MUSIC);
+}
+
+function playThrowingSound() {
+    THROWING_SOUND.play();
+}
+
+function stopSleepingSound() {
+    SLEEPING_SOUND.pause();
+    SLEEPING_SOUND.currentTime = 0;
+}
+
+function playBossMusic() {
+    GAME_MUSIC.pause();
+    BOSS_MUSIC.play();
+    BOSS_MUSIC.loop = true;
+    checkSoundStatus(BOSS_MUSIC);
+}

@@ -93,7 +93,7 @@ function resetMusic() {
 function pauseGame() {
     document.getElementById('pauseGame').src = './assets/img/icons/play.png';
     world.gameIsRunning = false;
-    world.character.stopSleepingSound();
+    stopSleepingSound();
     openHelp();
 }
 
@@ -178,7 +178,7 @@ function togglePause() {
 
 function stopGameWin() {
     gameStarted = false;
-    world.character.stopSleepingSound();
+    stopSleepingSound();
     stopMenuSound();
     stopBossMusic();
     stopGameMusic();
@@ -196,7 +196,7 @@ function stopGameWin() {
 
 function stopGameLose() {
     gameStarted = false;
-    world.character.stopSleepingSound();
+    stopSleepingSound();
     stopMenuSound();
     stopBossMusic();
     stopGameMusic();
