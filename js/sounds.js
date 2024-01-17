@@ -23,6 +23,12 @@ function playGameSound() {
     checkSoundStatus(GAME_MUSIC);
 }
 
+function playBottleCollectSound() {
+    BOTTLE_SOUND.pause();
+    BOTTLE_SOUND.currentTime = 0;
+    BOTTLE_SOUND.play();
+}
+
 function playThrowingSound() {
     THROWING_SOUND.play();
 }
@@ -37,4 +43,90 @@ function playBossMusic() {
     BOSS_MUSIC.play();
     BOSS_MUSIC.loop = true;
     checkSoundStatus(BOSS_MUSIC);
+}
+
+function playMenuMusic() {
+    MENU_MUSIC.volume = 1;
+    MENU_MUSIC.loop = true;
+    MENU_MUSIC.play().catch(() => setTimeout(playMenuMusic, 500));
+}
+
+function stopMenuMusic() {
+    MENU_MUSIC.pause();
+    MENU_MUSIC.currentTime = 0;
+}
+
+function muteEndscreenSounds() {
+    VICTORY_MUSIC.volume = 0;
+    GAME_OVER_MUSIC.volume = 0;
+}
+
+function playLosingSound() {
+    GAME_OVER_MUSIC.play();
+    GAME_OVER_MUSIC.loop = true;
+    checkSoundStatus(GAME_OVER_MUSIC);
+}
+
+function playWinningSound() {
+    VICTORY_MUSIC.play();
+    VICTORY_MUSIC.loop = true;
+    checkSoundStatus(VICTORY_MUSIC);
+}
+
+function stopBossMusic() {
+    BOSS_MUSIC.pause();
+    BOSS_MUSIC.currentTime = 0;
+}
+
+function stopGameMusic() {
+    GAME_MUSIC.pause();
+    GAME_MUSIC.currentTime = 0;
+}
+
+function resetMusic() {
+    GAME_OVER_MUSIC.currentTime = 0;
+    VICTORY_MUSIC.currentTime = 0;
+    MENU_MUSIC.currentTime = 0;
+    GAME_MUSIC.currentTime = 0;
+    BOSS_MUSIC.currentTime = 0;
+}
+
+function muteGameSounds() {
+    WALKING_SOUND.volume = 0;
+    JUMPING_SOUND.volume = 0;
+    HIT_SOUND.volume = 0;
+    SLEEPING_SOUND.volume = 0;
+    THROWING_SOUND.volume = 0;
+    BOTTLE_SOUND.volume = 0;
+    BOTTLE_SMASH_SOUND.volume = 0;
+    COIN_SOUND.volume = 0;
+    CHICKEN_SOUND.volume = 0;
+}
+
+function muteMusic() {
+    GAME_OVER_MUSIC.volume = 0;
+    VICTORY_MUSIC.volume = 0;
+    MENU_MUSIC.volume = 0;
+    GAME_MUSIC.volume = 0;
+    BOSS_MUSIC.volume = 0;
+}
+
+function unMuteGameSounds() {
+    WALKING_SOUND.volume = 1;
+    JUMPING_SOUND.volume = 1;
+    HIT_SOUND.volume = 1;
+    SLEEPING_SOUND.volume = 1;
+    THROWING_SOUND.volume = 1;
+    BOTTLE_SOUND.volume = 1;
+    BOTTLE_SMASH_SOUND.volume = 1;
+    COIN_SOUND.volume = 1;
+    CHICKEN_SOUND.volume = 1;
+}
+
+function unMuteMusic() {
+    GAME_OVER_MUSIC.volume = 0.5;
+    VICTORY_MUSIC.volume = 0.5;
+    MENU_MUSIC.volume = 1;
+    GAME_MUSIC.volume = 0.5;
+    BOSS_MUSIC.volume = 0.5;
 }

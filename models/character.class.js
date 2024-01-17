@@ -141,9 +141,19 @@ class Character extends MovableObject {
         }, 1000 / 60)
         setInterval(() => {
             this.animateCharacter();
-        }, 150)
+            this.resetCharacterSpeedY();
+        }, 200)
     }
 
+    /**
+     * This function reset the vertical speed of the character if it is -21
+     * 
+     */
+    resetCharacterSpeedY() {
+        if (this.speedY == -21) {
+            this.speedY = 0
+        }
+    }
 
     /**
      * Controls the character's actions based on keyboard inputs.

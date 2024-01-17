@@ -90,10 +90,7 @@ class Endboss extends MovableObject {
         }, 200)
     }
 
-    // setEndbossContactTrue(i) {
-
-    // }
-
+   
     /**
      * Handles the endboss's animation based on its current state.
      * Chooses different animation sequences depending on whether the endboss is hurt, dead, in an alert state, or in an attack sequence.

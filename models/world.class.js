@@ -13,7 +13,34 @@ class World {
     gameIsRunning = true;
     throwingTime;
 
+
+    /**
+     * Constructs the game world and sets up the main game loop.
+     * Initializes the game world with the provided canvas and keyboard, then sets an interval for regularly checking interactions
+     * like collisions, bottle throwing, item collections, and interactions with chickens.
+     *
+     * @param {HTMLCanvasElement} canvas - The canvas element where the game will be rendered.
+     * @param {Keyboard} keyboard - The keyboard input handler for player controls.
+     */
     constructor(canvas, keyboard) {
+        this.initializeWorld(canvas, keyboard)
+        setInterval(() => {
+            this.checkCollisions();
+            this.checkIfBottlethrowPossible();
+            this.checkIfItemsCollected();
+            this.jumpOnChicken();
+        }, 200);
+    }
+
+    
+    /**
+     * Sets up the game world, including the canvas, keyboard input, and initial level.
+     * Initiates the render loop, character-world linkage, and throwing mechanics.
+     *
+     * @param {HTMLCanvasElement} canvas - The game's canvas element.
+     * @param {Keyboard} keyboard - The handler for keyboard inputs.
+     */
+    initializeWorld(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -21,29 +48,224 @@ class World {
         this.draw();
         this.setWorld();
         this.setThrowingTimer();
-        setInterval(() => {
-
-            this.checkEnemyCollisions();
-            this.checkBossCollision();
-            this.collectBottles();
-            this.collectCoins(); 
-            this.checkThrow();
-            this.jumpOnChicken();
-            this.resetCharacterSpeedY();
-            this.checkThrownCollisions();
-
-        }, 200);
     }
 
-    // Die Variable "character" die ich kenne, die kennt eine "world" und diese Welt bin ich (this)
+
+    /**
+     * Manages collision detection across various elements in the game world.
+     *
+     */
+    checkCollisions() {
+        this.checkEnemyCollisions();
+        this.checkBossCollision();
+        this.checkThrownCollisions();
+    }
+
+
+    /**
+     * Checks for and processes collisions between the character and enemies.
+     * 
+     */
+    checkEnemyCollisions() {
+        this.character.whatIsMyDirection();
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
+                this.character.hit(enemy.attackDamage);
+                this.statusbar.setPercentage(this.character.energy)
+            }
+        });
+    }
+
+
+    /**
+     * Checks for and processes collisions between the character and the boss.
+     * 
+     */
+    checkBossCollision() {
+        this.character.whatIsMyDirection();
+        this.level.boss.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
+                this.character.hit(enemy.attackDamage);
+                this.statusbar.setPercentage(this.character.energy)
+            }
+        });
+    }
+
+
+    /**
+     * Checks for and processes collisions of thrown bottles with enemies, the boss, or the ground.
+     * Iterates through all throwable objects and calls specific collision handling methods for each interaction:
+     * collisions with enemies, the boss, and the ground.
+     */
+    checkThrownCollisions() {
+        this.throwableObjects.forEach((ThrowableObject, index) => {
+            this.bottleCollisionEnemy(ThrowableObject, index);
+            this.bottleCollisionBoss(ThrowableObject, index);
+            this.bottleCollisionGround(ThrowableObject, index);
+        });
+    }
+
+
+    /**
+     * Handles the collision of a throwable bottle with any enemy.
+     * Iterates through all enemies and checks for a collision with the throwable object.
+     * If a collision occurs, it triggers the bottle smash effects and simulates the defeat of the collided enemy.
+     *
+     * @param {ThrowableObject} ThrowableObject - The throwable object (bottle) to check for collision with enemies.
+     * @param {number} index - The index of the throwable object in the array.
+     */
+    bottleCollisionEnemy(ThrowableObject, index) {
+        this.level.enemies.forEach((enemy) => {
+            if (enemy.isColliding(ThrowableObject)) {
+                ThrowableObject.showBottlesmash(this.throwableObjects, index);
+                this.killChicken(enemy);
+            }
+        });
+    }
+
+
+    /**
+     * Handles the collision of a throwable bottle with the boss.
+     * If the bottle collides with the boss during the end fight and the boss isn't already hurt, it triggers bottle smash effects,
+     * applies damage to the boss, plays the corresponding sound effect, and updates the endboss's energy bar.
+     *
+     * @param {ThrowableObject} ThrowableObject - The throwable object (bottle) to check for collision with the boss.
+     * @param {number} index - The index of the throwable object in the array.
+     */
+    bottleCollisionBoss(ThrowableObject, index) {
+        if (ThrowableObject.isColliding(this.level.boss[0]) && this.level.boss[0].endfightStart) {
+            ThrowableObject.showBottlesmash(this.throwableObjects, index);
+            if (!this.level.boss[0].isHurt()) {
+                this.level.boss[0].hit(ThrowableObject.attackDamage)
+                CHICKEN_SOUND.play();
+                this.endbossbar.setPercentage(this.level.boss[0].energy)
+            }
+        }
+    }
+
+
+    /**
+     * Checks if a throwable object (bottle) has collided with the ground and processes the collision.
+     * If the bottle hits the ground, it triggers the bottle smash visual and auditory effects, 
+     * and sets the bottle's position to the ground level.
+     *
+     * @param {ThrowableObject} ThrowableObject - The throwable object (bottle) to check for ground collision.
+     * @param {number} index - The index of the throwable object in the array.
+     */
+    bottleCollisionGround(ThrowableObject, index) {
+        if (ThrowableObject.hitsGround()) {
+            ThrowableObject.showBottlesmash(this.throwableObjects, index);
+            let groundLevel = 380
+            ThrowableObject.y = groundLevel;
+        }
+    }
+
+
+    /**
+     * Checks if throwing a bottle is possible and initiates the throw if conditions are met.
+     * Verifies the 'D' key press, sufficient bottle inventory, appropriate throw timing, and the game's running state.
+     * Adjusts the bottle's throw offset based on the character's direction and calls throwBottle if conditions are satisfied.
+     */
+    checkIfBottlethrowPossible() {
+        if (this.keyboard.D && this.character.inventoryCounter > 0 && this.throwTime() && this.gameIsRunning) {
+            let throwableObjectOffset = 50;
+            if (this.character.otherDirection) {
+                throwableObjectOffset = 0
+            }
+            this.throwBottle(throwableObjectOffset)
+        }
+    }
+
+
+    /**
+     * Handles the action of the character throwing a bottle.
+     * Creates a new ThrowableObject, updates the character's bottle inventory, adds the bottle to throwable objects array,
+     * initiates the bottle's throwing animation, updates the throwing timer, and plays the throwing sound.
+     *
+     * @param {number} throwableObjectOffset - The horizontal offset to determine the bottle's initial position relative to the character.
+     */
+    throwBottle(throwableObjectOffset) {
+        let bottle = new ThrowableObject(this.character.x + throwableObjectOffset, this.character.y + 100);
+        this.character.inventoryCounter--;
+        this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
+        this.throwableObjects.push(bottle)
+        bottle.throw(this.character.otherDirection);
+        this.setThrowingTimer();
+        playThrowingSound();
+    }
+
+
+    /**
+     * Checks and processes the collection of bottles and coins.
+     * Calls methods to handle the collection of bottles and coins by the character during the game.
+     */
+    checkIfItemsCollected() {
+        this.collectBottles();
+        this.collectCoins();
+    }
+
+
+    /**
+     * Manages bottle collection by the character.
+     * Iterates through bottles, checks for collisions, and if inventory space is available, it increments the inventory count,
+     * removes the bottle, updates the bottle bar percentage, and plays the collection sound.
+     */
+    collectBottles() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle, index) && this.character.checkInventorySpace()) {
+                playBottleCollectSound()
+                this.character.inventoryCounter++;
+                this.level.bottles.splice(index, 1)
+                this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
+            }
+        });
+    }
+
+
+    /**
+     * Manages coin collection by the character.
+     * Iterates through coins, checking for collisions. If a coin is collected, it's removed, the character's coin count is updated,
+     * the coin bar display is refreshed, and the collection sound is played.
+     */
+    collectCoins() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin, index)) {
+                this.character.coinInventory++;
+                this.level.coins.splice(index, 1);
+                this.coinbar.setPercentage(this.character.calculateCoinPercentage());
+                COIN_SOUND.play();
+            }
+        });
+    }
+
+
+    /**
+     * Simulates the effect of the character jumping on a chicken, leading to the chicken's defeat.
+     *
+     */
+    jumpOnChicken() {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive()) {
+                this.killChicken(enemy);
+            }
+        });
+    }
+
+
+    /**
+     * Sets the reference to the current world instance for the main character.
+     * 
+     */
     setWorld() {
         this.character.world = this;
-        // this.chicken.world = this;
-        // WORLD.character.world = WORLD
-        // world ist die Klasenvariable die in der Klasse Charakter ist: world;
+        // The Variable "character" which I know, knows a "world" and this world I am (this)
     }
 
 
+    /**
+     * This function triggers the animation sequences for all enemies, the main character, and the boss.
+     * It also starts the background game sound. 
+     */
     startAnimations() {
         this.level.enemies.forEach((enemy) => {
             enemy.animate();
@@ -53,37 +275,6 @@ class World {
         this.level.boss[0].animate();
     }
 
-
-    checkThrownCollisions() {
-        this.throwableObjects.forEach((ThrowableObject, index) => {
-
-            this.level.enemies.forEach((enemy) => {
-                if (enemy.isColliding(ThrowableObject)) {
-                    ThrowableObject.showBottlesmash(this.throwableObjects, index);
-                    this.killChicken(enemy);
-                }
-            });
-
-           
-            if (ThrowableObject.isColliding(this.level.boss[0]) && this.level.boss[0].endfightStart) {
-                ThrowableObject.showBottlesmash(this.throwableObjects, index);
-
-                if (!this.level.boss[0].isHurt()) {
-                    this.level.boss[0].hit(ThrowableObject.attackDamage)
-                    CHICKEN_SOUND.play();
-                    this.endbossbar.setPercentage(this.level.boss[0].energy)
-                }
-            }
-
-            if (ThrowableObject.hitsGround()) {
-                ThrowableObject.showBottlesmash(this.throwableObjects, index);
-                let groundLevel = 380
-                ThrowableObject.y = groundLevel;
-            }
-
-        });
-
-    }
 
     /**
      * Initializes the throwing timer for the character.
@@ -104,70 +295,21 @@ class World {
         return throwTimePassed > 3;
     }
 
-   
-    checkThrow() {
-        if (this.keyboard.D && this.character.inventoryCounter > 0 && this.throwTime() && this.gameIsRunning) {
 
-            let throwableObjectOffset = 50;
-            if (this.character.otherDirection) {
-                throwableObjectOffset = 0
-            }
-
-            let bottle = new ThrowableObject(this.character.x + throwableObjectOffset, this.character.y + 100);
-            this.character.inventoryCounter--;
-            this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
-            this.throwableObjects.push(bottle)
-            bottle.throw(this.character.otherDirection);
-            this.setThrowingTimer();
-            playThrowingSound();
-        }
-    }
-
-    checkBossCollision() {
-        this.character.whatIsMyDirection();
-        this.level.boss.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
-                this.character.hit(enemy.attackDamage);
-                this.statusbar.setPercentage(this.character.energy)
-            }
-        });
-    }
-
-
-    checkEnemyCollisions() {
-        this.character.whatIsMyDirection();
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
-                this.character.hit(enemy.attackDamage);
-                this.statusbar.setPercentage(this.character.energy)
-            }
-        });
-    }
-
-    jumpOnChicken() {
-        let deleteIndex;
-        this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive()) {
-                this.killChicken(enemy);
-
-                deleteIndex = index
-
-            }
-        });
-
-        // console.log(deleteIndex)
-        // if (deleteIndex != undefined) {
-        // DESTROYS ARRAY!
-        // this.clearDeadChicken(deleteIndex)
-        // }
-
-    }
-
+    /**
+     * Simulates the effect of a chicken being defeated in the game.
+     * This function plays the chicken sound effect, stops the chicken's movement by setting its speed to zero,
+     * and depletes its energy, effectively marking the chicken as defeated.
+     *
+     * @param {MovableObject} enemy - The chicken object that is to be killed.
+     */
     killChicken(enemy) {
         CHICKEN_SOUND.play();
         enemy.speed = 0;
         enemy.energy = 0;
     }
+
+
     ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
     /**
      * This function removes the dead chicken from the level after a delay
@@ -178,134 +320,131 @@ class World {
         setTimeout(() => this.level.enemies.splice(index, 1), 5000);
     }
     ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
-    
+
+
     /**
-     * This function reset the vertical speed of the character if it is -21
-     * 
+     * Renders the game world.
+     * This function is drawing all visible components of the game, including the background, characters, enemies, collectables,
+     * and status bars. It clears the canvas for each frame, applies camera transformations for scrolling, and uses createRenderLoop
+     * to continuously render the next frame. It ensures that all game elements are drawn relative to the camera's current position.
      */
-    resetCharacterSpeedY() {
-        if (this.character.speedY == -21) {
-            this.character.speedY = 0
-        }
-    }
-   
-
-    // Die Bottle verschwindet weil die Welt ja ständig aktualisiert wird
-    // Array mit Flaschen kleiner weil konkrete Flasche gespliced --> konkrete Flasche verschwindet
-    collectBottles() {
-        this.level.bottles.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle, index) && this.character.checkInventorySpace()) {
-                BOTTLE_SOUND.pause();
-                BOTTLE_SOUND.currentTime = 0;
-                BOTTLE_SOUND.play();
-                this.character.inventoryCounter++;
-                this.level.bottles.splice(index, 1) // Die richtige FLasche wird gelöscht
-                this.bottlebar.setPercentage(this.character.calculateInventoryPercentage());
-            }
-        });
-    }
-   
-    collectCoins() {
-        this.level.coins.forEach((coin, index) => {
-            if (this.character.isColliding(coin, index)) {
-                this.character.coinInventory++;
-                this.level.coins.splice(index,1);
-                this.coinbar.setPercentage(this.character.calculateCoinPercentage());
-                COIN_SOUND.play();
-            }
-        });
-    }
-
-
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Clears the canvas
+        this.ctx.translate(this.camera_x, 0); // Translates the canvas for camera movement
+        this.addCloudsAndBackground();
+        this.addBars();
+        this.addToMap(this.character);
+        this.addEnemies();
+        this.addCollectable();
+        this.ctx.translate(-this.camera_x, 0); // Resets the translation for the next frame
+        this.createRenderLoop()
+    }
 
-        this.ctx.translate(this.camera_x, 0); //Verschieben Position an der wir zeichnen / Koordinatensystem
+
+    /**
+     * Initiates the render loop for the game world.
+     * It ensures that the 'draw' method is called repeatedly, synchronizing with the browser's refresh rate for smooth animations.
+     * A local variable 'self' is used to maintain a reference to the current instance of the World class ('this') 
+     * within the requestAnimationFrame callback due to the different context of 'this' inside the callback.
+     */
+    createRenderLoop() {
+        // self because "this" doesn't work, it is not known in this function 
+        let self = this; // Maintains reference to the World instance for use in the callback
+        requestAnimationFrame(function () {
+            self.draw(); // Continuously schedules the draw method for the next frame
+        });
+    }
+
+
+    /**
+     * Adds background objects and clouds to the game map.
+     */
+    addCloudsAndBackground() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
+    }
+
+
+    /**
+     * Adds enemies and boss to the game map.
+     */
+    addEnemies() {
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.boss);
+    }
+
+
+    /**
+     * Adds collectables to the game map.
+     */
+    addCollectable() {
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.coins);
+    }
+
+
+    /**
+     * Adds all bars to the game map.
+     */
+    addBars() {
         this.ctx.translate(-this.camera_x, 0); //Back
-        // --------------- Space for fixed objects ---------------
         this.addToMap(this.statusbar);
         this.addToMap(this.coinbar);
         this.addToMap(this.bottlebar);
         this.addToMap(this.endbossbar);
-
         this.ctx.translate(this.camera_x, 0); // Forwards
-
-
-        this.addToMap(this.character);
-
-
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.boss);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.throwableObjects);
-        this.addObjectsToMap(this.level.coins);
-
-
-
-        this.ctx.translate(-this.camera_x, 0);
-
-
-        // Draw() wird immer wieder aufgerufen
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
-        // draw wird so oft aufgerufen wie die Grafikkarte hergibt
-        // self weil this in der function nicht mehr funktioniert (this kennt er nicht mehr)
     }
 
 
-    //der Befehl wird für jedes Element ausgeführt
+    /**
+     * Adds multiple objects to the game map.
+     * This method iterates through an array of MovableObjects, adding each one to the map by calling the addToMap method.
+     * @param {MovableObject[]} objects - The array of MovableObjects to be added to the map and drawn on the canvas.
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o)
         });
     }
-    // hat objekt andere Richtung wenn ja 
-    // aktuelle Einstellungen von Kontext werden gespeichert (f[r spaeter])
-    // Veraendern mehtode wie bilder einfuegen spiegeln alles 
-    // und fuegen eine bild gespiegelt an 
-    // alles rueckgaengig
+
+
+    /**
+     * Adds a MovableObject to the game map and handles image flipping if necessary.
+     * @param {MovableObject} mo - The MovableObject to be added to the map and drawn on the canvas.
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
-        mo.draw(this.ctx);
-
-        // mo.drawHitBox(this.ctx);
-
+        mo.draw(this.ctx); // Draws the object on the canvas
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
     }
 
 
-    // ctx = eine Sammlung von Funktionen um unserem Canvas was hinzuzufügen 
-    //     diese Sammlung hat Eigenschaften (alle Bilder sollen normal eingefügt werden)
-    //     Eigenschaften werden gespeichert
-    //     Ab jetzt wird in diesem Kontext alles gespiegelt
-    //     x Koordinate muss gespielgelt werden
-    //ranslate macht die verschiebung des bilden und scale spiegelt es dann.
-    //Durch das spiegel wird das bild aber nochmal verschoben. Auf den achse an der du spiegelst. 
-    //Daher muss man es erst verschieben damit dann wieder am ende auf der gleichen stelle ist.
+    /**
+     * Flips the rendering context horizontally to display mirrored images.
+     * It saves the current context state, performs a translation and scaling to mirror the image, and adjusts the object's x-coordinate.
+     *
+     * @param {MovableObject} mo - The MovableObject whose image is to be flipped.
+     */
     flipImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0); //Verschiebung um die Breite des Objekts (Weils ja gespiegelt wird!)
-        // [ Quadrat ]
-        //           [ Quadrat ]
-
-        this.ctx.scale(-1, 1); //Spiegelung
-        mo.x = mo.x * -1; //  spiegelst du die x-Koordinate des Objekts mo selbst
-        // da das Bild gespiegelt ist sicherstellen dass Position des Objekts im gespiegelten Bild korrekt ist
+        this.ctx.save(); // Saves the current state of the context
+        this.ctx.translate(mo.width, 0); // Translates the context by the object's width to prepare for mirroring
+        this.ctx.scale(-1, 1); // Scales the context horizontally by -1, flipping the image
+        mo.x = mo.x * -1; // Mirrors the x-coordinate of the object to ensure correct positioning in the flipped context
     }
 
+
+    /**
+     * Restores the MovableObject's x-coordinate and the canvas context to their original states after flipping.
+     * @param {MovableObject} mo - The MovableObject whose image was flipped and needs to be restored.
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1
         this.ctx.restore();
     }
-
 
 }
