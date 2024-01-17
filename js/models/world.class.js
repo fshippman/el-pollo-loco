@@ -23,16 +23,15 @@ class World {
      * @param {Keyboard} keyboard - The keyboard input handler for player controls.
      */
     constructor(canvas, keyboard) {
-        this.initializeWorld(canvas, keyboard)
+        this.initWorld(canvas, keyboard)
         setInterval(() => {
             this.checkCollisions();
             this.checkIfBottlethrowPossible();
             this.checkIfItemsCollected();
-            this.jumpOnChicken();
         }, 200);
     }
 
-    
+
     /**
      * Sets up the game world, including the canvas, keyboard input, and initial level.
      * Initiates the render loop, character-world linkage, and throwing mechanics.
@@ -40,7 +39,7 @@ class World {
      * @param {HTMLCanvasElement} canvas - The game's canvas element.
      * @param {Keyboard} keyboard - The handler for keyboard inputs.
      */
-    initializeWorld(canvas, keyboard) {
+    initWorld(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -56,9 +55,10 @@ class World {
      *
      */
     checkCollisions() {
-        this.checkEnemyCollisions();
-        this.checkBossCollision();
+        this.checkEnemyCollisions(this.level.enemies);
+        this.checkEnemyCollisions(this.level.boss);
         this.checkThrownCollisions();
+        this.checkJumpCollisions();
     }
 
 
@@ -66,24 +66,9 @@ class World {
      * Checks for and processes collisions between the character and enemies.
      * 
      */
-    checkEnemyCollisions() {
+    checkEnemyCollisions(enemies) {
         this.character.whatIsMyDirection();
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
-                this.character.hit(enemy.attackDamage);
-                this.statusbar.setPercentage(this.character.energy)
-            }
-        });
-    }
-
-
-    /**
-     * Checks for and processes collisions between the character and the boss.
-     * 
-     */
-    checkBossCollision() {
-        this.character.whatIsMyDirection();
-        this.level.boss.forEach((enemy) => {
+        enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp()) && enemy.isAlive()) {
                 this.character.hit(enemy.attackDamage);
                 this.statusbar.setPercentage(this.character.energy)
@@ -158,6 +143,19 @@ class World {
             let groundLevel = 380
             ThrowableObject.y = groundLevel;
         }
+    }
+
+    
+     /**
+     * Simulates the effect of the character jumping on a chicken, leading to the chicken's defeat.
+     *
+     */
+     checkJumpCollisions() {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive()) {
+                this.killChicken(enemy);
+            }
+        });
     }
 
 
@@ -240,19 +238,6 @@ class World {
 
 
     /**
-     * Simulates the effect of the character jumping on a chicken, leading to the chicken's defeat.
-     *
-     */
-    jumpOnChicken() {
-        this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isAboveGround && this.character.isColliding(enemy, index) && this.character.isFalling() && enemy.isAlive()) {
-                this.killChicken(enemy);
-            }
-        });
-    }
-
-
-    /**
      * Sets the reference to the current world instance for the main character.
      * 
      */
@@ -278,7 +263,7 @@ class World {
 
     /**
      * Initializes the throwing timer for the character.
-     * Sets the current time as the reference time for throwing actions.
+     * 
      */
     setThrowingTimer() {
         this.throwingTime = new Date().getTime();
@@ -297,9 +282,7 @@ class World {
 
 
     /**
-     * Simulates the effect of a chicken being defeated in the game.
-     * This function plays the chicken sound effect, stops the chicken's movement by setting its speed to zero,
-     * and depletes its energy, effectively marking the chicken as defeated.
+     * This function is marking the given chicken as defeated.
      *
      * @param {MovableObject} enemy - The chicken object that is to be killed.
      */
@@ -310,22 +293,10 @@ class World {
     }
 
 
-    ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
-    /**
-     * This function removes the dead chicken from the level after a delay
-     * 
-     * @param {number} index - The index of the dead chicken to remove
-     */
-    clearDeadChicken(index) {
-        setTimeout(() => this.level.enemies.splice(index, 1), 5000);
-    }
-    ///----------------DELETES WRONG CHICKEN!!!!-----------------------------
-
-
     /**
      * Renders the game world.
-     * This function is drawing all visible components of the game, including the background, characters, enemies, collectables,
-     * and status bars. It clears the canvas for each frame, applies camera transformations for scrolling, and uses createRenderLoop
+     * This function is drawing all visible components of the game.
+     * It clears the canvas for each frame, applies camera transformations for scrolling, and uses createRenderLoop
      * to continuously render the next frame. It ensures that all game elements are drawn relative to the camera's current position.
      */
     draw() {
@@ -343,15 +314,13 @@ class World {
 
     /**
      * Initiates the render loop for the game world.
-     * It ensures that the 'draw' method is called repeatedly, synchronizing with the browser's refresh rate for smooth animations.
-     * A local variable 'self' is used to maintain a reference to the current instance of the World class ('this') 
-     * within the requestAnimationFrame callback due to the different context of 'this' inside the callback.
+     * Self is used because "this" doesn't work, it is not known in this function. 
+     * The requestAnimationFrame is a callback function that continuously schedules the draw method for the next frame.
      */
     createRenderLoop() {
-        // self because "this" doesn't work, it is not known in this function 
-        let self = this; // Maintains reference to the World instance for use in the callback
+        let self = this; 
         requestAnimationFrame(function () {
-            self.draw(); // Continuously schedules the draw method for the next frame
+            self.draw(); 
         });
     }
 
@@ -417,7 +386,7 @@ class World {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-        mo.draw(this.ctx); // Draws the object on the canvas
+        mo.draw(this.ctx); 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
