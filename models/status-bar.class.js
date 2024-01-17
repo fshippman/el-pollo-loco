@@ -1,4 +1,5 @@
 class StatusBar extends DrawableObject {
+    percentage = 100;
 
     ENERGY_BAR = [
         './assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
@@ -9,9 +10,7 @@ class StatusBar extends DrawableObject {
         './assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
     ];
 
-    percentage = 100;
-
-
+   
     /**
      * Constructs a new StatusBar instance.
      * Initializes the status bar with a series of images representing different fill levels.
