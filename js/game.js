@@ -8,6 +8,10 @@ let gameStarted = false;
 let fullscreenActive = false;
 
 
+/**
+ * Initializes the game's main menu.
+ * 
+ */
 function init() {
     playMenuMusic();
     bindBTsPressEvents();
@@ -16,6 +20,11 @@ function init() {
 }
 
 
+/**
+ * Initiates the game sequence.
+ * Sets the game as started, stops the menu music, initiates the first level, hides the start and winning screens,
+ * sets up the canvas and world, displays the loading screen, and then reveals the game world after a short delay.
+ */
 function startGame() {
     gameStarted = true;
     stopMenuMusic();
@@ -28,6 +37,10 @@ function startGame() {
     setTimeout(() => showWorld(), 10000);
 }
 
+/**
+ * Displays the help/instructions screen over the game.
+ * 
+ */
 function openHelp() {
     document.getElementById('gameInstructions').classList.remove('d-none');
     document.getElementById('closeButton').classList.remove('d-none');
@@ -40,6 +53,10 @@ function openHelp() {
 }
 
 
+/**
+ * Closes the help/instructions screen.
+ * 
+ */
 function closeHelp() {
     document.getElementById('gameInstructions').classList.add('d-none');
     document.getElementById('closeButton').classList.add('d-none');
@@ -49,6 +66,10 @@ function closeHelp() {
 }
 
 
+/**
+ * Shows the loading screen.
+ * 
+ */
 function loadingScreen() {
     stopMenuMusic();
     document.getElementById('loadingScreen').classList.remove('d-none');
@@ -57,6 +78,10 @@ function loadingScreen() {
 }
 
 
+/**
+ * Transitions from the loading screen to the main game world.
+ * Also initiates the animations for the game world elements.
+ */
 function showWorld() {
     muteEndscreenSounds();
     resetMusic();
@@ -69,6 +94,10 @@ function showWorld() {
 }
 
 
+/**
+ * Pauses the game and opens the help screen and prevents the character from snoring while doing so.
+ * 
+ */
 function pauseGame() {
     document.getElementById('pauseGame').src = './assets/img/icons/play.png';
     world.gameIsRunning = false;
@@ -77,6 +106,10 @@ function pauseGame() {
 }
 
 
+/**
+ * Cancels the pause and closes the helping Screen.
+ * 
+ */
 function unpauseGame() {
     document.getElementById('pauseGame').src = './assets/img/icons/pause.png'
     world.gameIsRunning = true;
@@ -84,6 +117,11 @@ function unpauseGame() {
 }
 
 
+/**
+ * Toggles the mute state for all game sounds.
+ * Checks the current mute state and either mutes all sounds or unmutes them based on that state.
+ * The state is then toggled to reflect the new mute status.
+ */
 function toggleMute() {
     if (soundsMuted) {
         unMuteAllSounds();
@@ -94,12 +132,21 @@ function toggleMute() {
 }
 
 
+/**
+ * Mutes all game sounds and music.
+ *
+ */
 function muteAllSounds() {
     document.getElementById('muteGame').src = './assets/img/icons/sound_on.png'
     muteGameSounds();
     muteMusic();
 }
 
+
+/**
+ * Unmutes all game sounds and music.
+ *
+ */
 function unMuteAllSounds() {
     document.getElementById('muteGame').src = './assets/img/icons/sound_off.png'
     unMuteGameSounds();
@@ -107,6 +154,11 @@ function unMuteAllSounds() {
 }
 
 
+/**
+ * Toggles the pause state for the game.
+ * Checks the current state and either pauses or unpauses the game based on that state.
+ * The state is then toggled to reflect the new game status.
+ */
 function togglePause() {
     if (gamePaused) {
         unpauseGame();
@@ -117,6 +169,12 @@ function togglePause() {
 }
 
 
+/**
+ * Handles the game-winning scenario.
+ * Marks the game as not started, stops all game-related sounds, plays the winning sound,
+ * and after a short delay, displays the winning screen while hiding the losing screen
+ * and other irrelevant UI elements.
+ */
 function stopGameWin() {
     gameStarted = false;
     stopGameRelatedSounds();
@@ -129,6 +187,11 @@ function stopGameWin() {
 }
 
 
+/**
+ * Handles the game-losing scenario.
+ * Marks the game as not started, stops all game-related sounds, plays the losing sound,
+ * Displays the losing screen while hiding the winning screen and other irrelevant UI elements.
+ */
 function stopGameLose() {
     gameStarted = false;
     stopGameRelatedSounds();
@@ -138,6 +201,11 @@ function stopGameLose() {
     hideScreensAndButtons();
 }
 
+
+/**
+ * Stops all game related sounds and music.
+ * 
+ */
 function stopGameRelatedSounds() {
     stopSleepingSound();
     stopMenuMusic();
@@ -145,6 +213,11 @@ function stopGameRelatedSounds() {
     stopGameMusic();
 }
 
+
+/**
+ * Hides various game UI elements, including the start screen, loading screen, pause button, and bottom panel.
+ * 
+ */
 function hideScreensAndButtons() {
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('loadingScreen').classList.add('d-none');
@@ -152,6 +225,14 @@ function hideScreensAndButtons() {
     document.getElementById('panelBottom').classList.add('d-none');
 }
 
+
+/**
+ * Adjusts the game's sound settings based on the current mute status.
+ * If sounds are muted, it ensures all sounds are muted and sets the provided music source's volume to 0.
+ * If sounds are not muted, it unmutes all sounds and sets the music source's volume to a medium level (0.5).
+ *
+ * @param {HTMLAudioElement} musicSrc - The music source element whose volume is adjusted based on mute status.
+ */
 function checkSoundStatus(musicSrc) {
     if (soundsMuted) {
         muteAllSounds();
@@ -162,6 +243,12 @@ function checkSoundStatus(musicSrc) {
     }
 }
 
+
+/**
+ * Resets and restarts the game.
+ * Clears all set intervals and arrays, mutes all sounds, pauses any endgame music,
+ * hides the losing and winning screens, and then calls the function to start the game anew.
+ */
 function restartGame() {
     clearAllIntervals();
     clearArrays();
@@ -174,11 +261,19 @@ function restartGame() {
 }
 
 
+/**
+ * Clears all active interval timers.
+ * 
+ */
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 
+/**
+ * Resets game-related arrays to ensure the game state is reset.
+ * 
+ */
 function clearArrays() {
     world.level.bottles = []
     world.level.coins = []
@@ -193,23 +288,36 @@ function clearArrays() {
 }
 
 
+/**
+ * Triggers fullscreen mode for the game.
+ * 
+ */
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
     enterFullscreen(fullscreen);
 }
 
 
+/**
+ * Requests fullscreen mode for a given element, handling different browser APIs.
+ *
+ * @param {HTMLElement} element - The DOM element to be displayed in fullscreen mode.
+ */
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.msRequestFullscreen) { // for IE11 (remove June 15, 2022)
+    } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) { // iOS Safari
+    } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
     }
 }
 
 
+/**
+ * Exits fullscreen mode.
+ *
+ */
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -219,6 +327,11 @@ function exitFullscreen() {
 }
 
 
+/**
+ * Toggles the fullscreen state of the game.
+ * If fullscreen mode is active, it exits fullscreen; if not, it enters fullscreen mode.
+ * Updates the state to reflect the current fullscreen status.
+ */
 function toggleFullscreen() {
     if (fullscreenActive) {
         exitFullscreen();
@@ -227,101 +340,3 @@ function toggleFullscreen() {
     }
     fullscreenActive = !fullscreenActive
 }
-
-
-// function bindBTsPressEvents() {
-//     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
-//         e.preventDefault();
-//         keyboard.LEFT = true;
-//     });
-//     document.getElementById('btnLeft').addEventListener('touchend', (e) => {
-//         e.preventDefault();
-//         keyboard.LEFT = false;
-//     });
-//     document.getElementById('btnRight').addEventListener('touchstart', (e) => {
-//         e.preventDefault();
-//         keyboard.RIGHT = true;
-//     });
-//     document.getElementById('btnRight').addEventListener('touchend', (e) => {
-//         e.preventDefault();
-//         keyboard.RIGHT = false;
-//     });
-//     document.getElementById('btnJump').addEventListener('touchstart', (e) => {
-//         e.preventDefault();
-//         keyboard.SPACE = true;
-//     });
-//     document.getElementById('btnJump').addEventListener('touchend', (e) => {
-//         e.preventDefault();
-//         keyboard.SPACE = false;
-//     });
-//     document.getElementById('btnThrow').addEventListener('touchstart', (e) => {
-//         e.preventDefault();
-//         keyboard.D = true;
-//     });
-//     document.getElementById('btnThrow').addEventListener('touchend', (e) => {
-//         e.preventDefault();
-//         keyboard.D = false;
-//     });
-// }
-
-
-// document.addEventListener("keypress", (e) => {
-//     if (e.keyCode == 112) {
-//         if (gameStarted) {
-//             togglePause();
-//         } else {
-//             alert("You can't pause the game if it's not running!");
-//         }
-//     }
-// });
-
-
-// document.addEventListener("keypress", (e) => {
-//     if (e.keyCode == 109) {
-//         toggleMute();
-//     }
-// });
-
-
-// document.addEventListener("keydown", (e) => {
-//     if (e.keyCode == 39) {
-//         keyboard.RIGHT = true;
-//     }
-//     if (e.keyCode == 37) {
-//         keyboard.LEFT = true;
-//     }
-//     if (e.keyCode == 38) {
-//         keyboard.UP = true;
-//     }
-//     if (e.keyCode == 40) {
-//         keyboard.DOWN = true;
-//     }
-//     if (e.keyCode == 32) {
-//         keyboard.SPACE = true;
-//     }
-//     if (e.keyCode == 68) {
-//         keyboard.D = true;
-//     }
-// });
-
-
-// document.addEventListener("keyup", (e) => {
-//     if (e.keyCode == 39) {
-//         keyboard.RIGHT = false;
-//     }
-//     if (e.keyCode == 37) {
-//         keyboard.LEFT = false;
-//     }
-//     if (e.keyCode == 38) {
-//         keyboard.UP = false;
-//     }
-//     if (e.keyCode == 40) {
-//         keyboard.DOWN = false;
-//     }
-//     if (e.keyCode == 32) {
-//         keyboard.SPACE = false;
-//     }
-//     if (e.keyCode == 68) {
-//         keyboard.D = false;
-//     }
-// });
