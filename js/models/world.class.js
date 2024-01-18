@@ -121,9 +121,9 @@ class World {
         if (ThrowableObject.isColliding(this.level.boss[0]) && this.level.boss[0].endfightStart) {
             ThrowableObject.showBottlesmash(this.throwableObjects, index);
             if (!this.level.boss[0].isHurt()) {
-                this.level.boss[0].hit(ThrowableObject.attackDamage)
-                CHICKEN_SOUND.play();
-                this.endbossbar.setPercentage(this.level.boss[0].energy)
+                this.level.boss[0].hit(ThrowableObject.attackDamage);
+                playChickenSound();
+                this.endbossbar.setPercentage(this.level.boss[0].energy);
             }
         }
     }
@@ -231,7 +231,8 @@ class World {
                 this.character.coinInventory++;
                 this.level.coins.splice(index, 1);
                 this.coinbar.setPercentage(this.character.calculateCoinPercentage());
-                COIN_SOUND.play();
+                playCoinSound();
+                
             }
         });
     }
@@ -287,7 +288,7 @@ class World {
      * @param {MovableObject} enemy - The chicken object that is to be killed.
      */
     killChicken(enemy) {
-        CHICKEN_SOUND.play();
+        playChickenSound();
         enemy.speed = 0;
         enemy.energy = 0;
     }

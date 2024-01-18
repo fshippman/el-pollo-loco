@@ -1,3 +1,8 @@
+/**
+ * Binds touch events to on-screen control buttons for mobile or touch-enabled devices.
+ * Sets up event listeners for 'touchstart' and 'touchend' on directional, jump, and throw buttons,
+ * preventing default behavior and updating the keyboard state to reflect the current input.
+ */
 function bindBTsPressEvents() {
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
         e.preventDefault();
@@ -34,6 +39,10 @@ function bindBTsPressEvents() {
 }
 
 
+/**
+ * Listens for keypress events and toggles the game's pause state when the 'P' key (keyCode 112) is pressed.
+ * Displays an alert if an attempt is made to pause the game when it's not running.
+ */
 document.addEventListener("keypress", (e) => {
     if (e.keyCode == 112) {
         if (gameStarted) {
@@ -45,6 +54,10 @@ document.addEventListener("keypress", (e) => {
 });
 
 
+/**
+ * Listens for keypress events and toggles the game's mute state when the 'M' key (keyCode 109) is pressed.
+ * Activates or deactivates the game's audio based on the current mute state.
+ */
 document.addEventListener("keypress", (e) => {
     if (e.keyCode == 109) {
         toggleMute();
@@ -52,6 +65,10 @@ document.addEventListener("keypress", (e) => {
 });
 
 
+/**
+ * Listens for keydown events to handle player movement and actions.
+ * Updates the keyboard state based on arrow keys for movement, the space bar for jumping, and the 'D' key for an action (e.g., throwing).
+ */
 document.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;
@@ -74,6 +91,10 @@ document.addEventListener("keydown", (e) => {
 });
 
 
+/**
+ * Listens for keyup events to update the keyboard state when player movement or action keys are released.
+ * Resets the corresponding state in the keyboard object for arrow keys, space bar, and 'D' key to false, indicating the key is no longer pressed.
+ */
 document.addEventListener("keyup", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = false;

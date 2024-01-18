@@ -85,7 +85,7 @@ function loadingScreen() {
 function showWorld() {
     muteEndscreenSounds();
     resetMusic();
-    MENU_MUSIC.pause();
+    stopMenuMusic();
     document.getElementById('loadingScreen').classList.add('d-none');
     document.getElementById('pauseButton').classList.remove('d-none');
     document.getElementById('panelBottom').classList.remove('d-none')
@@ -253,8 +253,8 @@ function restartGame() {
     clearAllIntervals();
     clearArrays();
     muteAllSounds();
-    GAME_OVER_MUSIC.pause();
-    VICTORY_MUSIC.pause();
+    stopLosingSound();
+    stopWinningSound();
     document.getElementById('loseScreen').classList.add('d-none');
     document.getElementById('winningScreen').classList.add('d-none');
     startGame();

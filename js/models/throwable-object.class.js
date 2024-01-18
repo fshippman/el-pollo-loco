@@ -107,19 +107,13 @@ class ThrowableObject extends MovableObject {
      * @param {number} index - The index of the bottle in the throwableObjects array that is to be smashed.
      */
     showBottlesmash(throwableObjects, index) {
-        this.playBottlesmashSound();
+        playBottlesmashSound();
         this.bottleCollision = true;
         setTimeout(() => throwableObjects.splice(index, 1), 500);
     }
 
 
-    /**
-     * Plays the sound effect for a bottle smash.
-     * 
-     */
-    playBottlesmashSound() {
-        BOTTLE_SMASH_SOUND.play();
-    }
+   
 
 
 }

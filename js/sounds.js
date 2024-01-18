@@ -16,12 +16,7 @@ const BOTTLE_SMASH_SOUND = new Audio('./assets/audio/bottlesmash.mp3');
 const COIN_SOUND = new Audio('./assets/audio/coin.mp3');
 const CHICKEN_SOUND = new Audio('./assets/audio/chicken.mp3');
 
-function playGameSound() {
-    MENU_MUSIC.pause();
-    GAME_MUSIC.play();
-    GAME_MUSIC.loop = true;
-    checkSoundStatus(GAME_MUSIC);
-}
+
 
 function playBottleCollectSound() {
     BOTTLE_SOUND.pause();
@@ -33,16 +28,70 @@ function playThrowingSound() {
     THROWING_SOUND.play();
 }
 
+/**
+ * Plays the sound effect for a bottle smash.
+ * 
+ */
+function playBottlesmashSound() {
+    BOTTLE_SMASH_SOUND.play();
+}
+
+function playWalkingSound() {
+    WALKING_SOUND.play();
+}
+
+function pauseWalkingSound() {
+    WALKING_SOUND.pause();
+}
+
+function playHitSound() {
+    HIT_SOUND.play();
+}
+
+function playSleepingSound() {
+    SLEEPING_SOUND.play();
+}
+
+function playJumpingSound() {
+    JUMPING_SOUND.play();
+}
+
 function stopSleepingSound() {
     SLEEPING_SOUND.pause();
     SLEEPING_SOUND.currentTime = 0;
 }
+
+function playChickenSound() {
+    CHICKEN_SOUND.play();
+}
+
+function playCoinSound() {
+    COIN_SOUND.play();
+}
+
 
 function playBossMusic() {
     GAME_MUSIC.pause();
     BOSS_MUSIC.play();
     BOSS_MUSIC.loop = true;
     checkSoundStatus(BOSS_MUSIC);
+}
+
+function stopBossMusic() {
+    BOSS_MUSIC.pause();
+    BOSS_MUSIC.currentTime = 0;
+}
+
+function playGameSound() {
+    MENU_MUSIC.pause();
+    GAME_MUSIC.play();
+    GAME_MUSIC.loop = true;
+    checkSoundStatus(GAME_MUSIC);
+}
+
+function stopGameMusic() {
+    GAME_MUSIC.pause();
+    GAME_MUSIC.currentTime = 0;
 }
 
 function playMenuMusic() {
@@ -61,25 +110,25 @@ function muteEndscreenSounds() {
     GAME_OVER_MUSIC.volume = 0;
 }
 
-function playLosingSound() {
-    GAME_OVER_MUSIC.play();
-    GAME_OVER_MUSIC.loop = true;
-    checkSoundStatus(GAME_OVER_MUSIC);
-}
-
 function playWinningSound() {
     VICTORY_MUSIC.play();
     VICTORY_MUSIC.loop = true;
     checkSoundStatus(VICTORY_MUSIC);
 }
 
-function stopBossMusic() {
-    BOSS_MUSIC.pause();
-    BOSS_MUSIC.currentTime = 0;
+function stopWinningSound() {
+    VICTORY_MUSIC.pause();
+    VICTORY_MUSIC.currentTime = 0;
 }
 
-function stopGameMusic() {
-    GAME_MUSIC.pause();
+function playLosingSound() {
+    GAME_OVER_MUSIC.play();
+    GAME_OVER_MUSIC.loop = true;
+    checkSoundStatus(GAME_OVER_MUSIC);
+}
+
+function stopLosingSound() {
+    GAME_OVER_MUSIC.pause();
     GAME_MUSIC.currentTime = 0;
 }
 

@@ -131,7 +131,7 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             if (world.gameIsRunning) {
-                WALKING_SOUND.pause();
+                pauseWalkingSound();
                 this.controlKeyboardActions();
                 this.playSleepingSound();
                 this.triggerBossMusic();
@@ -188,7 +188,7 @@ class Character extends MovableObject {
         } else {
             this.walkingSpeed();
             this.moveCharacterRight();
-            WALKING_SOUND.play();
+            playWalkingSound();
         }
     }
 
@@ -217,7 +217,7 @@ class Character extends MovableObject {
         } else {
             this.walkingSpeed();
             this.moveCharacterLeft();
-            WALKING_SOUND.play();
+            playWalkingSound();
         }
     }
 
@@ -258,7 +258,7 @@ class Character extends MovableObject {
         this.setStatusIdle(false);
         stopSleepingSound();
         this.jump();
-        JUMPING_SOUND.play();
+        playJumpingSound();
     }
 
 
@@ -269,7 +269,7 @@ class Character extends MovableObject {
      */
     playSleepingSound() {
         if (this.idleTime() && this.world.gameIsRunning) {
-            SLEEPING_SOUND.play();
+            playSleepingSound();
         }
     }
 
@@ -309,7 +309,7 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
-                HIT_SOUND.play();
+                playHitSound();
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
