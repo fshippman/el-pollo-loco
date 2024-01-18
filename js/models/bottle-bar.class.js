@@ -48,4 +48,5 @@ class BottleBar extends DrawableObject {
         let path = this.BOTTLE_BAR[this.resolveImageIndex(percentage)]; 
         this.img = this.imageCache[path];
     }
+    
 }

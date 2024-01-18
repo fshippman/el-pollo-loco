@@ -27,6 +27,7 @@ class Coin extends MovableObject {
         this.animate()
     }
 
+
     /**
      * Manages the coin's animation.
      */
@@ -35,4 +36,5 @@ class Coin extends MovableObject {
             this.playAnimation(this.COIN_ANIMATION)
         }, 500);
     }
+    
 }

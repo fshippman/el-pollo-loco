@@ -36,4 +36,5 @@ class StatusBar extends DrawableObject {
         let path = this.ENERGY_BAR[this.resolveImageIndex(percentage)]
         this.img = this.imageCache[path];
     }
+    
 }

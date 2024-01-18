@@ -27,6 +27,7 @@ class CoinBar extends DrawableObject {
 
     }
 
+
     /**
      * Sets the fill percentage of the coin bar and updates the displayed image accordingly.
      * @param {number} percentage - The percentage of coins collected, ranging from 0 to 100.
@@ -36,4 +37,5 @@ class CoinBar extends DrawableObject {
         let path = this.COIN_BAR[this.resolveImageIndex(percentage)];
         this.img = this.imageCache[path];
     }
+    
 }

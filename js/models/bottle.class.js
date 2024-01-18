@@ -35,4 +35,5 @@ class Bottle extends MovableObject {
       this.playAnimation(this.BOTTLE_ANIMATION);
     }, 1000);
   }
+  
 }

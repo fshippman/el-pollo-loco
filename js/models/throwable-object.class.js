@@ -111,9 +111,5 @@ class ThrowableObject extends MovableObject {
         this.bottleCollision = true;
         setTimeout(() => throwableObjects.splice(index, 1), 500);
     }
-
-
-   
-
-
+    
 }
