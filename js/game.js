@@ -239,7 +239,7 @@ function checkSoundStatus(musicSrc) {
         musicSrc.volume = 0;
     } else {
         unMuteAllSounds();
-        musicSrc.volume = 0.4;
+        musicSrc.volume = 0.2;
     }
 }
 

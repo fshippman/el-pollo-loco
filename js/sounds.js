@@ -170,7 +170,7 @@ function stopGameMusic() {
  * If playing the music fails, retries after a brief delay.
  */
 function playMenuMusic() {
-    MENU_MUSIC.volume = 0.4;
+    MENU_MUSIC.volume = 0.2;
     MENU_MUSIC.loop = true;
     MENU_MUSIC.play().catch(() => setTimeout(playMenuMusic, 500));
 }
@@ -286,15 +286,15 @@ function muteMusic() {
  * 
  */
 function unMuteGameSounds() {
-    WALKING_SOUND.volume = 0.4;
-    JUMPING_SOUND.volume = 0.4;
-    HIT_SOUND.volume = 0.4;
-    SLEEPING_SOUND.volume = 0.4;
-    THROWING_SOUND.volume = 0.4;
-    BOTTLE_SOUND.volume = 0.4;
-    BOTTLE_SMASH_SOUND.volume = 0.4;
-    COIN_SOUND.volume = 0.4;
-    CHICKEN_SOUND.volume = 0.4;
+    WALKING_SOUND.volume = 0.2;
+    JUMPING_SOUND.volume = 0.2;
+    HIT_SOUND.volume = 0.2;
+    SLEEPING_SOUND.volume = 0.2;
+    THROWING_SOUND.volume = 0.2;
+    BOTTLE_SOUND.volume = 0.2;
+    BOTTLE_SMASH_SOUND.volume = 0.2;
+    COIN_SOUND.volume = 0.2;
+    CHICKEN_SOUND.volume = 0.2;
 }
 
 
@@ -303,9 +303,9 @@ function unMuteGameSounds() {
  * 
  */
 function unMuteMusic() {
-    GAME_OVER_MUSIC.volume = 0.4;
-    VICTORY_MUSIC.volume = 0.4;
-    MENU_MUSIC.volume = 0.4;
-    GAME_MUSIC.volume = 0.4;
-    BOSS_MUSIC.volume = 0.4;
+    GAME_OVER_MUSIC.volume = 0.2;
+    VICTORY_MUSIC.volume = 0.2;
+    MENU_MUSIC.volume = 0.2;
+    GAME_MUSIC.volume = 0.2;
+    BOSS_MUSIC.volume = 0.2;
 }
