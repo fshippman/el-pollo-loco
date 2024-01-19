@@ -237,7 +237,7 @@ class Character extends MovableObject {
      * Sets the character's speed when jumping.
      */
     jumpingSpeed() {
-        this.speed = 1;
+        this.speed = 2;
     }
 
 
@@ -245,7 +245,7 @@ class Character extends MovableObject {
      * Sets the character's speed when walking.
      */
     walkingSpeed() {
-        this.speed = 4;
+        this.speed = 2;
     }
 
 

@@ -111,14 +111,14 @@ class World {
 
     /**
      * Handles the collision of a throwable bottle with the boss.
-     * If the bottle collides with the boss during the end fight and the boss isn't already hurt, it triggers bottle smash effects,
-     * applies damage to the boss, plays the corresponding sound effect, and updates the endboss's energy bar.
+     * If the boss isn't already hurt, it triggers bottle smash effects, applies damage to the boss, 
+     * plays the corresponding sound effect, and updates the endboss's energy bar.
      *
      * @param {ThrowableObject} ThrowableObject - The throwable object (bottle) to check for collision with the boss.
      * @param {number} index - The index of the throwable object in the array.
      */
     bottleCollisionBoss(ThrowableObject, index) {
-        if (ThrowableObject.isColliding(this.level.boss[0]) && this.level.boss[0].endfightStart) {
+        if (ThrowableObject.isColliding(this.level.boss[0])) {
             ThrowableObject.showBottlesmash(this.throwableObjects, index);
             if (!this.level.boss[0].isHurt()) {
                 this.level.boss[0].hit(ThrowableObject.attackDamage);
