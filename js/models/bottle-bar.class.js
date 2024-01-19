@@ -8,8 +8,26 @@ class BottleBar extends DrawableObject {
         './assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
         './assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
     ];
+
+
+    /**
+     * The current percentage of the bottle bar filled.
+     * @type {number}
+     */
     percentage;
+
+
+    /**
+     * The maximum count of bottles that can be shown in the bottle bar.
+     * @type {number}
+     */
     maxBottle = 8;
+
+
+    /**
+     * Creates a new BottleBar instance.
+     * Initializes the bottle bar with no fill and sets its position and dimensions.
+     */
     constructor() {
         super();
         this.loadImages(this.BOTTLE_BAR);
@@ -20,11 +38,15 @@ class BottleBar extends DrawableObject {
         this.setPercentage(0);
     }
 
-    setPercentage(percentage) { 
-        this.percentage = percentage; // => 0 ... 100
-        let path = this.BOTTLE_BAR[this.resolveImageIndex(percentage)] // => 0 ... 5  => richtiges Bild aus dem BOTTLE_BAR Array wird path zugewiesen
+
+    /**
+     * Sets the fill percentage of the bottle bar and updates the displayed image accordingly.
+     * @param {number} percentage - The percentage to set for the bottle bar, ranging from 0 to 100.
+     */
+    setPercentage(percentage) {
+        this.percentage = percentage;
+        let path = this.BOTTLE_BAR[this.resolveImageIndex(percentage)]; 
         this.img = this.imageCache[path];
     }
-
- 
+    
 }

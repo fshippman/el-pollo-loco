@@ -1,6 +1,9 @@
+/**
+ * Initializes and starts Level 1 of the game.
+ * It creates a new Level instance with enemies, endboss, clouds, background objects, bottles, and coins.
+ */
 function startLevel1() {
     level1 = new Level(
-        // createStatusbar(),
         createEnemies(),
         createEndboss(),
         createClouds(),
@@ -11,17 +14,11 @@ function startLevel1() {
 }
 
 
-// statusbar = new StatusBar();
-// bottlebar = new BottleBar();
-// coinbar = new CoinBar();
-// endbossbar = new EndbossBar();
-
-function createStatusbar(){
-    return [
-        new StatusBar()
-    ]
-}
-
+/**
+ * Creates a list of enemy characters for the level.
+ * It returns an array of Chicken and SmallChicken instances.
+ * @returns {Array} An array of Chicken and SmallChicken instances.
+ */
 function createEnemies() {
     return [
         new Chicken(),
@@ -42,12 +39,6 @@ function createEnemies() {
         new Chicken(),
         new Chicken(),
 
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-
         new SmallChicken(),
         new SmallChicken(),
         new SmallChicken(),
@@ -65,15 +56,27 @@ function createEnemies() {
         new SmallChicken(),
         new SmallChicken(),
         new SmallChicken(),
-    ]
+    ];
 }
 
+
+/**
+ * Creates the endboss character for the level.
+ * It returns an array containing a single Endboss instance.
+ * @returns {Array} An array containing a single Endboss instance.
+ */
 function createEndboss() {
     return [
         new Endboss(),
-    ]
+    ];
 }
 
+
+/**
+ * Creates cloud objects for the level background.
+ * It returns an array of Cloud instances.
+ * @returns {Array} An array of Cloud instances.
+ */
 function createClouds() {
     return [
         new Cloud(),
@@ -82,9 +85,15 @@ function createClouds() {
         new Cloud(),
         new Cloud(),
         new Cloud(),
-    ]
+    ];
 }
 
+
+/**
+ * Creates background objects for the level.
+ * It returns an array of BackgroundObject instances, each initialized with an image path and a position.
+ * @returns {Array} An array of BackgroundObject instances.
+ */
 function createBackgroundObjects() {
     return [
         new BackgroundObject('./assets/img/5_background/layers/air.png', -719),
@@ -109,26 +118,36 @@ function createBackgroundObjects() {
         new BackgroundObject('./assets/img/5_background/layers/3_third_layer/2.png', 719 * 3),
         new BackgroundObject('./assets/img/5_background/layers/2_second_layer/2.png', 719 * 3),
         new BackgroundObject('./assets/img/5_background/layers/1_first_layer/2.png', 719 * 3),
-    ]
+    ];
 }
 
+/**
+ * Creates bottle collectibles for the level.
+ * It returns an array of Bottle instances, each initialized with a specific position.
+ * @returns {Array} An array of Bottle instances.
+ */
 function createBottles() {
     return [
-        new Bottle(-600), //  -600 max x left!
+        new Bottle(-600), 
         new Bottle(-400),
         new Bottle(-330),
         new Bottle(-300),
         new Bottle(-100),
         new Bottle(300),
-        // new Bottle(400),
-        // new Bottle(500),
+        new Bottle(500),
         new Bottle(800),
         new Bottle(1500),
         new Bottle(2000),
-        new Bottle(2100), //  2100 max x right!
-    ]
+        new Bottle(2100), 
+    ];
 }
 
+
+/**
+ * Creates coin collectibles for the level.
+ * It returns an array of Coin instances, each initialized with a specific position.
+ * @returns {Array} An array of Coin instances.
+ */
 function createCoins() {
     return [
         new Coin(-550),
@@ -146,5 +165,5 @@ function createCoins() {
         new Coin(1900),
         new Coin(2000),
         new Coin(2100),
-    ]
+    ];
 }

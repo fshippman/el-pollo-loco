@@ -3,33 +3,28 @@
      y = 280;
      width = 100;
      height = 150;
-     offsetY = 0;
-     offsetXL;
-     offsetXR;
-     offsetYU;
-     offsetYD;
+     offsetXL; //The horizontal offset on the left side.
+     offsetXR; //The horizontal offset on the right side.
+     offsetYU; //The vertical offset on the upper side.
+     offsetYD; //The vertical offset on the lower side.
      img;
      imageCache = {};
      currentImage = 0;
-     
+
 
      /**
-      * This function
-      * 
-      * @param {string} path -  der Pfad zu unserem Bild 'img/2_character_pepe/2_walk/W-21.png'
+      * Loads an image for the object.
+      * @param {string} path - The path to the image file.
       */
-     // loadImage('img/test.png');
      loadImage(path) {
          this.img = new Image(); //this.img = document.getElementById('image') <img id="image">
-         this.img.src = path; // es fehlt noch src
+         this.img.src = path;
      }
 
+
      /**
-      * Bilder werden  ins JSON imageCache geladen
-      * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...]
-      * 6 mal durch die schleife durch da wird variable angelegt mit einem neuen Bild (img = new Image)
-      * dann wird das bild ins img objekt geladen
-      * dann wird imageCache geuptdatet
+      * Loads multiple images and stores them in an image cache.
+      * @param {string[]} arr - An array of image file paths.
       */
      loadImages(arr) {
          arr.forEach((path) => {
@@ -39,7 +34,13 @@
          })
      }
 
-     // gibt Wert zwischen 0 und 5 zurück basierend auf Prozentwerd weil 6 Balkenbilder vorhanden
+
+     /**
+      * Resolves the index of an image based on a percentage value.
+      * This is used for elements that change appearance based on a percentage.
+      * @param {number} percentage - The percentage value used to determine the image index.
+      * @returns {number} The index of the corresponding image.
+      */
      resolveImageIndex(percentage) {
          if (percentage == 100) {
              return 5;
@@ -57,8 +58,10 @@
      }
 
 
- 
-
+     /**
+      * Draws the object on the canvas.
+      * @param {CanvasRenderingContext2D} ctx - The rendering context of the canvas where the object will be drawn.
+      */
      draw(ctx) {
          try {
              ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -68,8 +71,14 @@
          }
      }
 
+     
+     /**
+      * Draws the hitbox for the object, if applicable.
+      * Only certain types of objects like characters or coins have a hitbox.
+      * @param {CanvasRenderingContext2D} ctx - The rendering context of the canvas where the hitbox will be drawn.
+      */
      drawHitBox(ctx) {
-         if (this instanceof Character  || this instanceof Coin) {
+         if (this instanceof Character || this instanceof Coin) {
              ctx.beginPath();
              ctx.rect(
                  this.x + this.offsetXL,
@@ -82,32 +91,5 @@
              ctx.stroke();
          }
      }
-
-
-
-
-
-
-
-
-     /**
-      * This function draws a frame of movable objects if they are an instance of character or chicken
-      * 
-      * @param {context} ctx 
-      */
-     //  drawFrame(ctx) {
-     //      if (this instanceof Endboss || this instanceof Character) {
-     //          ctx.beginPath();
-     //          ctx.lineWidth = '4';
-     //          ctx.strokeStyle = 'black';
-     //          ctx.rect(this.x, this.y, this.width, this.height);
-     //          ctx.stroke();
-     //      }
-     //  }
-
-
-
-
-
 
  }
